@@ -1,0 +1,65 @@
+﻿using App.Data;
+using App.Data.Models;
+using App.Services.Interfaces;
+using App.Utility;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace App.Services.Implements
+{
+    public class AccountService : IAccountService
+    {
+        private readonly IAppDbContext _context;
+
+        public AccountService(IAppDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task ChangePassword(ChangePasswordRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task Login(LoginRequest request)
+        {
+            
+        }
+
+        public async Task Register(RegisterRequest request)
+        {
+            if (_context.Profile.Any(a => a.Email == request.Email))
+                throw new ApiException(HttpStatusCode.Created, "Emal นี้มีผู้ใช้แล้ว");
+
+            if (_context.Profile.Any(a => a.UserName == request.UserName))
+                throw new ApiException(HttpStatusCode.Created, "Username นี้มีผู้ใช้แล้ว");
+
+            Profile profile = new Profile();
+            profile.Email = request.Email;
+            profile.PasswordHash = HashToMD5(request.Password);
+            profile.FirstName = request.FirstName;
+            profile.LastName = request.LastName;
+            profile.UserName = request.UserName;
+            this._context.Profile.Add(profile);
+            await this._context.SaveChangesAsync();
+        }
+
+        private string HashToMD5(string input)
+        {
+            MD5 md5Hasher = MD5.Create();
+            byte[] data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(input));
+            StringBuilder sBuilder = new StringBuilder();
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+            return sBuilder.ToString();
+        }
+    }
+}

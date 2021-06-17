@@ -19,5 +19,6 @@ namespace App.Data
         Task<int> SaveChangesAsync();
         DbSet<ProfileDemo> ProfileDemo { get; set; }
         DbSet<EducationalHistoryDemo> EducationalHistoryDemo { get; set; }
+        DbSet<Profile> Profile { get; set; }
     }
 }
