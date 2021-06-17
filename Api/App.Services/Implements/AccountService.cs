@@ -34,10 +34,10 @@ namespace App.Services.Implements
         public async Task Register(RegisterRequest request)
         {
             if (_context.Profile.Any(a => a.Email == request.Email))
-                throw new ApiException(HttpStatusCode.Created, "Emal นี้มีผู้ใช้แล้ว");
+                throw new ApiException(HttpStatusCode.BadRequest, "Emal นี้มีผู้ใช้แล้ว");
 
             if (_context.Profile.Any(a => a.UserName == request.UserName))
-                throw new ApiException(HttpStatusCode.Created, "Username นี้มีผู้ใช้แล้ว");
+                throw new ApiException(HttpStatusCode.BadRequest, "Username นี้มีผู้ใช้แล้ว");
 
             Profile profile = new Profile();
             profile.Email = request.Email;

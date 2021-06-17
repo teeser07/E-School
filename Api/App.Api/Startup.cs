@@ -1,3 +1,4 @@
+using App.Api.Extensions;
 using App.Data;
 using App.Services.Implements;
 using App.Services.Interfaces;
@@ -51,6 +52,13 @@ namespace App.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "App.Api", Version = "v1" });
             });
 
+            services.AddCors(o => o.AddPolicy("ESchoolPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
             services.AddScoped<ICurrentUserAccessor, CurrentUserAccessor>();
             services.AddScoped<IProfileDemoService, ProfileDemoService>();
             services.AddScoped<IAccountService, AccountService>();
@@ -59,6 +67,8 @@ namespace App.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors("ESchoolPolicy");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -67,6 +77,7 @@ namespace App.Api
             }
 
             app.UseHttpsRedirection();
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
             app.UseRouting();
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LobbyService } from './lobby.service';
 
 @Component({
   selector: 'app-lobby',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LobbyComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: LobbyService) { }
 
   ngOnInit(): void {
+    this.http.register({
+      email: 'email',
+      password: 'password',
+      firstName: 'firstname',
+      lastname: 'lastname',
+      userName: 'username'
+    }).subscribe(res => {
+
+    });
   }
 
 }

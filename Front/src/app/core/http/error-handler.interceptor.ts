@@ -73,14 +73,8 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
         if (backendError == null && error.status == 404) {
           this.message.error(`ไม่พบ url : ${error.url}`);
         }
-        else if (backendError.errors) {
-          if (backendError.errors instanceof Array) {
-            (backendError.errors as ErrorModel[]).forEach((item: ErrorModel) => this.message.error(item.code));
-          } else if (backendError.errors.code) {
-            this.message.error(backendError.errors.code);
-          } else {
-            this.message.error(JSON.stringify(backendError.errors));
-          }
+        else if (backendError.message) {
+          this.message.error(backendError.message);
         }
         else this.message.error(backendError);
         break;
