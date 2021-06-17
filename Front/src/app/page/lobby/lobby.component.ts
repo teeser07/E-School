@@ -11,15 +11,7 @@ export class LobbyComponent implements OnInit {
   constructor(private http: LobbyService) { }
 
   ngOnInit(): void {
-    this.http.register({
-      email: 'email',
-      password: 'password',
-      firstName: 'firstname',
-      lastname: 'lastname',
-      userName: 'username'
-    }).subscribe(res => {
 
-    });
   }
 
 }

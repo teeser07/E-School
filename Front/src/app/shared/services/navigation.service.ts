@@ -130,16 +130,6 @@ export class NavigationService {
                     ]
                 },
                 {
-                    name: 'Sessions',
-                    type: 'dropDown',
-                    icon: 'i-Administrator',
-                    sub: [
-                        { icon: 'i-Add-User', name: 'Sign up', state: '/demo/sessions/signup', type: 'link' },
-                        { icon: 'i-Checked-User', name: 'Sign in', state: '/demo/sessions/signin', type: 'link' },
-                        { icon: 'i-Find-User', name: 'Forgot', state: '/demo/sessions/forgot', type: 'link' }
-                    ]
-                },
-                {
                     name: 'Pages',
                     type: 'dropDown',
                     icon: 'i-Windows-2',
@@ -151,7 +141,7 @@ export class NavigationService {
                     name: 'Icons',
                     type: 'link',
                     icon: 'i-Cloud-Sun',
-                    state: '/icons/iconsmind'
+                    state: '/demo/icons/iconsmind'
                 },
                 {
                     name: 'Others',
@@ -169,7 +159,30 @@ export class NavigationService {
                 }
             ]
         },
-
+        {
+            name: 'ห้องเรียน',
+            type: 'link',
+            icon: 'i-Shop',
+            sub: []
+        },
+        {
+            name: 'ตารางสอน',
+            type: 'link',
+            icon: 'i-Letter-Open',
+            sub: []
+        },
+        {
+            name: 'แชท',
+            type: 'link',
+            icon: 'i-Speach-Bubble-11',
+            sub: []
+        },
+        {
+            name: 'ติดต่อฝ่ายทะเบียน',
+            type: 'link',
+            icon: 'i-Administrator',
+            sub: []
+        }
     ];
 
 

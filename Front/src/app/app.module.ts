@@ -9,10 +9,12 @@ import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './shared/inmemory-db/inmemory-db.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -20,10 +22,10 @@ import { CoreModule } from './core/core.module';
     HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    CoreModule
+    CoreModule,
+    InMemoryWebApiModule.forRoot(InMemoryDataService, { passThruUnknownUrl: true }),
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: "th-TH" }
   ],
   bootstrap: [AppComponent]
 })

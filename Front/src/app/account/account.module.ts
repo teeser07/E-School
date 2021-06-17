@@ -5,10 +5,15 @@ import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SigninComponent } from './signin/signin.component';
 import { SharedComponentsModule } from '../shared/components/shared-components.module';
+import { SignupComponent } from './signup/signup.component';
+import { ForgotComponent } from './forgot/forgot.component';
+import { SignupService } from './signup/signup.service';
 
 @NgModule({
   declarations: [
-    SigninComponent
+    SigninComponent,
+    SignupComponent,
+    ForgotComponent
   ],
   imports: [
     CommonModule,
@@ -19,6 +24,7 @@ import { SharedComponentsModule } from '../shared/components/shared-components.m
     SharedComponentsModule
   ],
   providers: [
+    SignupService
   ]
 })
 export class AccountModule { }

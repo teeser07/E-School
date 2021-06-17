@@ -22,12 +22,8 @@ export class AuthService {
         private router: Router
     ) { }
 
-    checkSignin() {
-        if (!this.profile) this.router.navigateByUrl('/account/signin');
-    }
-
     signin(value) {
-        return this.http.post('account/signin', value).pipe(
+        return this.http.disableLoading().post('account/signin', value).pipe(
             tap(value => this.profile = value)
         );
     }
@@ -43,5 +39,9 @@ export class AuthService {
 
     set profile(value) {
         localStorage.setItem('profile', JSON.stringify(value))
+    }
+
+    get authenticated() {
+        return localStorage.getItem('profile') ? true : false;
     }
 }

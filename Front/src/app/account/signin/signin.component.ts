@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, RouteConfigLoadStart, ResolveStart, RouteConfigLoadEnd, ResolveEnd } from '@angular/router';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { finalize } from 'rxjs/operators';
+import { MessageService } from 'src/app/core/message.service';
 
 @Component({
     selector: 'app-signin',
@@ -18,7 +19,8 @@ export class SigninComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private auth: AuthService,
-        private router: Router
+        private router: Router,
+        private message: MessageService
     ) { }
 
     ngOnInit() {
@@ -40,13 +42,18 @@ export class SigninComponent implements OnInit {
     }
 
     signin() {
-        if (this.signinForm.invalid) return;
+        if (this.signinForm.invalid) {
+            this.message.warning('กรอกข้อมูลให้ครลถ้วน');
+            return;
+        } 
+
         this.loading = true;
         this.loadingText = 'Sigining in...';
         this.auth.signin(this.signinForm.value).pipe(
             finalize(() => this.loading = false)
         ).subscribe(() => {
             this.loading = false;
+            this.message.success('เข้าสู่ระบบสำเร็จ');
             this.router.navigateByUrl('/page/lobby');
         });
     }

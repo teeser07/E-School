@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthLayoutComponent } from './shared/components/layouts/auth-layout/auth-layout.component';
-import { AuthGaurd } from './shared/services/auth.gaurd';
 import { BlankLayoutComponent } from './shared/components/layouts/blank-layout/blank-layout.component';
 import { AdminLayoutSidebarLargeComponent } from './shared/components/layouts/admin-layout-sidebar-large/admin-layout-sidebar-large.component';
+import { AuthGaurd } from './core/auth/auth.gaurd';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'account/signin', pathMatch: 'full' },
+  { path: '', redirectTo: 'page/lobby', pathMatch: 'full' },
   {
     //#region demo
     path: 'demo',
@@ -15,6 +15,7 @@ const routes: Routes = [
         path: '',
         component: AdminLayoutSidebarLargeComponent,
         canActivate: [AuthGaurd],
+        canActivateChild: [AuthGaurd],
         children: [
           { path: 'dashboard', loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule) },
           { path: 'uikits', loadChildren: () => import('./views/ui-kits/ui-kits.module').then(m => m.UiKitsModule) },
@@ -28,14 +29,7 @@ const routes: Routes = [
           { path: 'pages', loadChildren: () => import('./views/pages/pages.module').then(m => m.PagesModule) },
           { path: 'icons', loadChildren: () => import('./views/icons/icons.module').then(m => m.IconsModule) }
         ]
-      },
-      {
-        path: '',
-        component: AuthLayoutComponent,
-        children: [
-          { path: 'sessions', loadChildren: () => import('./views/sessions/sessions.module').then(m => m.SessionsModule) }
-        ]
-      },
+      }
     ]
     //#endregion
   },
@@ -44,6 +38,7 @@ const routes: Routes = [
     path: '',
     component: AdminLayoutSidebarLargeComponent,
     canActivate: [AuthGaurd],
+    canActivateChild: [AuthGaurd],
     children: [
       { path: 'page', loadChildren: () => import('./page/page.module').then(m => m.PageModule) },
     ]
@@ -60,6 +55,8 @@ const routes: Routes = [
     //#region others
     path: '',
     component: BlankLayoutComponent,
+    canActivate: [AuthGaurd],
+    canActivateChild: [AuthGaurd],
     children: [
       { path: 'others', loadChildren: () => import('./views/others/others.module').then(m => m.OthersModule) }
     ]

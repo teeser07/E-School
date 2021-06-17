@@ -13,29 +13,29 @@ export class DataLayerService {
 
 
     getInvoices() {
-        return this.http.get<any[]>('/api/invoices');
+        return this.http.disableApiPrefix().get<any[]>('api/invoices');
     }
     getInvoice(id) {
-        return this.http.get<any[]>('/api/invoices/'+id);
+        return this.http.disableApiPrefix().get<any[]>('api/invoices/'+id);
     }
     saveInvoice(invoice) {
         if(invoice.id) {
-            return this.http.put<any[]>('/api/invoices/'+invoice.id, invoice);
+            return this.http.disableApiPrefix().put<any[]>('api/invoices/'+invoice.id, invoice);
         } else {
             invoice.id = Utils.genId();
-            return this.http.post<any[]>('/api/invoices/', invoice);
+            return this.http.disableApiPrefix().post<any[]>('api/invoices/', invoice);
         }
     }
     deleteInvoice(id) {
-        return this.http.delete<any[]>('/api/invoices/'+id);
+        return this.http.disableApiPrefix().delete<any[]>('api/invoices/'+id);
     }
     getMails() {
-        return this.http.get<any[]>('/api/mails');
+        return this.http.disableApiPrefix().get<any[]>('api/mails');
     }
     getCountries() {
-        return this.http.get<any[]>('/api/countries');
+        return this.http.disableApiPrefix().get<any[]>('api/countries');
     }
     getProducts() {
-        return this.http.get<any[]>('api/products');
+        return this.http.disableApiPrefix().get<any[]>('api/products');
     }
 }

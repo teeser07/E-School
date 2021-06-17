@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
-import { LoaderService } from '../loader/loader.service';
+import { LoaderService } from 'src/app/loader/loader.service';
 /**
  * Block UI when requesting`.
  */

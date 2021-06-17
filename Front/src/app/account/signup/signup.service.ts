@@ -2,11 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class LobbyService {
+export class SignupService {
 
   constructor(private http: HttpClient) { }
 
-  register(value) {
-    return this.http.post('account/signup', value);
+  signup(value) {
+    return this.http.disableLoading().post('account/signup', value);
   }
 }
