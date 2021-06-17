@@ -9,8 +9,8 @@ namespace App.Services.Interfaces
 {
     public interface IAccountService
     {
-        Task Login(LoginRequest request);
-        Task Register(RegisterRequest request);
+        Task<Profile> Signin(SigninRequest request);
+        Task Signup(SignupRequest request);
         Task ChangePassword(ChangePasswordRequest request);
     }
 }

@@ -2,6 +2,7 @@
 using App.Data.Models;
 using App.Services.Interfaces;
 using App.Utility;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,12 +27,20 @@ namespace App.Services.Implements
             throw new NotImplementedException();
         }
 
-        public async Task Login(LoginRequest request)
+        public async Task<Profile> Signin(SigninRequest request)
         {
-            
+            Profile profile = await _context.Profile.Where(a => a.Email == request.Email).FirstOrDefaultAsync();
+
+            if (profile == null)
+                throw new ApiException(HttpStatusCode.BadRequest, "ไม่พบ Email นี้ในระบบ");
+
+            if (profile.PasswordHash != HashToMD5(request.Password))
+                throw new ApiException(HttpStatusCode.BadRequest, "รหัสผ่านไม่ถูกต้อง");
+
+            return profile;
         }
 
-        public async Task Register(RegisterRequest request)
+        public async Task Signup(SignupRequest request)
         {
             if (_context.Profile.Any(a => a.Email == request.Email))
                 throw new ApiException(HttpStatusCode.BadRequest, "Emal นี้มีผู้ใช้แล้ว");

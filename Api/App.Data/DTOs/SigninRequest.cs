@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace App.Data.Models
 {
-    public class LoginRequest
+    public class SigninRequest
     {
         public string Email { get; set; }
         public string Password { get; set; }

@@ -1,85 +1,47 @@
 import { HttpClient } from '@angular/common/http';
 import { ApplicationRef, Inject, Injectable, NgZone } from '@angular/core';
-import { BehaviorSubject, from, Observable, of, Subject } from 'rxjs';
-import { catchError, first, map, switchMap, takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { BehaviorSubject, forkJoin, from, Observable, of, Subject } from 'rxjs';
+import { catchError, first, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+
+export class Profile {
+    profileId: number;
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    userName: string;
+}
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+
     constructor(
         private http: HttpClient,
-        @Inject('BASE_URL') private originUrl: string
+        private router: Router
     ) { }
 
-    init() {
-        
+    checkSignin() {
+        if (!this.profile) this.router.navigateByUrl('/account/signin');
     }
 
-    destory() {
-    }
-
-    // get isLoggedIn(): Observable<boolean> {
-    //         map(user => {
-    //             return user != null && !user.expired
-    //         })
-    //     )
-    // }
-
-    // get claims(): Observable<any> {
-    //     return this.user.pipe(
-    //         map(user => user.profile)
-    //     )
-    // }
-
-    // get authorizationHeader(): Observable<string> {
-    //     return this.user.pipe(
-    //         map(user => user ? `${user.token_type} ${user.access_token}` : '')
-    //     )
-    // }
-
-    signin() {
-
+    signin(value) {
+        return this.http.post('account/signin', value).pipe(
+            tap(value => this.profile = value)
+        );
     }
 
     signout() {
-
+        localStorage.removeItem('profile');
+        this.router.navigateByUrl('/account/signin');
     }
 
-    // completeAuthentication() {
-    //     return this.manager.pipe(
-    //         switchMap(manager => {
-    //             return from<any>(manager.signinRedirectCallback()).pipe(
-    //                 catchError(() => of({}))
-    //             )
-    //         })
-    //     )
-
-    // }
-
-    // get redirectUrl() {
-    //     return sessionStorage.getItem(this.redirectUrlKey) || '/';
-    // }
-    // set redirectUrl(value) {
-    //     sessionStorage.setItem(this.redirectUrlKey, value);
-    // }
-
-    get personalInfo(): Observable<any> {
-        return this.http.get<any>('personal')
+    get profile() {
+        return JSON.parse(localStorage.getItem('profile'));
     }
 
+    set profile(value) {
+        localStorage.setItem('profile', JSON.stringify(value))
+    }
 }
-
-// export function getClientSettings(originalUrl): UserManagerSettings {
-//     return {
-//         client_id: 'tmpc.spa',
-//         redirect_uri: originalUrl + 'account/auth-callback',
-//         post_logout_redirect_uri: originalUrl,
-//         response_type: "code",
-//         scope: "openid profile tmpc.resource.api tmpc.content.api ",
-//         filterProtocolClaims: false,
-//         loadUserInfo: true,
-//         automaticSilentRenew: true,
-//         accessTokenExpiringNotificationTime: 8,
-//         silent_redirect_uri: originalUrl + '/silent.html'
-//     };
-// }

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedAnimations } from 'src/app/shared/animations/shared-animations';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from '../../../shared/services/auth.service';
 import { Router, RouteConfigLoadStart, ResolveStart, RouteConfigLoadEnd, ResolveEnd } from '@angular/router';
+import { AuthService } from 'src/app/core/auth/auth.service';
+import { finalize } from 'rxjs/operators';
 
 @Component({
     selector: 'app-signin',
@@ -33,19 +34,21 @@ export class SigninComponent implements OnInit {
         });
 
         this.signinForm = this.fb.group({
-            email: ['test@example.com', Validators.required],
-            password: ['1234', Validators.required]
+            email: [null, Validators.required],
+            password: [null, Validators.required]
         });
     }
 
     signin() {
+        if (this.signinForm.invalid) return;
         this.loading = true;
         this.loadingText = 'Sigining in...';
-        this.auth.signin(this.signinForm.value)
-            .subscribe(res => {
-                this.router.navigateByUrl('/dashboard/v1');
-                this.loading = false;
-            });
+        this.auth.signin(this.signinForm.value).pipe(
+            finalize(() => this.loading = false)
+        ).subscribe(() => {
+            this.loading = false;
+            this.router.navigateByUrl('/page/lobby');
+        });
     }
 
 }
