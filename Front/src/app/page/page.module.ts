@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LobbyComponent } from './lobby/lobby.component';
-import { EschoolRoutingModule } from './eschool-routing.module';
+import { PageRoutingModule } from './page-routing.module';
 import { LobbyService } from './lobby/lobby.service';
 
 @NgModule({
@@ -10,10 +10,10 @@ import { LobbyService } from './lobby/lobby.service';
   ],
   imports: [
     CommonModule,
-    EschoolRoutingModule
+    PageRoutingModule
   ],
   providers: [
     LobbyService
   ]
 })
-export class EschoolModule { }
+export class PageModule { }

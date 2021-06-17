@@ -6,7 +6,7 @@ import { BlankLayoutComponent } from './shared/components/layouts/blank-layout/b
 import { AdminLayoutSidebarLargeComponent } from './shared/components/layouts/admin-layout-sidebar-large/admin-layout-sidebar-large.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'eschool/lobby', pathMatch: 'full' },
+  { path: '', redirectTo: 'page/lobby', pathMatch: 'full' },
   {
     //#region demo
     path: 'demo',
@@ -40,12 +40,12 @@ const routes: Routes = [
     //#endregion
   },
   {
-    //#region main
+    //#region page
     path: '',
     component: AdminLayoutSidebarLargeComponent,
     canActivate: [AuthGaurd],
     children: [
-      { path: 'eschool', loadChildren: () => import('./eschool/eschool.module').then(m => m.EschoolModule) },
+      { path: 'page', loadChildren: () => import('./page/page.module').then(m => m.PageModule) },
     ]
     //#endregion
   },
