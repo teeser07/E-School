@@ -14,4 +14,16 @@ export class LobbyComponent implements OnInit {
 
   }
 
+  click() {
+    this.http.register({
+      email: 'email',
+      password: 'password',
+      firstName: 'firstName',
+      lastName: 'lastName',
+      userName: 'userName'
+    }).subscribe(res => {
+      console.log(res)
+    })
+  }
+
 }

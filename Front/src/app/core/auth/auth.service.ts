@@ -23,7 +23,7 @@ export class AuthService {
     ) { }
 
     signin(value) {
-        return this.http.disableLoading().post('account/signin', value).pipe(
+        return this.http.disableAuth().disableHeader().disableLoading().post('account/signin', value).pipe(
             tap(value => this.profile = value)
         );
     }

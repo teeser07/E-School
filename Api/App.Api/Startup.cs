@@ -46,7 +46,6 @@ namespace App.Api
                     options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
                 });
             services.AddDbContext<IAppDbContext, AppDbContext>(p => p.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")).UseSnakeCaseNamingConvention(), ServiceLifetime.Scoped);
-            services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "App.Api", Version = "v1" });
@@ -59,6 +58,7 @@ namespace App.Api
                        .AllowAnyHeader();
             }));
 
+            services.AddHttpContextAccessor();
             services.AddScoped<ICurrentUserAccessor, CurrentUserAccessor>();
             services.AddScoped<IProfileDemoService, ProfileDemoService>();
             services.AddScoped<IAccountService, AccountService>();

@@ -10,11 +10,11 @@ namespace App.Data
     public partial class AppDbContext : DbContext, IAppDbContext
     {
         private IDbContextTransaction _currentTransaction;
-        readonly ICurrentUserAccessor _currentUser;
+        readonly ICurrentUserAccessor _user;
 
-        public AppDbContext(DbContextOptions<AppDbContext> options, ICurrentUserAccessor currentUser) : base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options, ICurrentUserAccessor user) : base(options)
         {
-            _currentUser = currentUser;
+            _user = user;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -53,16 +53,13 @@ namespace App.Data
                 {
                     case EntityState.Added:
                         entry.Entity.CreatedDate = DateTime.Now;
-                        //entry.Entity.CreatedBy = string.IsNullOrWhiteSpace(_currentUser.UserName) ? "Api" : _currentUser.UserName;
-                        entry.Entity.CreatedBy = "Api";
+                        entry.Entity.CreatedBy = string.IsNullOrWhiteSpace(_user.UserName) ? "Api" : _user.UserName;
                         entry.Entity.UpdatedDate = DateTime.Now;
-                        //entry.Entity.UpdatedBy = string.IsNullOrWhiteSpace(_currentUser.UserName) ? "Api" : _currentUser.UserName;
-                        entry.Entity.UpdatedBy = "Api";
+                        entry.Entity.UpdatedBy = string.IsNullOrWhiteSpace(_user.UserName) ? "Api" : _user.UserName;
                         break;
                     case EntityState.Modified:
                         entry.Entity.UpdatedDate = DateTime.Now;
-                        //entry.Entity.UpdatedBy = string.IsNullOrWhiteSpace(_currentUser.UserName) ? "Api" : _currentUser.UserName;
-                        entry.Entity.UpdatedBy = "Api";
+                        entry.Entity.UpdatedBy = string.IsNullOrWhiteSpace(_user.UserName) ? "Api" : _user.UserName;
                         break;
                 }
             }

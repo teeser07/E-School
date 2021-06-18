@@ -16,10 +16,12 @@ namespace App.Services.Implements
     public class AccountService : IAccountService
     {
         private readonly IAppDbContext _context;
+        private readonly ICurrentUserAccessor _user;
 
-        public AccountService(IAppDbContext context)
+        public AccountService(IAppDbContext context, ICurrentUserAccessor user)
         {
             _context = context;
+            _user = user;
         }
 
         public async Task ChangePassword(ChangePasswordRequest request)

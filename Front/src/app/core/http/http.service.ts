@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { ErrorHandlerInterceptor } from './error-handler.interceptor';
 import { ApiPrefixInterceptor } from './api-prefix.interceptor';
 import { LoaderInterceptor } from './loader.interceptor';
+import { AuthInterceptor } from './auth.interceptor';
+import { HeaderInterceptor } from './header.interceptor';
 
 // HttpClient is declared in a re-exported module, so we have to extend the original module to make it work properly
 // (see https://github.com/Microsoft/TypeScript/issues/13897)
@@ -80,6 +82,9 @@ export class HttpService extends HttpClient {
         this.injector.get(ApiPrefixInterceptor),
         this.injector.get(LoaderInterceptor),
         this.injector.get(ErrorHandlerInterceptor),
+        this.injector.get(ErrorHandlerInterceptor),
+        this.injector.get(HeaderInterceptor),
+        this.injector.get(AuthInterceptor),
       ];
     }
   }
@@ -96,13 +101,13 @@ export class HttpService extends HttpClient {
     return this.removeInterceptor(LoaderInterceptor);
   }
 
-  // disableHeader(): HttpClient {
-  //   return this.removeInterceptor(HeaderInterceptor);
-  // }
+  disableHeader(): HttpClient {
+    return this.removeInterceptor(HeaderInterceptor);
+  }
 
-  // disableAuth(): HttpClient {
-  //   return this.removeInterceptor(AuthInterceptor);
-  // }
+  disableAuth(): HttpClient {
+    return this.removeInterceptor(AuthInterceptor);
+  }
 
   // Override the original method to wire interceptors when triggering the request.
   request(method?: any, url?: any, options?: any): any {
