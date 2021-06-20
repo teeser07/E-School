@@ -17,13 +17,13 @@ namespace App.Data
             _httpContextAccessor = httpContextAccessor;
         }
 
-        private StringValues _profileId;
-        public int ProfileId
+        private StringValues _userProfileId;
+        public int UserProfileId
         {
             get
             {
-                _httpContextAccessor.HttpContext.Request.Headers.TryGetValue("profileId", out _profileId);
-                return int.Parse(_profileId);
+                _httpContextAccessor.HttpContext.Request.Headers.TryGetValue("userProfileId", out _userProfileId);
+                return int.Parse(_userProfileId);
             }
         }
 
@@ -34,16 +34,6 @@ namespace App.Data
             {
                 _httpContextAccessor.HttpContext.Request.Headers.TryGetValue("userName", out _userName);
                 return _userName;
-            }
-        }
-
-        private StringValues _email;
-        public string Email
-        {
-            get
-            {
-                _httpContextAccessor.HttpContext.Request.Headers.TryGetValue("email", out _email);
-                return _email;
             }
         }
     }

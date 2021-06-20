@@ -1,4 +1,5 @@
-﻿using App.Data.Models;
+﻿using App.Data.DTOs;
+using App.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,9 @@ namespace App.Services.Interfaces
 {
     public interface IAccountService
     {
-        Task<Profile> Signin(SigninRequest request);
-        Task Signup(SignupRequest request);
-        Task ChangePassword(ChangePasswordRequest request);
+        Task<UserProfile> GetUser();
+        Task<AuthenticateResponse> Authenticate(AuthenticateRequest request);
+        Task Register(RegisterRequest request);
+        Task<AuthenticateResponse> RefreshToken(RefreshTokenRequest request);
     }
 }

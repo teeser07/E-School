@@ -7,6 +7,6 @@ export class SignupService {
   constructor(private http: HttpClient) { }
 
   signup(value) {
-    return this.http.disableAuth().disableHeader().disableLoading().post('account/signup', value);
+    return this.http.disableAuth().disableHeader().disableLoading().post('account/register', value);
   }
 }

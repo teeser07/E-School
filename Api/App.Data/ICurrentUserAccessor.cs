@@ -8,8 +8,7 @@ namespace App.Data
 {
     public interface ICurrentUserAccessor
     {
-        public int ProfileId { get; }
+        public int UserProfileId { get; }
         public string UserName { get; }
-        public string Email { get; }
     }
 }

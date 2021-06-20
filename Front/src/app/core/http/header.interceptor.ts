@@ -18,14 +18,12 @@ export class HeaderInterceptor implements HttpInterceptor {
         if (this.authService === undefined) this.authService = this.injector.get(AuthService);
         const reg = new RegExp(environment.apiUrl);
         if (reg.test(request.url)) {
-            let profile = this.authService.profile;
-            let req = request.clone({
-                headers: new HttpHeaders({
-                    'profileId': profile.profileId.toString(),
-                    'email': profile.email,
-                    'userName': profile.userName
-                })
+            let user = this.authService.user;
+            let headers = Object.assign({}, {
+                userProfileId: user.id.toString(),
+                userName : user.userName,
             });
+            let req = request.clone({ headers: new HttpHeaders(headers) });
             return next.handle(req);
         }
 

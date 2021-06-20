@@ -36,14 +36,14 @@ export class SigninComponent implements OnInit {
         });
 
         this.signinForm = this.fb.group({
-            email: [null, Validators.required],
+            userName: [null, Validators.required],
             password: [null, Validators.required]
         });
     }
 
     signin() {
         if (this.signinForm.invalid) {
-            this.message.warning('กรอกข้อมูลให้ครลถ้วน');
+            this.message.warning('กรอกข้อมูลให้ครบถ้วน');
             return;
         } 
 

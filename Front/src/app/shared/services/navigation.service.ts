@@ -172,12 +172,6 @@ export class NavigationService {
             sub: []
         },
         {
-            name: 'แชท',
-            type: 'link',
-            icon: 'i-Speach-Bubble-11',
-            sub: []
-        },
-        {
             name: 'ติดต่อฝ่ายทะเบียน',
             type: 'link',
             icon: 'i-Administrator',

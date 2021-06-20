@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanLoad, Route, Router, RouterStateSnapshot, UrlSegment, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -13,23 +14,22 @@ export class AuthGaurd implements CanActivate, CanActivateChild, CanLoad {
     private auth: AuthService
   ) { }
 
-  canLoad() {
+  canLoad(): Observable<boolean> {
     return this.checkAuth();
   }
 
-  canActivateChild() {
+  canActivateChild(): Observable<boolean> {
     return this.checkAuth();
   }
 
-  canActivate() {
+  canActivate(): Observable<boolean> {
     return this.checkAuth();
   }
 
   checkAuth() {
-    if (this.auth.authenticated) {
-      return true;
-    } else {
-      this.router.navigateByUrl('/account/signin');
-    }
+    return this.auth.authenticated.pipe(map(result => {
+      if (result) return true;
+      else this.auth.signout();
+    }));
   }
 }

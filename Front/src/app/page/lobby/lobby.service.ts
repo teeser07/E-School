@@ -6,7 +6,7 @@ export class LobbyService {
 
   constructor(private http: HttpClient) { }
 
-  register(value) {
-    return this.http.post('account/signup', value);
+  getUser() {
+    return this.http.get('account/user');
   }
 }

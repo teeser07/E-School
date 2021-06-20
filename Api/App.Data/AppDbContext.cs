@@ -12,6 +12,10 @@ namespace App.Data
         private IDbContextTransaction _currentTransaction;
         readonly ICurrentUserAccessor _user;
 
+        public DbSet<ProfileDemo> ProfileDemo { get; set; }
+        public DbSet<EducationalHistoryDemo> EducationalHistoryDemo { get; set; }
+        public DbSet<UserProfile> UserProfile { get; set; }
+
         public AppDbContext(DbContextOptions<AppDbContext> options, ICurrentUserAccessor user) : base(options)
         {
             _user = user;
@@ -64,8 +68,5 @@ namespace App.Data
                 }
             }
         }
-        public DbSet<ProfileDemo> ProfileDemo { get; set; }
-        public DbSet<EducationalHistoryDemo> EducationalHistoryDemo { get; set; }
-        public DbSet<Profile> Profile { get; set; }
     }
 }

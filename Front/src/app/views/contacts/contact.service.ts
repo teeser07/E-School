@@ -15,6 +15,6 @@ export class ContactService implements OnInit {
   }
 
   getContacts() {
-    return this.http.get('api/users');
+    return this.http.disableApiPrefix().get('api/users');
   }
 }

@@ -117,7 +117,7 @@ export class ChatService {
       unread: null
     };
 
-    return this.http
+    return this.http.disableApiPrefix()
       .post('api/chat-collections', {...chatCollection})
       .pipe(switchMap(updatedChatCollection => {
 
@@ -139,24 +139,24 @@ export class ChatService {
   }
 
   getAllContacts(): Observable<User[]> {
-    return this.http.get<User[]>('api/contacts');
+    return this.http.disableApiPrefix().get<User[]>('api/contacts');
   }
   getAllChats(): Observable<ChatCollection[]> {
-    return this.http.get<ChatCollection[]>('api/chat-collections');
+    return this.http.disableApiPrefix().get<ChatCollection[]>('api/chat-collections');
   }
   getCurrentUser(): Observable<User> {
-    return this.http.get<User>('api/chat-user')
+    return this.http.disableApiPrefix().get<User>('api/chat-user')
       .pipe(map(res => res[0]));
   }
   updateUser(user: User): Observable<User> {
-    return this.http.put<User>(`api/chat-user/${user.id}`, {...user});
+    return this.http.disableApiPrefix().put<User>(`api/chat-user/${user.id}`, {...user});
   }
   updateChats(chatId: string, chats: Chat[]): Observable<ChatCollection> {
     const chatCollection: ChatCollection = {
       id: chatId,
       chats: chats
     };
-    return this.http.put<ChatCollection>('api/chat-collections', chatCollection);
+    return this.http.disableApiPrefix().put<ChatCollection>('api/chat-collections', chatCollection);
   }
 
   autoReply(chat) {

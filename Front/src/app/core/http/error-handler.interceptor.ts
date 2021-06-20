@@ -65,7 +65,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
         break;
       case 500:
         /* environment.production ? this.message.error('พบข้อผิดพลาดกรุณาติดต่อผู้ดูแลระบบ') : */
-        this.message.error(error.error.errors.code);
+        this.message.error(error.error.message);
         break;
       case 400:
       case 404:
