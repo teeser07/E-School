@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { echartStyles } from 'src/app/shared/echart-styles';
+import { echartStyles } from 'src/app/shared/theme/echart-styles';
 
 @Component({
 	selector: 'app-dashboard-v3',

@@ -4,10 +4,10 @@ import { RouterModule } from '@angular/router';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { ToastrModule } from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SearchModule } from './components/search/search.module';
-import { SharedComponentsModule } from './components/shared-components.module';
-import { SharedDirectivesModule } from './directives/shared-directives.module';
-import { SharedPipesModule } from './pipes/shared-pipes.module';
+import { SearchModule } from './theme/components/search/search.module';
+import { SharedComponentsModule } from './theme/components/shared-components.module';
+import { SharedDirectivesModule } from './theme/directives/shared-directives.module';
+import { SharedPipesModule } from './theme/pipes/shared-pipes.module';
 
 @NgModule({
   imports: [

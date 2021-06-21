@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from 'src/app/shared/services/product.service';
+import { ProductService } from 'src/app/shared/theme/services/product.service';
 
 @Component({
   selector: 'app-paging-table',

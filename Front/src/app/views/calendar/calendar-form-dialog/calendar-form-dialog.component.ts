@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CalendarEvent } from 'angular-calendar';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { CalendarAppEvent } from 'src/app/shared/models/calendar-event.model';
+import { CalendarAppEvent } from 'src/app/shared/theme/models/calendar-event.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Utils } from 'src/app/shared/utils';
+import { Utils } from 'src/app/shared/theme/utils';
 
 interface DialogData {
   event?: CalendarEvent;

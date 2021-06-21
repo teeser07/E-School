@@ -7,11 +7,11 @@ import {
 	isSameMonth
 } from 'date-fns';
 
-import { CalendarAppEvent } from 'src/app/shared/models/calendar-event.model';
+import { CalendarAppEvent } from 'src/app/shared/theme/models/calendar-event.model';
 import { CalendarAppService } from '../calendar-app.service';
 import { CalendarFormDialogComponent } from '../calendar-form-dialog/calendar-form-dialog.component';
-import { Utils } from 'src/app/shared/utils';
-import { SharedAnimations } from 'src/app/shared/animations/shared-animations';
+import { Utils } from 'src/app/shared/theme/utils';
+import { SharedAnimations } from 'src/app/shared/theme/animations/shared-animations';
 
 @Component({
 	selector: 'app-calendar',

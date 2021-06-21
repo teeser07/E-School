@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { MessageService } from 'src/app/core/message.service';
-import { SharedAnimations } from 'src/app/shared/animations/shared-animations';
+import { SharedAnimations } from 'src/app/shared/theme/animations/shared-animations';
 import { SignupService } from './signup.service';
 
 @Component({

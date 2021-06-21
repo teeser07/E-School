@@ -3,7 +3,7 @@ import { PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
 import { ChatService, ChatCollection, User, Chat } from '../chat.service';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { SharedAnimations } from 'src/app/shared/animations/shared-animations';
+import { SharedAnimations } from 'src/app/shared/theme/animations/shared-animations';
 
 @Component({
   selector: 'app-chat-contents',

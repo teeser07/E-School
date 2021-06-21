@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DataLayerService } from 'src/app/shared/services/data-layer.service';
-import { SharedAnimations } from 'src/app/shared/animations/shared-animations';
+import { DataLayerService } from 'src/app/shared/theme/services/data-layer.service';
+import { SharedAnimations } from 'src/app/shared/theme/animations/shared-animations';
 
 @Component({
   selector: 'app-list-pagination',

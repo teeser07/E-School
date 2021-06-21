@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { DataLayerService } from 'src/app/shared/services/data-layer.service';
+import { DataLayerService } from 'src/app/shared/theme/services/data-layer.service';
 import { Observable } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ComposeDialogComponent } from '../compose-dialog/compose-dialog.component';
-import { SharedAnimations } from 'src/app/shared/animations/shared-animations';
+import { SharedAnimations } from 'src/app/shared/theme/animations/shared-animations';
 
 @Component({
   selector: 'app-messages',

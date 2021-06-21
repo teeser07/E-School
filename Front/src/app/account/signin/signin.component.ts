@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedAnimations } from 'src/app/shared/animations/shared-animations';
+import { SharedAnimations } from 'src/app/shared/theme/animations/shared-animations';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, RouteConfigLoadStart, ResolveStart, RouteConfigLoadEnd, ResolveEnd } from '@angular/router';
 import { AuthService } from 'src/app/core/auth/auth.service';

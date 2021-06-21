@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 // import { CalendarEventDB } from '../../shared/inmemory-db/calendarEvents';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { CalendarAppEvent } from 'src/app/shared/models/calendar-event.model';
-import { CalendarEventDB } from 'src/app/shared/inmemory-db/calendar-events';
+import { CalendarAppEvent } from 'src/app/shared/theme/models/calendar-event.model';
+import { CalendarEventDB } from 'src/app/shared/theme/inmemory-db/calendar-events';
 
 @Injectable({
   providedIn: 'root'

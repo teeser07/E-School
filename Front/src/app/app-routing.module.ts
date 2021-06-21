@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthLayoutComponent } from './shared/components/layouts/auth-layout/auth-layout.component';
-import { BlankLayoutComponent } from './shared/components/layouts/blank-layout/blank-layout.component';
-import { AdminLayoutSidebarLargeComponent } from './shared/components/layouts/admin-layout-sidebar-large/admin-layout-sidebar-large.component';
+import { AuthLayoutComponent } from './shared/theme/components/layouts/auth-layout/auth-layout.component';
+import { BlankLayoutComponent } from './shared/theme/components/layouts/blank-layout/blank-layout.component';
+import { AdminLayoutSidebarLargeComponent } from './shared/theme/components/layouts/admin-layout-sidebar-large/admin-layout-sidebar-large.component';
 import { AuthGaurd } from './core/auth/auth.gaurd';
 
 const routes: Routes = [

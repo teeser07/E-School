@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
-import { Utils } from 'src/app/shared/utils';
+import { Utils } from 'src/app/shared/theme/utils';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DataLayerService } from 'src/app/shared/services/data-layer.service';
+import { DataLayerService } from 'src/app/shared/theme/services/data-layer.service';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 

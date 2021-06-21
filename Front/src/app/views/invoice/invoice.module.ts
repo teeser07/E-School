@@ -7,7 +7,7 @@ import { InvoiceListComponent } from './invoice-list/invoice-list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { SharedComponentsModule } from 'src/app/shared/components/shared-components.module';
+import { SharedComponentsModule } from 'src/app/shared/theme/components/shared-components.module';
 
 @NgModule({
   imports: [

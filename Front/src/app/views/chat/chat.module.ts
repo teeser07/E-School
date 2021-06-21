@@ -8,8 +8,8 @@ import { ChatLeftSidebarComponent } from './chat-left-sidebar/chat-left-sidebar.
 import { ChatContentsComponent } from './chat-contents/chat-contents.component';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { FormsModule } from '@angular/forms';
-import { SharedDirectivesModule } from 'src/app/shared/directives/shared-directives.module';
-import { SharedPipesModule } from 'src/app/shared/pipes/shared-pipes.module';
+import { SharedDirectivesModule } from 'src/app/shared/theme/directives/shared-directives.module';
+import { SharedPipesModule } from 'src/app/shared/theme/pipes/shared-pipes.module';
 
 @NgModule({
   imports: [

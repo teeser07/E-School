@@ -7,7 +7,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { ComposeDialogComponent } from './compose-dialog/compose-dialog.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { QuillModule } from 'ngx-quill';
-import { SharedDirectivesModule } from 'src/app/shared/directives/shared-directives.module';
+import { SharedDirectivesModule } from 'src/app/shared/theme/directives/shared-directives.module';
 
 @NgModule({
   imports: [
