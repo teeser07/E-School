@@ -21,7 +21,7 @@ namespace App.Data.Models
         [JsonIgnore]
         public string SecurityStamp { get; set; }
         [JsonIgnore]
-        public string RefreshToken { get; set; }
+        public string RefreshTokenHash { get; set; }
         [JsonIgnore]
         public DateTime? RefreshTokenExpiresDate { get; set; }
         [JsonIgnore]

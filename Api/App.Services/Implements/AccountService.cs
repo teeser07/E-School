@@ -72,6 +72,18 @@ namespace App.Services.Implements
             return sBuilder.ToString();
         }
 
+        private string HashToSHA256(string token)
+        {
+            SHA256 sha256 = SHA256.Create();
+            byte[] hashValue = sha256.ComputeHash(Encoding.Default.GetBytes(token));
+            StringBuilder sBuilder = new StringBuilder();
+            for (int i = 0; i < hashValue.Length; i++)
+            {
+                sBuilder.Append(hashValue[i].ToString("x2"));
+            }
+            return sBuilder.ToString();
+        }
+
         public async Task<AuthenticateResponse> Authenticate(AuthenticateRequest request)
         {
             UserProfile userProfile = await _context.UserProfile.FirstOrDefaultAsync(x => x.UserName == request.Username || x.Email == request.Username);
@@ -84,7 +96,7 @@ namespace App.Services.Implements
 
             DateTime expiresDate = DateTime.Now.AddMinutes(_appSettings.MinuteOfTokenExpires);
             string token = GenerateToken(userProfile, expiresDate);
-            string refreshToken = GenerateRefreshToken(ref userProfile, token);
+            string refreshToken = GenerateRefreshToken(ref userProfile);
            
             _context.UserProfile.Attach(userProfile);
             _context.Entry(userProfile).State = EntityState.Modified;
@@ -110,24 +122,25 @@ namespace App.Services.Implements
             return tokenHandler.WriteToken(token);
         }
 
-        private string GenerateRefreshToken(ref UserProfile userProfile, string token)
+        private string GenerateRefreshToken(ref UserProfile userProfile)
         {
-            using (var rngCryptoServiceProvider = new RNGCryptoServiceProvider())
-            {
-                token = string.Format("{0}{1}{2}", Guid.NewGuid().ToString(), token, Guid.NewGuid().ToString());
-                byte[] asscii = Encoding.ASCII.GetBytes(token);
-                rngCryptoServiceProvider.GetBytes(asscii);
-                DateTime createdDate = DateTime.Now;
-                userProfile.RefreshToken = Convert.ToBase64String(asscii);
-                userProfile.RefreshTokenCreatedDate = createdDate;
-                userProfile.RefreshTokenExpiresDate = createdDate.AddDays(_appSettings.DayOfRefreshTokenExpires);
-                return userProfile.RefreshToken;
-            }
+            byte[] randomBytes = new byte[256];
+            var rngCrypto = new RNGCryptoServiceProvider();
+            rngCrypto.GetBytes(randomBytes);
+            string refreshToken = Convert.ToBase64String(randomBytes);
+            string refreshTokenHash = HashToSHA256(refreshToken);
+            DateTime createdDate = DateTime.Now;
+            userProfile.RefreshTokenHash = refreshTokenHash;
+            userProfile.RefreshTokenCreatedDate = createdDate;
+            userProfile.RefreshTokenExpiresDate = createdDate.AddDays(_appSettings.DayOfRefreshTokenExpires);
+            return refreshToken;
         }
 
         public async Task<AuthenticateResponse> RefreshToken(RefreshTokenRequest request)
         {
-            UserProfile userProfile = await _context.UserProfile.FirstOrDefaultAsync(w => w.RefreshToken == request.Token);
+            if (request.RefreshToken == null) return null;
+            string refreshTokenHash = HashToSHA256(request.RefreshToken);
+            UserProfile userProfile = await _context.UserProfile.FirstOrDefaultAsync(w => w.RefreshTokenHash == refreshTokenHash);
 
             // return null if no user found with token
             if (userProfile == null) return null;
@@ -140,7 +153,7 @@ namespace App.Services.Implements
             string newToken = GenerateToken(userProfile, expiresDate);
 
             // replace old refresh token with a new one and save
-            string newRefreshToken = GenerateRefreshToken(ref userProfile, newToken);
+            string newRefreshToken = GenerateRefreshToken(ref userProfile);
             _context.UserProfile.Attach(userProfile);
             _context.Entry(userProfile).State = EntityState.Modified;
             await _context.SaveChangesAsync();

@@ -19,8 +19,6 @@ class User {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-    aseKey: string = 'cw29Ky7d7SJZU9bfLyd6DOE6db6rVausz4MZyi3W';
-
     constructor(
         private http: HttpClient,
         private router: Router,
@@ -28,44 +26,25 @@ export class AuthService {
     ) { }
 
     init() {
-        // refresh token automatic
         interval(1 * 60000).subscribe(() => {
             this.authenticated.subscribe(res => {
                 if (res) {
-                    try {
-                        this.refreshToken(this.decrypt(this.user.refreshToken)).subscribe((user: User) => {
-                            Object.assign(user, { refreshToken: this.encrypt(user.refreshToken) });
-                            this.user = user;
-                        });
-                    } catch {
-                        this.message.warning('คุณไม่มีสิทธิ์เข้าถึงเนื้อหา');
-                        this.signout();
-                    }
+                    this.refreshToken(this.user.refreshToken).subscribe((user: User) => {
+                        this.user = user;
+                    });
                 } else {
                     if (!this.router.url.includes('account/signin') && !this.router.url.includes('account/signup')) {
+                        this.message.warning('คุณไม่มีสิทธิ์เข้าถึงเนื้อหา');
                         this.signout();
                     }
                 }
             });
         });
-
-
-    }
-
-    private encrypt(plainText) {
-        return CryptoJS.AES.encrypt(plainText, this.aseKey).toString();
-    }
-
-    private decrypt(cipherText) {
-        const bytes = CryptoJS.AES.decrypt(cipherText, this.aseKey);
-        const plainText = bytes.toString(CryptoJS.enc.Utf8);
-        return plainText;
     }
 
     signin(value) {
         return this.http.disableAuth().disableHeader().disableLoading().post('account/authenticate', value).pipe(
             tap((user: User) => {
-                Object.assign(user, { refreshToken: this.encrypt(user.refreshToken) });
                 this.user = user;
             })
         );
@@ -91,13 +70,6 @@ export class AuthService {
         if (!this.user.id || !this.user.token || !this.user.userName || !this.user.expireDate)
             return of(false);
 
-        // if (new Date(this.user.expireDate) < new Date()) {
-        //     return this.refreshToken().pipe(
-        //         tap((user: User) => this.user = user),
-        //         switchMap(() => of(true))
-        //     );
-        // }
-
         return of(true);
     }
 
@@ -108,7 +80,7 @@ export class AuthService {
         return true;
     }
 
-    private refreshToken(token) {
-        return this.http.disableLoading().post('account/refresh-token', { token: token });
+    private refreshToken(refreshToken) {
+        return this.http.disableLoading().post('account/refresh-token', { refreshToken: refreshToken });
     }
 }
