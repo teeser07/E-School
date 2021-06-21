@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { ApplicationRef, Inject, Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, forkJoin, from, interval, Observable, of, Subject } from 'rxjs';
-import { catchError, first, map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { BehaviorSubject, forkJoin, from, interval, Observable, of, Subject, Subscription } from 'rxjs';
+import { catchError, first, map, switchMap, takeUntil, takeWhile, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 import * as CryptoJS from 'crypto-js';
@@ -19,6 +19,8 @@ class User {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
+    intervalSub: Subscription;
+
     constructor(
         private http: HttpClient,
         private router: Router,
@@ -26,32 +28,33 @@ export class AuthService {
     ) { }
 
     init() {
-        interval(1 * 60000).subscribe(() => {
-            this.authenticated.subscribe(res => {
-                if (res) {
-                    this.refreshToken(this.user.refreshToken).subscribe((user: User) => {
-                        this.user = user;
-                    });
+        this.authenticated.subscribe(res => {
+            if (res) {
+                if (this.tokenExpired) {
+                    this.refreshToken(this.user.refreshToken).subscribe((user: User) => this.user = user);
                 } else {
-                    if (!this.router.url.includes('account/signin') && !this.router.url.includes('account/signup')) {
-                        this.message.warning('คุณไม่มีสิทธิ์เข้าถึงเนื้อหา');
-                        this.signout();
-                    }
+                    this.intervalSub = interval(10 * 60000).subscribe(() => {
+                        this.refreshToken(this.user.refreshToken).subscribe((user: User) => this.user = user);
+                    });
                 }
-            });
+            } else {
+                if (!this.router.url.includes('account/signin') && !this.router.url.includes('account/signup')) {
+                    this.signout();
+                }
+            }
         });
     }
 
     signin(value) {
         return this.http.disableAuth().disableHeader().disableLoading().post('account/authenticate', value).pipe(
-            tap((user: User) => {
-                this.user = user;
-            })
+            tap((user: User) => this.user = user),
+            tap(() => this.init())
         );
     }
 
     signout() {
         localStorage.removeItem('user');
+        if (this.intervalSub) this.intervalSub.unsubscribe();
         this.router.navigateByUrl('/account/signin');
     }
 
@@ -73,7 +76,7 @@ export class AuthService {
         return of(true);
     }
 
-    get expired() {
+    get tokenExpired() {
         if (new Date(this.user.expireDate) > new Date())
             return false;
 
