@@ -86,7 +86,7 @@ namespace App.Services.Implements
 
         public async Task<AuthenticateResponse> Authenticate(AuthenticateRequest request)
         {
-            UserProfile userProfile = await _context.UserProfile.FirstOrDefaultAsync(x => x.UserName == request.Username || x.Email == request.Username);
+            UserProfile userProfile = await _context.UserProfile.FirstOrDefaultAsync(x => x.Email == request.Email || x.Email == request.Email);
 
             if (userProfile == null) return null;
 
