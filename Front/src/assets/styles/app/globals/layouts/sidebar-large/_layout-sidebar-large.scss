@@ -61,7 +61,7 @@
                     text-align: center;
                 }
                 &.active {
-                    color: $primary;
+                    color:$primary;
                 }
                 .nav-item-hold {
                     width: 100%;
@@ -133,13 +133,13 @@
                         background: $gray-200;
                     }
                     &.open {
-                        color: $primary;
+                        color: $gray;
                     }
                     .nav-icon {
                         font-size: 18px;
                         margin-right: 8px;
                         vertical-align: middle;
-                        color: $gray-600;
+                        color: $gray;
                     }
                     .item-name {
                         vertical-align: middle;
