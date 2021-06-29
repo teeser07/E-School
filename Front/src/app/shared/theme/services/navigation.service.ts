@@ -59,16 +59,19 @@ export class NavigationService {
                     name: 'ชั้นเรียนและห้องเรียน',
                     type: 'link',
                     icon: 'i-Door',
+                    state: 'page/room',
                 },
                 {   
                     name: 'บุคลากร',
                     type: 'link',
                     icon: 'i-Administrator',
+                    state: 'page/list-emp',
                 },
                 {   
                     name: 'นักเรียน',
                     type: 'link',
                     icon: 'i-Administrator',
+                    state: 'page/list-std',
                 },
             ]
         },
