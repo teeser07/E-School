@@ -25,7 +25,7 @@ namespace App.Services.Implements
             Room user = new Room();
             user.Clas = room.Clas;
             user.Classroom = room.Classroom;
-            user.Max_std = room.Max_std;
+            user.Maxstd = room.Maxstd;
             _context.Room.Add(user);
             await this._context.SaveChangesAsync();
             return;

@@ -18,6 +18,7 @@ namespace App.Data
         public DbSet<Room> Room { get; set; }
         public DbSet<Subject> Subject { get; set; }
         public DbSet<Times> Times { get; set; }
+        public DbSet<Days> Days { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options, ICurrentUserAccessor user) : base(options)
         {
             _user = user;

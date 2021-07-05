@@ -84,6 +84,7 @@ namespace App.Api
             services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<ISubjectService, SubjectService>();
             services.AddScoped<ITimesService, TimesService>();
+            services.AddScoped<IDaysService, DaysService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }

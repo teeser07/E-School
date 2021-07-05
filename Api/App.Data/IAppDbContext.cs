@@ -23,5 +23,6 @@ namespace App.Data
         DbSet<Room> Room { get; set; }
         DbSet<Subject> Subject { get; set; }
         DbSet<Times> Times { get; set; }
+        DbSet<Days> Days { get; set; }
     }
 }

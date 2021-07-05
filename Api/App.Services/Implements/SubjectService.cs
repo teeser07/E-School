@@ -23,9 +23,9 @@ namespace App.Services.Implements
         public async Task SaveSubject(Subject subject)
         {
             Subject user = new Subject();
-            user.Code_subject = subject.Code_subject;
+            user.Codesubject = subject.Codesubject;
             user.Credit = subject.Credit;
-            user.Subject_title = subject.Subject_title;
+            user.Subjecttitle = subject.Subjecttitle;
             _context.Subject.Add(user);
             await this._context.SaveChangesAsync();
             return;

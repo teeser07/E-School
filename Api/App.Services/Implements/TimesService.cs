@@ -25,7 +25,7 @@ namespace App.Services.Implements
             Times user = new Times();
             user.Orders = times.Orders;
             user.Duration = times.Duration;
-            user.Long_term = times.Long_term;
+            user.Longterm = times.Longterm;
             _context.Times.Add(user);
             await this._context.SaveChangesAsync();
             return;

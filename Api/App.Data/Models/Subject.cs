@@ -12,9 +12,9 @@ namespace App.Data.Models
     public class Subject : BaseModel
     {
         public int Subject_id { get; set; }
-        public string Code_subject { get; set; }
+        public string Codesubject { get; set; }
         public string Credit { get; set; }
-        public string Subject_title { get; set; }
+        public string Subjecttitle { get; set; }
     }
     public class SubjectConfiguration : BaseConfiguration<Subject>
     {
