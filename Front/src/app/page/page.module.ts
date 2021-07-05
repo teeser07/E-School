@@ -3,43 +3,51 @@ import { CommonModule } from '@angular/common';
 import { LobbyComponent } from './lobby/lobby.component';
 import { PageRoutingModule } from './page-routing.module';
 import { LobbyService } from './lobby/lobby.service';
-import { ListStdComponent } from './lobby/list-std/list-std.component';
-import { ListEmpComponent } from './lobby/list-emp/list-emp.component';
-import { ClassroomsComponent } from './lobby/classrooms/classrooms.component';
-import { InfoComponent } from './lobby/classrooms/info/info.component';
-import { ScoreComponent } from './lobby/classrooms/info/score/score.component';
-import { InfoEmpComponent } from './lobby/list-emp/info-emp/info-emp.component';
-import { LeaveWorkComponent } from './lobby/list-emp/leave-work/leave-work.component';
-import { InfoStdComponent } from './lobby/list-std/info-std/info-std.component';
-import { StdRegisterComponent } from './lobby/list-std/std-register/std-register.component';
-import { EmpRegisterComponent } from './lobby/list-emp/emp-register/emp-register.component';
-import { InfoStdEditComponent } from './lobby/list-std/info-std/info-std-edit/info-std-edit.component';
-import { InfoEmpEditComponent } from './lobby/list-emp/info-emp/info-emp-edit/info-emp-edit.component';
-import { AddRoomComponent } from './lobby/classrooms/add-room/add-room.component';
+import { ClassroomComponent } from './classroom/classroom.component';
+import { StdComponent } from './std/std.component';
+import { EmpComponent } from './emp/emp.component';
+import { ClassroomService } from './classroom/classroom.service';
+import { EmpService } from './emp/emp.service';
+import { StdService } from './std/std.service';
+import { SharedComponentsModule } from '../shared/theme/components/shared-components.module';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxEchartsModule } from 'ngx-echarts';
+import { ClassroomInfoComponent } from './classroom/classroom-info/classroom-info.component';
+import { ClassroomScoreComponent } from './classroom/classroom-score/classroom-score.component';
+import { EmpInfoComponent } from './emp/emp-info/emp-info.component';
+import { EmpLeaveComponent } from './emp/emp-leave/emp-leave.component';
+import { EmpInfoEditComponent } from './emp/emp-info-edit/emp-info-edit.component';
+import { StdInfoEditComponent } from './std/std-info-edit/std-info-edit.component';
+import { StdInfoComponent } from './std/std-info/std-info.component';
 
 @NgModule({
   declarations: [
     LobbyComponent,
-    ListStdComponent,
-    ListEmpComponent,
-    ClassroomsComponent,
-    InfoComponent,
-    ScoreComponent,
-    InfoEmpComponent,
-    LeaveWorkComponent,
-    InfoStdComponent,
-    StdRegisterComponent,
-    EmpRegisterComponent,
-    InfoStdEditComponent,
-    InfoEmpEditComponent,
-    AddRoomComponent
+    ClassroomComponent,
+    StdComponent,
+    EmpComponent,
+    ClassroomInfoComponent,
+    ClassroomScoreComponent,
+    EmpInfoComponent,
+    EmpLeaveComponent,
+    EmpInfoEditComponent,
+    StdInfoEditComponent,
+    StdInfoComponent
   ],
   imports: [
     CommonModule,
-    PageRoutingModule
+    PageRoutingModule,
+    SharedComponentsModule,
+    NgxEchartsModule,
+    NgxDatatableModule,
+    NgbModule,
   ],
   providers: [
-    LobbyService
+    LobbyService,
+    ClassroomService,
+    EmpService,
+    StdService
   ]
 })
 export class PageModule { }
