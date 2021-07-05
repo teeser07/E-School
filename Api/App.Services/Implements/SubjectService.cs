@@ -20,6 +20,7 @@ namespace App.Services.Implements
             _context = context;
         }
 
+        //Save-Subject
         public async Task SaveSubject(Subject subject)
         {
             Subject user = new Subject();
@@ -31,6 +32,7 @@ namespace App.Services.Implements
             return;
         }
 
+        //Delete-Subject
         public async Task DeleteSubject(int subject_id)
         {
             Subject subject = await _context.Subject.Where(w => w.Subject_id == subject_id).FirstOrDefaultAsync();
@@ -38,10 +40,26 @@ namespace App.Services.Implements
             await this._context.SaveChangesAsync();
         }
 
+        //Get-Subject-All
         public async Task<List<Subject>> GetSubject()
         {
             List<Subject> profile = await _context.Subject.ToListAsync();
             return profile;
+        }
+
+        //Update-Subject
+        public async Task UpdateSubject(int subject_id, Subject subject)
+        {
+            var subjects = _context.Subject.FirstOrDefault(c => c.Subject_id.Equals(subject_id));
+            subjects.Codesubject = subject.Codesubject;
+            subjects.Credit = subject.Credit;
+            subjects.Subjecttitle = subject.Subjecttitle;
+
+            var isCodesubjectModified = _context.Entry(subjects).Property("Codesubject").IsModified;
+            var isCreditModified = _context.Entry(subjects).Property("Credit").IsModified;
+            var isSubjecttitleModified = _context.Entry(subjects).Property("Subjecttitle").IsModified;
+
+            await this._context.SaveChangesAsync();
         }
     }
 }

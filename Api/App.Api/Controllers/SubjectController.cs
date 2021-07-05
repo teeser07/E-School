@@ -39,5 +39,12 @@ namespace App.Api.Controllers
             return Ok(subject);
         }
 
+        [HttpPut("update-subject")]
+        public async Task<IActionResult> UpdateSubject(int subject_id, [FromBody]Subject subject)
+        {
+            await this._subject.UpdateSubject(subject_id, subject);
+            return Ok();
+        }
+
     }
 }

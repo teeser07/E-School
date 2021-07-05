@@ -12,5 +12,6 @@ namespace App.Services.Interfaces
         Task SaveRoom(Room room);
         Task DeleteRoom(int room_id);
         Task<List<Room>> GetRoom();
+        Task UpdateRoom(int room_id, Room room);
     }
 }

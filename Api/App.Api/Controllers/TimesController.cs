@@ -39,5 +39,11 @@ namespace App.Api.Controllers
             return Ok(times);
         }
 
+        [HttpPut("update-times")]
+        public async Task<IActionResult> UpdateTimes(int times_id, [FromBody] Times times)
+        {
+            await this._times.UpdateTimes(times_id, times);
+            return Ok();
+        }
     }
 }

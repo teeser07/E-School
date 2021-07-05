@@ -12,5 +12,6 @@ namespace App.Services.Interfaces
         Task SaveDays(Days days);
         Task DeleteDays(int days_id);
         Task<List<Days>> GetDays();
+        Task UpdateDays(int days_id, Days days);
     }
 }

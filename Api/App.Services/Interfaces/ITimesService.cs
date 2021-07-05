@@ -12,5 +12,6 @@ namespace App.Services.Interfaces
         Task SaveTimes(Times times);
         Task DeleteTimes(int times_id);
         Task<List<Times>> GetTimes();
+        Task UpdateTimes(int times_id, Times times);
     }
 }

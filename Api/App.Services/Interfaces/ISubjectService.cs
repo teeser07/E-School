@@ -12,5 +12,6 @@ namespace App.Services.Interfaces
         Task SaveSubject(Subject subject);
         Task DeleteSubject(int subject_id);
         Task<List<Subject>> GetSubject();
+        Task UpdateSubject(int subject_id, Subject subject);
     }
 }

@@ -20,6 +20,7 @@ namespace App.Services.Implements
             _context = context;
         }
 
+        //Save-Room
         public async Task SaveRoom(Room room)
         {
             Room user = new Room();
@@ -31,6 +32,7 @@ namespace App.Services.Implements
             return;
         }
 
+        //Delete-Room
         public async Task DeleteRoom(int room_id)
         {
             Room room = await _context.Room.Where(w => w.Room_id == room_id).FirstOrDefaultAsync();
@@ -38,10 +40,26 @@ namespace App.Services.Implements
             await this._context.SaveChangesAsync();
         }
 
+        //Get-Room
         public async Task<List<Room>> GetRoom()
         {
             List<Room> profile = await _context.Room.ToListAsync();
             return profile;
+        }
+
+        //Update-Subject
+        public async Task UpdateRoom(int room_id, Room room)
+        {
+            var rooms = _context.Room.FirstOrDefault(c => c.Room_id.Equals(room_id));
+            rooms.Clas = room.Clas;
+            rooms.Classroom = room.Classroom;
+            rooms.Maxstd = room.Maxstd;
+
+            var isCodesubjectModified = _context.Entry(rooms).Property("Clas").IsModified;
+            var isCreditModified = _context.Entry(rooms).Property("Classroom").IsModified;
+            var isSubjecttitleModified = _context.Entry(rooms).Property("Maxstd").IsModified;
+
+            await this._context.SaveChangesAsync();
         }
     }
 }

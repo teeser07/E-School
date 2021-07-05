@@ -38,5 +38,12 @@ namespace App.Api.Controllers
             List<Days> days = await this._days.GetDays();
             return Ok(days);
         }
+
+        [HttpPut("update-days")]
+        public async Task<IActionResult> UpdateDays(int days_id, [FromBody]Days days)
+        {
+            await this._days.UpdateDays(days_id, days);
+            return Ok();
+        }
     }
 }

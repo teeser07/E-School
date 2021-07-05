@@ -20,6 +20,7 @@ namespace App.Services.Implements
             _context = context;
         }
 
+        //Save-Days
         public async Task SaveDays(Days days)
         {
             Days user = new Days();
@@ -33,6 +34,7 @@ namespace App.Services.Implements
             return;
         }
 
+        //Delete-Days
         public async Task DeleteDays(int days_id)
         {
             Days days = await _context.Days.Where(w => w.Days_id == days_id).FirstOrDefaultAsync();
@@ -40,10 +42,30 @@ namespace App.Services.Implements
             await this._context.SaveChangesAsync();
         }
 
+        //Get-Days
         public async Task<List<Days>> GetDays()
         {
             List<Days> profile = await _context.Days.ToListAsync();
             return profile;
+        }
+
+        //Update-Days
+        public async Task UpdateDays(int days_id, Days days)
+        {
+            var day = _context.Days.FirstOrDefault(c => c.Days_id.Equals(days_id));
+            day.Day = days.Day;
+            day.Datetime = days.Datetime;
+            day.Note = days.Note;
+            day.Year = days.Year;
+            day.Term = days.Term;
+
+            var isDayModified = _context.Entry(day).Property("Day").IsModified;
+            var isDatetimeModified = _context.Entry(day).Property("Datetime").IsModified;
+            var isNoteModified = _context.Entry(day).Property("Note").IsModified;
+            var isYearModified = _context.Entry(day).Property("Year").IsModified;
+            var isTermModified = _context.Entry(day).Property("Term").IsModified;
+
+            await this._context.SaveChangesAsync();
         }
     }
 }
