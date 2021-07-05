@@ -15,7 +15,9 @@ namespace App.Data
         public DbSet<ProfileDemo> ProfileDemo { get; set; }
         public DbSet<EducationalHistoryDemo> EducationalHistoryDemo { get; set; }
         public DbSet<UserProfile> UserProfile { get; set; }
-
+        public DbSet<Room> Room { get; set; }
+        public DbSet<Subject> Subject { get; set; }
+        public DbSet<Times> Times { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options, ICurrentUserAccessor user) : base(options)
         {
             _user = user;

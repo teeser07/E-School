@@ -20,5 +20,8 @@ namespace App.Data
         DbSet<ProfileDemo> ProfileDemo { get; set; }
         DbSet<EducationalHistoryDemo> EducationalHistoryDemo { get; set; }
         DbSet<UserProfile> UserProfile { get; set; }
+        DbSet<Room> Room { get; set; }
+        DbSet<Subject> Subject { get; set; }
+        DbSet<Times> Times { get; set; }
     }
 }
