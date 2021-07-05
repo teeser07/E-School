@@ -1,0 +1,46 @@
+<div class="">
+    <div class="breadcrumb">
+      <h1 class="text-primary">รายวิชา</h1>
+    </div>
+  
+    <div class="separator-breadcrumb border-top"></div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <input id="email" placeholder="ค้นหา" [formControl]="searchControl" class="form-control form-control-rounded" type="email">
+          <button class="btn-primary">เพิ่ม</button>
+        </div>
+            
+      </div>
+      <div class="col-md-12">
+          <div class="card  o-hidden">
+              <ngx-datatable
+              style="height: 500px; box-shadow: none"
+              class="material fullscreen"
+              [columnMode]="'force'"
+              [headerHeight]="50"
+              [footerHeight]="50"
+              [rowHeight]="60"
+              [scrollbarV]="true"
+              [rows]="filteredProducts">
+                <ngx-datatable-column name="codesubject" [width]="50">
+                  <ng-template ngx-datatable-header-template>
+                    รหัสวิชา
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="credit" [width]="50">
+                  <ng-template ngx-datatable-header-template>
+                    หน่วยกิต
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="subjecttitle" [width]="50">
+                  <ng-template ngx-datatable-header-template >
+                    รายชื่อวิชา
+                  </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+          </div>
+      </div>
+    </div>
+</div>  

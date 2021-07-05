@@ -12,6 +12,7 @@ import { EmpInfoEditComponent } from './emp/emp-info-edit/emp-info-edit.componen
 import { EmpLeaveComponent } from './emp/emp-leave/emp-leave.component';
 import { StdInfoComponent } from './std/std-info/std-info.component';
 import { StdInfoEditComponent } from './std/std-info-edit/std-info-edit.component';
+import { SubjectComponent } from './subject/subject.component';
 
 const routes: Routes = [
   {
@@ -58,6 +59,11 @@ const routes: Routes = [
     path: 'emp-leave',
     component: EmpLeaveComponent
   },
+  {
+  path: 'subject',
+    component: SubjectComponent
+  },
+
 ];
 
 @NgModule({

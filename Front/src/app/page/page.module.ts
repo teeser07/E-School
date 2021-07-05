@@ -20,6 +20,8 @@ import { EmpLeaveComponent } from './emp/emp-leave/emp-leave.component';
 import { EmpInfoEditComponent } from './emp/emp-info-edit/emp-info-edit.component';
 import { StdInfoEditComponent } from './std/std-info-edit/std-info-edit.component';
 import { StdInfoComponent } from './std/std-info/std-info.component';
+import { SubjectComponent } from './subject/subject.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { StdInfoComponent } from './std/std-info/std-info.component';
     EmpLeaveComponent,
     EmpInfoEditComponent,
     StdInfoEditComponent,
-    StdInfoComponent
+    StdInfoComponent,
+    SubjectComponent
   ],
   imports: [
     CommonModule,
@@ -42,6 +45,8 @@ import { StdInfoComponent } from './std/std-info/std-info.component';
     NgxEchartsModule,
     NgxDatatableModule,
     NgbModule,
+    ReactiveFormsModule, 
+    FormsModule
   ],
   providers: [
     LobbyService,

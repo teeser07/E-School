@@ -84,6 +84,7 @@ export class NavigationService {
                     name: 'รายวิชา',
                     type: 'link',
                     icon: 'i-Receipt-3',
+                    state: 'page/subject'
                 },
                 {   
                     name: 'ช่วงเวลาการเรียน',
