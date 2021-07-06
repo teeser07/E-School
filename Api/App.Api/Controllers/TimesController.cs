@@ -45,5 +45,12 @@ namespace App.Api.Controllers
             await this._times.UpdateTimes(times_id, times);
             return Ok();
         }
+
+        [HttpGet("get-times-detail")]
+        public async Task<IActionResult> GetTimesDetail(int times_id)
+        {
+            Times time = await this._times.GetTimesDetail(times_id);
+            return Ok(time);
+        }
     }
 }

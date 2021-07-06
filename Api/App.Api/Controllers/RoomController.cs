@@ -45,5 +45,12 @@ namespace App.Api.Controllers
             await this._room.UpdateRoom(room_id, room);
             return Ok();
         }
+
+        [HttpGet("get-room-detail")]
+        public async Task<IActionResult> GetRoomDetail(int room_id)
+        {
+            Room rooms = await this._room.GetRoomDetail(room_id);
+            return Ok(rooms);
+        }
     }
 }

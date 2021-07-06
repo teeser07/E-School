@@ -61,5 +61,12 @@ namespace App.Services.Implements
 
             await this._context.SaveChangesAsync();
         }
+
+        //Get-Time-Detail
+        public async Task<Times> GetTimesDetail(int times_id)
+        {
+            Times time = await _context.Times.Where(w => w.Times_id == times_id).FirstOrDefaultAsync();
+            return time;
+        }
     }
 }

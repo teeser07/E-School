@@ -46,5 +46,13 @@ namespace App.Api.Controllers
             return Ok();
         }
 
+
+        [HttpGet("get-subject-detail")]
+        public async Task<IActionResult> GetSubjectDetail(int subject_id)
+        {
+            Subject subject = await this._subject.GetSubjectDetail(subject_id);
+            return Ok(subject);
+        }
+
     }
 }

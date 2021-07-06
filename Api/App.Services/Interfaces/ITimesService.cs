@@ -9,6 +9,7 @@ namespace App.Services.Interfaces
 {
     public interface ITimesService
     {
+        Task<Times> GetTimesDetail(int times_id);
         Task SaveTimes(Times times);
         Task DeleteTimes(int times_id);
         Task<List<Times>> GetTimes();

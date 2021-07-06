@@ -9,6 +9,7 @@ namespace App.Services.Interfaces
 {
     public interface IRoomService
     {
+        Task<Room> GetRoomDetail(int room_id);
         Task SaveRoom(Room room);
         Task DeleteRoom(int room_id);
         Task<List<Room>> GetRoom();

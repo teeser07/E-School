@@ -33,9 +33,9 @@ namespace App.Services.Implements
         }
 
         //Delete-Subject
-        public async Task DeleteSubject(int subject_id)
+        public async Task DeleteSubject(int subjectid)
         {
-            Subject subject = await _context.Subject.Where(w => w.Subject_id == subject_id).FirstOrDefaultAsync();
+            Subject subject = await _context.Subject.Where(w => w.Subject_id == subjectid).FirstOrDefaultAsync();
             _context.Entry(subject).State = EntityState.Deleted;
             await this._context.SaveChangesAsync();
         }
@@ -48,9 +48,9 @@ namespace App.Services.Implements
         }
 
         //Update-Subject
-        public async Task UpdateSubject(int subject_id, Subject subject)
+        public async Task UpdateSubject(int subjectid, Subject subject)
         {
-            var subjects = _context.Subject.FirstOrDefault(c => c.Subject_id.Equals(subject_id));
+            var subjects = _context.Subject.FirstOrDefault(c => c.Subject_id.Equals(subjectid));
             subjects.Codesubject = subject.Codesubject;
             subjects.Credit = subject.Credit;
             subjects.Subjecttitle = subject.Subjecttitle;
@@ -60,6 +60,13 @@ namespace App.Services.Implements
             var isSubjecttitleModified = _context.Entry(subjects).Property("Subjecttitle").IsModified;
 
             await this._context.SaveChangesAsync();
+        }
+
+        //Get-subject-Detail
+        public async Task<Subject> GetSubjectDetail(int subject_id)
+        {
+            Subject subject = await _context.Subject.Where(w => w.Subject_id == subject_id).FirstOrDefaultAsync();
+            return subject;
         }
     }
 }

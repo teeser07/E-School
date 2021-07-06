@@ -67,5 +67,12 @@ namespace App.Services.Implements
 
             await this._context.SaveChangesAsync();
         }
+
+        //Get-Days-Detail
+        public async Task<Days> GetDaysDetail(int days_id)
+        {
+            Days day = await _context.Days.Where(w => w.Days_id == days_id).FirstOrDefaultAsync();
+            return day;
+        }
     }
 }

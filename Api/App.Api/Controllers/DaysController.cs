@@ -45,5 +45,12 @@ namespace App.Api.Controllers
             await this._days.UpdateDays(days_id, days);
             return Ok();
         }
+
+        [HttpGet("get-days-detail")]
+        public async Task<IActionResult> GetDaysDetail(int days_id)
+        {
+            Days day = await this._days.GetDaysDetail(days_id);
+            return Ok(day);
+        }
     }
 }

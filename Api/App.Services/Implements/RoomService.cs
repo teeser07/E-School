@@ -61,5 +61,12 @@ namespace App.Services.Implements
 
             await this._context.SaveChangesAsync();
         }
+
+        //Get-Room-Detail
+        public async Task<Room> GetRoomDetail(int room_id)
+        {
+            Room rooms = await _context.Room.Where(w => w.Room_id == room_id).FirstOrDefaultAsync();
+            return rooms;
+        }
     }
 }

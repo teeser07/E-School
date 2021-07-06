@@ -9,6 +9,7 @@ namespace App.Services.Interfaces
 {
     public interface IDaysService
     {
+        Task<Days> GetDaysDetail(int days_id);
         Task SaveDays(Days days);
         Task DeleteDays(int days_id);
         Task<List<Days>> GetDays();

@@ -9,6 +9,7 @@ namespace App.Services.Interfaces
 {
     public interface ISubjectService
     {
+        Task<Subject> GetSubjectDetail(int subject_id);
         Task SaveSubject(Subject subject);
         Task DeleteSubject(int subject_id);
         Task<List<Subject>> GetSubject();
