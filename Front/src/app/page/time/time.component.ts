@@ -37,7 +37,8 @@ export class TimeComponent implements OnInit {
   ngOnInit() {
     this.timeForm = this.Fb.group({
       orders : [null, Validators.required],
-      duration : [null, Validators.required],
+      starttime : [null, Validators.required],
+      endtime : [null, Validators.required],
       longterm : [null, Validators.required],
     });
     this.timeService.getTime()
@@ -142,7 +143,8 @@ export class TimeComponent implements OnInit {
       console.log(this.detail1)
       this.timeForm.setValue({
         orders : res['orders'],
-        duration : res['duration'],
+        starttime : res['starttime'],
+        endtime : res['endtime'],
         longterm : res['longterm']
       })
     })

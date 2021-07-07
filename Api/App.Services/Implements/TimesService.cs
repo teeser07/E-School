@@ -25,7 +25,8 @@ namespace App.Services.Implements
         {
             Times user = new Times();
             user.Orders = times.Orders;
-            user.Duration = times.Duration;
+            user.Starttime = times.Starttime;
+            user.Endtime = times.Endtime;
             user.Longterm = times.Longterm;
             _context.Times.Add(user);
             await this._context.SaveChangesAsync();
@@ -52,11 +53,13 @@ namespace App.Services.Implements
         {
             var time = _context.Times.FirstOrDefault(c => c.Times_id.Equals(times_id));
             time.Orders = times.Orders;
-            time.Duration = times.Duration;
+            time.Starttime = times.Starttime;
+            time.Endtime = times.Endtime;
             time.Longterm = times.Longterm;
 
             var isOrdersModified = _context.Entry(time).Property("Orders").IsModified;
-            var isDurationModified = _context.Entry(time).Property("Duration").IsModified;
+            var isStarttimeModified = _context.Entry(time).Property("Starttime").IsModified;
+            var isEndtimeModified = _context.Entry(time).Property("Endtime").IsModified;
             var isLongtermModified = _context.Entry(time).Property("Longterm").IsModified;
 
             await this._context.SaveChangesAsync();
