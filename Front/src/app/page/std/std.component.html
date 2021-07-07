@@ -1,32 +1,131 @@
-<h2 class="text-primary">รายชื่อนักเรียน</h2>
-<hr>
-<div class="card o-hidden">
-    <div class="search-bar mt-4">
-        <i class="search-icon text-muted i-Magnifi-Glass1"></i>
-        <input placeholder="ค้นหานักเรียน" type="text" class="Field">
-        <button class="btn-primary" >ลงทะเบียน</button>
-    </div>
-    <div class="t row">
-        <div class="col">รูปประจำตัวนักเรียน</div>
-        <div class="col">เลขประจำตัวนักเรียน</div>
-        <div class="col">ลำดับที่</div>
-        <div class="col">รายชื่อ</div>
-        <div class="col">สถานะการเรียน</div>
-        <div class="col"></div>
-        <div class="col"></div>
-    </div>
-    <hr class="mt-1">
-    <div class="t row mb-3">
-        <div class="col"></div>
-        <div class="col">26783</div>
-        <div class="col">1</div>
-        <div class="col">เด็กชายสมศักดิ์ มีทอง</div>
-        <div class="col">นักเรียน</div>
-        <div class="col">
-            <button class="btn btn-primary" routerLink='/page/std-info'>ดูข้อมูล</button>
+<div class="breadcrumb">
+    <h1 class="text-primary">รายชื่อนักเรียน</h1>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <input id="email" placeholder="ค้นหานักเรียน" [formControl]="searchControl"
+                class="form-control form-control-rounded ml-0" type="email">
         </div>
-        <div class="col">
-            <button class="btn btn-danger">ลบนักเรียน</button>
+    </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <button class="btn btn-primary mr-0" (click)="confirm(modalConfirm)">ลงทะเบียน</button>
+    </div>
+    <div class="col-md-12">
+        <div class="card  o-hidden">
+            <ngx-datatable style="height: 500px; box-shadow: none" class="material fullscreen" [columnMode]="'force'"
+                [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [rows]="filteredProducts">
+
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        รูปประจำตัวนักเรียน
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        เลขประจำตัวนักเรียน
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        ลำดับที่
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        รายชื่อ
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        สถานะการเรียน
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        ข้อมูล
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <button class="btn btn-warning ml-0" routerLink='/page/std-info'>ข้อมูล</button>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        ลบนักเรียน
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <button class="btn btn-danger ml-0">ลบนักเรียน</button>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
         </div>
     </div>
 </div>
+
+
+<ng-template #modalConfirm let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title text-primary" id="modal-title">ลงทะเบียนนักเรียน</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+            (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <img src="..." alt="...">
+            </div>
+            <div class="col-md-6">
+                <p class="text-primary mb-1"><strong>ชื่อ</strong></p>
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <p class="text-primary mb-1"><strong>นามสกุล</strong></p>
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <p class="text-primary mb-1"><strong>เลขประจำตัวนักเรียน</strong></p>
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <p class="text-primary mb-1"><strong>นักเรียน</strong></p>
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <p class="text-primary mb-1"><strong>เบอร์โทร</strong></p>
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <p class="text-primary mb-1"><strong>E-mail</strong></p>
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <p class="text-primary mb-1"><strong>Password</strong></p>
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <p class="text-primary mb-1"><strong>Confirm Password</strong></p>
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <p class="text-primary mb-1"><strong>ชั้นเรียน</strong></p>
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <p class="text-primary mb-1"><strong>ห้องเรียน</strong></p>
+                <input type="text" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-rounded"
+            (click)="modal.dismiss('cancel')">Cancel</button>
+        <button type="button" ngbAutofocus class="btn btn-primary btn-rounded"
+            (click)="modal.close('Save click')">Ok</button>
+    </div>
+</ng-template>

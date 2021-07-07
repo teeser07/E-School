@@ -1,34 +1,121 @@
-<h2 class="text-primary">รายชื่อบุคลากร</h2>
-<hr>
-<div class="card">
-    <div class="search-bar mt-4">
-        <i class="search-icon text-muted i-Magnifi-Glass1"></i>
-        <input placeholder="ค้นหาบุคลากร" type="text" class="Field">
-        <button class="btn-primary">ลงทะเบียน</button>
-    </div>
-    <div class="t row">
-        <div class="col">รูปประจำตัวบุคลากร</div>
-        <div class="col">เลขบัตรประจำตัวประชาชน</div>
-        <div class="col">รายชื่อ</div>
-        <div class="col">สถานะการทำงาน</div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-    </div>
-    <hr class="mt-1">
-    <div class="t row mb-3">
-        <div class="col"></div>
-        <div class="col">1506530654379</div>
-        <div class="col">อ.ถักดี ศรีพีทลุง</div>
-        <div class="col">ทำงาน</div>
-        <div class="col">
-            <button class="btn" routerLink='/page/emp-leave'>ข้อมูลการลา</button>
+<div class="breadcrumb">
+    <h1 class="text-primary">รายชื่อบุคลากร</h1>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <input id="email" placeholder="ค้นหาบุคลากร" [formControl]="searchControl"
+                class="form-control form-control-rounded ml-0" type="email">
         </div>
-        <div class="col">
-            <button class="btn btn-primary" routerLink='/page/emp-info'>ดูข้อมูล</button>
-        </div>
-        <div class="col">
-            <button class="btn btn-danger">ลบบุคลากร</button>
+    </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <button class="btn btn-primary mr-0" (click)="confirm(modalConfirm)">ลงทะเบียน</button>
+    </div>
+    <div class="col-md-12">
+        <div class="card  o-hidden">
+            <ngx-datatable style="height: 500px; box-shadow: none" class="material fullscreen" [columnMode]="'force'"
+                [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [rows]="filteredProducts">
+
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        รูปประจำตัวบุคลากร
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        เลขบัตรประจำตัวประชาชน
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        รายชื่อ
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        สถานะการทำงาน
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        ลา
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <button class="btn btn-primary ml-0" routerLink='/page/emp-leave'>ลา</button>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        ข้อมูล
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <button class="btn btn-warning ml-0" routerLink='/page/emp-info'>ข้อมูล</button>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        ลบบุคลากร
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <button class="btn btn-danger ml-0">ลบบุคลากร</button>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
         </div>
     </div>
 </div>
+
+<ng-template #modalConfirm let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title text-primary" id="modal-title">ลงทะเบียนนักเรียน</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+            (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <img src="..." alt="...">
+            </div>
+            <div class="col-md-6">
+                <p class="text-primary mb-1"><strong>ชื่อ</strong></p>
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <p class="text-primary mb-1"><strong>นามสกุล</strong></p>
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <p class="text-primary mb-1"><strong>เลขบัตรประจำตัวประชาชน</strong></p>
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <p class="text-primary mb-1"><strong>เบอร์โทร</strong></p>
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <p class="text-primary mb-1"><strong>E-mail</strong></p>
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <p class="text-primary mb-1"><strong>Password</strong></p>
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <p class="text-primary mb-1"><strong>Confirm Password</strong></p>
+                <input type="text" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-rounded"
+            (click)="modal.dismiss('cancel')">Cancel</button>
+        <button type="button" ngbAutofocus class="btn btn-primary btn-rounded"
+            (click)="modal.close('Save click')">Ok</button>
+    </div>
+</ng-template>

@@ -1,41 +1,59 @@
-<h2>ประถมศึกษาปีที่ 1 ห้องเรียน 1</h2>
-<hr>
-<div class="card o-hidden">
-    <div class="search-bar mt-4">
-        <i class="search-icon text-muted i-Magnifi-Glass1"></i>
-        <input placeholder="ค้นหานักเรียน" type="text" class="Field">
+<div class="breadcrumb">
+    <h1 class="text-primary">ประถมศึกษาปีที่ 1 ห้องเรียน 1</h1>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <input id="email" placeholder="Search Products" [formControl]="searchControl"
+                class="form-control form-control-rounded ml-0" type="email">
+        </div>
     </div>
-    <div class="t row">
-        <div class="col">
-            <label>รูปประจำตัวนักเรียน</label>
-        </div>
-        <div class="col">
-            <label>เลขประจำตัวนักเรียน</label>
-        </div>
-        <div class="col">
-            <label>ลำดับที่</label>
-        </div>
-        <div class="col">
-            <label>รายชื่อ</label>
-        </div>
-        <div class="col">
-            <label>สถานะนักเรียน</label>
-        </div>
-        <div class="col"></div>
-    </div>
-    <hr class="mt-1">
-    <div class="t row mb-3">
-        <div class="col"></div>
-        <div class="col">1549</div>
-        <div class="col">1</div>
-        <div class="col">
-            สมภาส พานทอง
-        </div>
-        <div class="col">
-            นักเรียน
-        </div>
-        <div class="col">
-            <button class="btn btn-primary" routerLink='/page/classroom-score'>ข้อมูลคะแนน</button>
+    <div class="col-md-12">
+        <div class="card  o-hidden">
+            <ngx-datatable style="height: 500px; box-shadow: none" class="material fullscreen" [columnMode]="'force'"
+                [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [rows]="filteredProducts">
+
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        รูปประจำตัวนักเรียน
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        เลขประจำตัวนักเรียน
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        ลำดับที่
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        รายชื่อ
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        สถานะนักเรียน
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        คะแนน
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <button class="btn btn-primary ml-0" routerLink='/page/classroom-score'>คะแนน</button>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
         </div>
     </div>
 </div>
+
+
+
+

@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup ,FormBuilder } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup ,FormBuilder, Validators } from '@angular/forms';
 import { ClassroomService } from './classroom.service';
 import { debounceTime } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { MessageService } from 'src/app/core/message.service';
+
 
 @Component({
   selector: 'app-classroom',
@@ -14,26 +17,36 @@ export class ClassroomComponent implements OnInit {
   products;
   filteredProducts;
   confirmResut;
-  addRoomForm : FormGroup ;
+  roomForm : FormGroup ;
+  row:any[];
+  loading: boolean;
+  @ViewChild('modalDelete', { static: true }) modalDelete;
+  @ViewChild('modalUpdate', { static: true }) modalUpdate;
+  detail ;
+  detail1 ;
 
 
   constructor(
     private classroomService : ClassroomService,
     private modalService: NgbModal,
-    private FormBuilder: FormBuilder
-   ) { 
-    this.addRoomForm = this.FormBuilder.group([
-      
-    ])
-
-    
-  }
+    private formBuilder: FormBuilder,
+    private message: MessageService,
+    private toastr : ToastrService,
+   ) { }
 
   ngOnInit() {
+    this.roomForm = this.formBuilder.group({
+      clas: [null, Validators.required],
+      classroom: [null, Validators.required],
+      maxstd: [null, Validators.required],
+    });
+
+    
     this.classroomService.getRoom()
     .subscribe((res: any[]) => {
       this.products = [...res];
-      this.filteredProducts = res;
+      this.row = res;
+      console.log(this.row)
     });
 
     this.searchControl.valueChanges
@@ -47,7 +60,7 @@ export class ClassroomComponent implements OnInit {
     if (val) {
       val = val.toLowerCase();
     } else {
-      return this.filteredProducts = [...this.products];
+      return this.row = [...this.products];
     }
 
     const columns = Object.keys(this.products[0]);
@@ -64,7 +77,7 @@ export class ClassroomComponent implements OnInit {
         }
       }
     });
-    this.filteredProducts = rows;
+    this.row = rows;
   }
   
   confirm(content) {
@@ -76,7 +89,72 @@ export class ClassroomComponent implements OnInit {
     });
   }
 
-  addRoom() {
-    this.classroomService.addRoom
+  onSubmit() :any {
+    if (this.roomForm.invalid) {
+      this.message.warning('กรุณากรอกข้อมูลให้ครบถ้วน');
+      return;
+    }
+    this.loading = true;
+    this.classroomService.addRoom(this.roomForm.value).subscribe(()=>{
+      console.log('add success');
+      this.toastr.success('สำเร็จ', 'เพิ่มห้องเรียน', {progressBar: true});
+      setTimeout(() => {
+  
+      },1000);
+    })
+    
+    this.classroomService.getRoom()
+    .subscribe((res: any[]) => {
+      this.products = [...res];
+      this.row = res;
+      console.log(this.row)
+    });
+  }
+
+  getId(id:any,i:any){
+    console.log(id)
+    this.classroomService.gatDetailRoom(id).subscribe(res =>{
+      this.detail = res
+      console.log(this.detail)
+    })
+    this.modalService.open(this.modalDelete, {centered: true })
+  }
+
+  delete(id:any,i:any){
+    console.log(id)
+    this.classroomService.deleteRoom(id).subscribe(res=>{
+      this.row.splice(i,1);
+      setTimeout(() => {
+        this.loading = false;
+        this.toastr.success('สำเร็จ', 'ลบห้องเรียน', {progressBar: true});
+      },500);
+      this.classroomService.getRoom()
+        .subscribe((res: any[]) => {
+        this.products = [...res];
+        this.row = res;
+        console.log(this.row)
+      });
+    })
+  }
+
+  getDetail(id:any,i:any){
+    console.log(id)
+    this.classroomService.gatDetailRoom(id).subscribe(res =>{
+      this.detail1 = res
+      console.log(this.detail1)
+      this.roomForm.setValue({
+        clas : res['clas'],
+        classroom : res['classroom'],
+        maxstd : res['maxstd']
+      })
+    })
+    this.modalService.open(this.modalUpdate, {centered : true})
+  }
+
+  updateRoom():any{
+    this.classroomService.update(this.detail1.room_id,this.roomForm.value).subscribe(()=>{
+      console.log('Update Success')
+    })
+    window.location.reload();
   }
 }

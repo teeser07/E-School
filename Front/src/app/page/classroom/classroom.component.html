@@ -1,67 +1,81 @@
-<div class="">
-    <div class="breadcrumb">
-        <h1 class="text-primary">ชั้นเรียนและห้องเรียน</h1>
+<div class="breadcrumb">
+    <h1 class="text-primary">ชั้นเรียนและห้องเรียน</h1>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <input id="email" placeholder="Search Products" [formControl]="searchControl"
+                class="form-control form-control-rounded ml-0" type="email">
+        </div>
     </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <button class="btn btn-primary mr-0" (click)="confirm(modalAdd)">เพิ่ม</button>
+    </div>
+    <div class="col-md-12">
+        <div class="card  o-hidden">
+            <ngx-datatable style="height: 500px; box-shadow: none" class="material fullscreen" [columnMode]="'force'"
+                [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [rows]="row">
 
-    <div class="separator-breadcrumb border-top"></div>
-
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <input id="email" placeholder="Search Products" [formControl]="searchControl"
-                    class="form-control form-control-rounded ml-0" type="email">
-            </div>
-        </div>
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-            <button class="btn btn-primary mr-0" (click)="confirm(modalConfirm)">เพิ่ม</button>
-
-        </div>
-        <div class="col-md-12">
-            <div class="card  o-hidden">
-                <ngx-datatable style="height: 500px; box-shadow: none" class="material fullscreen"
-                    [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true"
-                    [rows]="filteredProducts">
-
-                    <ngx-datatable-column name="clas">
-                        <ng-template ngx-datatable-header-template>
-                            ชั้นเรียน
-                        </ng-template>
-                    </ngx-datatable-column>
-                    <ngx-datatable-column name="classroom">
-                        <ng-template ngx-datatable-header-template>
-                            ห้องเรียน
-                        </ng-template>
-                    </ngx-datatable-column>
-                    <ngx-datatable-column name="maxstd">
-                        <ng-template ngx-datatable-header-template>
-                            จำนวนนักเรียน
-                        </ng-template>
-                    </ngx-datatable-column>
-                    <ngx-datatable-column name="">
-                        <ng-template ngx-datatable-header-template>
-                            ดูข้อมูล
-                        </ng-template>
-                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                            <button class="btn btn-primary ml-0" routerLink='/page/classroom-info'>ดูข้อมูล</button>
-                        </ng-template>
-                    </ngx-datatable-column>
-                    <ngx-datatable-column name="">
-                        <ng-template ngx-datatable-header-template>
-                            ลบห้องเรียน
-                        </ng-template>
-                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                            <button class="btn btn-danger ml-0">ลบห้องเรียน</button>
-                        </ng-template>
-                    </ngx-datatable-column>
-                </ngx-datatable>
-            </div>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        ชั้นเรียน
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.clas}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        ห้องเรียน
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.classroom}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        จำนวนนักเรียน
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.maxstd}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        ดูข้อมูล
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <button class="btn btn-primary ml-0" routerLink='/page/classroom-info'>ดูข้อมูล</button>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        แก้ไข
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <button class="btn btn-warning ml-0" (click)="getDetail(row.room_id,i)">แก้ไข</button>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        ลบห้องเรียน
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <button class="btn btn-danger ml-0" (click)="getId(row.room_id,i)">ลบห้องเรียน</button>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
         </div>
     </div>
 </div>
 
 
-<ng-template #modalConfirm let-modal>
+
+<ng-template #modalAdd let-modal>
     <div class="modal-header">
         <h4 class="modal-title text-primary" id="modal-title">เพิ่มชั้นเรียนและห้องเรียน</h4>
         <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
@@ -70,16 +84,66 @@
         </button>
     </div>
     <div class="modal-body">
-        <p class="text-primary mb-1"><strong>เพิ่มชั้นเรียน</strong></p>
-        <input type="text" class="form-control">
-        <p class="text-primary mb-1"><strong>เพิ่มห้องเรียน</strong></p>
-        <input type="text" class="form-control">
-        <p class="text-primary mb-1"><strong>จำนวนนักเรียน</strong></p>
-        <input type="text" class="form-control">
+        <form [formGroup]="roomForm">
+            <p class="text-primary mb-1"><strong>เพิ่มชั้นเรียน</strong></p>
+            <input id="clas" type="text" class="form-control" formControlName="clas">
+            <p class="text-primary mb-1"><strong>เพิ่มห้องเรียน</strong></p>
+            <input id="classroom" type="text" class="form-control" formControlName="classroom">
+            <p class="text-primary mb-1"><strong>จำนวนนักเรียน</strong></p>
+            <input id="maxstd" type="text" class="form-control" formControlName="maxstd">
+        </form>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary btn-rounded"
             (click)="modal.dismiss('cancel')">Cancel</button>
-        <button type="button" ngbAutofocus class="btn btn-primary btn-rounded" (click)="modal.close('Ok')">Ok</button>
+        <button type="button" ngbAutofocus class="btn btn-primary btn-rounded" (click)="onSubmit()">Ok</button>
+    </div>
+</ng-template>
+
+<ng-template #modalUpdate let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title text-primary" id="modal-title">แก้ไขชั้นเรียนและห้องเรียน</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+            (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="roomForm">
+            <div class="form-group">
+                <p class="text-primary mb-1"><strong>ชั้นเรียน</strong></p>
+                <input id="clas" type="text" class="form-control" formControlName="clas" required>
+            </div>
+            <div class="form-group">
+                <p class="text-primary mb-1"><strong>ห้องเรียน</strong></p>
+                <input id="classroom" type="text" class="form-control" formControlName="classroom" required>
+            </div>
+            <div class="form-group">
+                <p class="text-primary mb-1"><strong>จำนวนนักเรียน</strong></p>
+                <input id="maxstd" type="text" class="form-control" formControlName="maxstd" required>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-rounded"
+            (click)="modal.dismiss('cancel')">Cancel</button>
+        <button type="button" ngbAutofocus class="btn btn-primary btn-rounded"
+        (click) = "modal.dismiss(updateRoom())">Ok</button>
+    </div>
+</ng-template>
+
+<ng-template #modalDelete let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-title">ลบวิชา</h4>
+      <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p><strong>ต้องการลบวิชานี้<span class="text-primary"></span> หรือไม่?</strong></p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">ยกเลิก</button>
+      <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click) = "modal.dismiss(delete(detail.room_id,i))">ยืนยัน</button>
     </div>
 </ng-template>
