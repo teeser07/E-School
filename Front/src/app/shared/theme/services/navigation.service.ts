@@ -90,6 +90,7 @@ export class NavigationService {
                     name: 'ช่วงเวลาการเรียน',
                     type: 'link',
                     icon: 'i-Clock',
+                    state: 'page/time'
                 },
                 {   
                     name: 'วัน',

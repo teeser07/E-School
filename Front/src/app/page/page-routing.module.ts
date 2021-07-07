@@ -13,6 +13,7 @@ import { EmpLeaveComponent } from './emp/emp-leave/emp-leave.component';
 import { StdInfoComponent } from './std/std-info/std-info.component';
 import { StdInfoEditComponent } from './std/std-info-edit/std-info-edit.component';
 import { SubjectComponent } from './subject/subject.component';
+import { TimeComponent } from './time/time.component';
 
 const routes: Routes = [
   {
@@ -63,6 +64,11 @@ const routes: Routes = [
   path: 'subject',
     component: SubjectComponent
   },
+  {
+    path: 'time',
+      component: TimeComponent
+    },
+ 
 
 ];
 

@@ -1,6 +1,6 @@
 <div class="">
     <div class="breadcrumb">
-        <h1 class="text-primary">รายวิชา</h1>
+        <h1 class="text-primary">ช่วงเวลาการเรียน</h1>
     </div>
 
     <div class="separator-breadcrumb border-top"></div>
@@ -15,7 +15,7 @@
         <div class="col-md-4">
         </div>
         <div class="col-md-4">
-            <button class="btn btn-primary mr-0" (click)="confirm(modalConfirm)">เพิ่มรายวิชา</button>
+            <button class="btn btn-primary mr-0" (click)="confirm(modalConfirm)">เพิ่มเวลา</button>
         </div>
         <div class="col-md-12" >
             <div class="card  o-hidden">
@@ -24,42 +24,42 @@
                     [rows]="row" >
                     <ngx-datatable-column name="" [width]="80" >
                         <ng-template ngx-datatable-header-template>
-                            รหัสวิชา
+                            ลำดับ
                         </ng-template>
                         <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                            {{row.codesubject}}
+                            {{row.orders}}
                         </ng-template>
                     </ngx-datatable-column>
                     <ngx-datatable-column name="">
                         <ng-template ngx-datatable-header-template>
-                            หน่วยกิต
+                            ช่วงเวลา
                         </ng-template>
                         <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                            {{row.credit}}
+                            {{row.duration}}
                         </ng-template>
                     </ngx-datatable-column>
                     <ngx-datatable-column name="">
                         <ng-template ngx-datatable-header-template>
-                            รายชื่อวิชา
+                            ระยะเวลา
                         </ng-template>
                         <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                            {{row.subjecttitle}}
+                            {{row.longterm}}
                         </ng-template>
                     </ngx-datatable-column>
                     <ngx-datatable-column name="" >
                         <ng-template ngx-datatable-header-template>
-                            แก้ไขรายวิชา
+                            แก้ไขช่วงเวลา
                         </ng-template>
                         <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                            <button class="btn btn-primary ml-0 " (click)="getDetail(row.subject_id,i)">แก้ไข</button>
+                            <button class="btn btn-primary ml-0 " (click)="getDetail(row.times_id,i)">แก้ไข</button>
                         </ng-template>
                     </ngx-datatable-column>
                     <ngx-datatable-column name="">
                         <ng-template ngx-datatable-header-template>
-                            ลบรายวิชา
+                            ลบรายช่วงเวลา
                         </ng-template>
                         <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                            <button class="btn btn-danger  ml-0 " (click)="getId(row.subject_id,i)">ลบ</button>
+                            <button class="btn btn-danger  ml-0 " (click)="getId(row.times_id,i)">ลบ</button>
                         </ng-template>
                     </ngx-datatable-column>
 
@@ -79,18 +79,18 @@
         </button>
     </div>
     <div class="modal-body">
-        <form [formGroup]="subjectForm">
+        <form [formGroup]="timeForm">
             <div class="form-group">
-              <label>รหัสวิชา</label>
-              <input id="codesubject" class="form-control form-control-rounded  " type="text" formControlName="codesubject">
+              <label>ลำดับ</label>
+              <input id="orders" class="form-control form-control-rounded  " type="text" formControlName="orders">
             </div>
             <div class="form-group">
-                <label>หน่วยกิต</label>
-                <input id="credit" class="form-control form-control-rounded  " type="text" formControlName="credit">
+                <label>ช่วงเวลา</label>
+                <input id="duration" class="form-control form-control-rounded  " type="text" formControlName="duration">
             </div>
             <div class="form-group">
-                <label>รายชื่อวิชา</label>
-                <input id="subjecttitle" class="form-control form-control-rounded  " type="text" formControlName="subjecttitle">
+                <label>ระยะเวลา</label>
+                <input id="longterm" class="form-control form-control-rounded  " type="text" formControlName="longterm">
             </div>
             <div class="modal-footer">
                 <button type="button" ngbAutofocus class="btn btn-primary btn-rounded" (click)="onSubmit()">เพิ่ม</button>
@@ -112,7 +112,7 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">ยกเลิก</button>
-      <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click) = "modal.dismiss(delete(detail.subject_id,i))">ยืนยัน</button>
+      <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click) = "modal.dismiss(delete(detail.times_id,i))">ยืนยัน</button>
     </div>
 </ng-template>
 
@@ -127,18 +127,18 @@
         </button>
     </div>
     <div class="modal-body">
-        <form [formGroup]="subjectForm">
+        <form [formGroup]="timeForm">
             <div class="form-group">
-              <label>รหัสวิชา</label>
-              <input id="codesubject" class="form-control form-control-rounded  " type="text" formControlName="codesubject" required>
+              <label>ลำดับ</label>
+              <input id="orders" class="form-control form-control-rounded  " type="text" formControlName="orders" required>
             </div>
             <div class="form-group">
-                <label>หน่วยกิต</label>
-                <input id="credit" class="form-control form-control-rounded  " type="text" formControlName="credit" required>
+                <label>ช่วงเวลา</label>
+                <input id="duration" class="form-control form-control-rounded  " type="text" formControlName="duration" required>
             </div>
             <div class="form-group">
-                <label>รายชื่อวิชา</label>
-                <input id="subjecttitle" class="form-control form-control-rounded  " type="text" formControlName="subjecttitle" required>
+                <label>ระยะเวลา</label>
+                <input id="longterm" class="form-control form-control-rounded  " type="text" formControlName="longterm" required>
             </div>
             <div class="modal-footer">
                 <button type="button" ngbAutofocus class="btn btn-primary btn-rounded" (click) = "modal.dismiss(Update())">บันทึก</button>

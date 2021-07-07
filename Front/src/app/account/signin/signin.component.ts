@@ -26,7 +26,7 @@ export class SigninComponent implements OnInit {
     ngOnInit() {
         this.router.events.subscribe(event => {
             if (event instanceof RouteConfigLoadStart || event instanceof ResolveStart) {
-                this.loadingText = 'Loading Dashboard Module...';
+                this.loadingText = 'กำลังโหลดหน้าแรก.';
 
                 this.loading = true;
             }
@@ -48,7 +48,7 @@ export class SigninComponent implements OnInit {
         } 
 
         this.loading = true;
-        this.loadingText = 'Sigining in...';
+        this.loadingText = 'กำลังเข้าสู่ระบบ';
         this.auth.signin(this.signinForm.value).pipe(
             finalize(() => this.loading = false)
         ).subscribe(() => {

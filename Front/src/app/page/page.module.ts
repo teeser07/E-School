@@ -22,6 +22,8 @@ import { StdInfoEditComponent } from './std/std-info-edit/std-info-edit.componen
 import { StdInfoComponent } from './std/std-info/std-info.component';
 import { SubjectComponent } from './subject/subject.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { TimeComponent } from './time/time.component';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     EmpInfoEditComponent,
     StdInfoEditComponent,
     StdInfoComponent,
-    SubjectComponent
+    SubjectComponent,
+    TimeComponent,
   ],
   imports: [
     CommonModule,

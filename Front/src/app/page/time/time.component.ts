@@ -1,21 +1,19 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { FormControl,FormGroup, FormBuilder,Validators } from '@angular/forms';
-import { SubjectService } from './subject.service';
+import { TimeService } from './time.service';
 import { debounceTime } from 'rxjs/operators';
 import { NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { MessageService } from 'src/app/core/message.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
-
 @Component({
-  selector: 'app-subject',
-  templateUrl: './subject.component.html',
-  styleUrls: ['./subject.component.scss']
+  selector: 'app-time',
+  templateUrl: './time.component.html',
+  styleUrls: ['./time.component.scss']
 })
-export class SubjectComponent implements OnInit {
-  
-  subjectForm : FormGroup;
+export class TimeComponent implements OnInit {
+  timeForm : FormGroup;
   row : any[];
   loading: boolean;
   searchControl: FormControl = new FormControl();
@@ -26,25 +24,23 @@ export class SubjectComponent implements OnInit {
   detail ;
   detail1 ; 
   refresh: Subject<any> = new Subject();
-  
 
   constructor(
-    private subjectService: SubjectService,
+    private timeService: TimeService,
     private modalService: NgbModal,
     private Fb: FormBuilder,
     private message : MessageService,
     private router: Router,
     private toastr: ToastrService,
-
   ) { }
 
   ngOnInit() {
-    this.subjectForm = this.Fb.group({
-      codesubject : [null, Validators.required],
-      credit : [null, Validators.required],
-      subjecttitle : [null, Validators.required],
+    this.timeForm = this.Fb.group({
+      orders : [null, Validators.required],
+      duration : [null, Validators.required],
+      longterm : [null, Validators.required],
     });
-    this.subjectService.getSubject()
+    this.timeService.getTime()
     .subscribe((res: any[]) => {
       this.products = [...res];
       this.row = res;
@@ -82,13 +78,13 @@ export class SubjectComponent implements OnInit {
   }
   delete(id:any,i:any){
     console.log(id)
-      this.subjectService.deleteSubject(id).subscribe(res=>{
+      this.timeService.deleteTime(id).subscribe(res=>{
         this.row.splice(i,1);
         setTimeout(() => {
           this.loading = false;
           this.toastr.success('สำเร็จ', 'ลบรายวิชา', {progressBar: true});
         }, 500);
-        this.subjectService.getSubject()
+        this.timeService.getTime()
         .subscribe((res: any[]) => {
         this.products = [...res];
         this.row = res;
@@ -109,18 +105,18 @@ export class SubjectComponent implements OnInit {
   }
 
   onSubmit():any{
-    if (this.subjectForm.invalid) {
+    if (this.timeForm.invalid) {
       this.message.warning('กรุณากรอกข้อมูลให้ครบถ้วน');
       return;
     }
     this.loading = true;
-    this.subjectService.saveSubject(this.subjectForm.value).subscribe(res=>{
+    this.timeService.saveTime(this.timeForm.value).subscribe(res=>{
       console.log(res);
       setTimeout(() => {
         this.loading = false;
         this.toastr.success('สำเร็จ', 'เพิ่มรายวิชา', {progressBar: true});
       }, 500);
-      this.subjectService.getSubject()
+      this.timeService.getTime()
       .subscribe((res: any[]) => {
       this.products = [...res];
       this.row = res;
@@ -132,7 +128,7 @@ export class SubjectComponent implements OnInit {
   
   getId(id:any,i:any){
     console.log(id)
-    this.subjectService.getSubjectDetail(id).subscribe(res =>{
+    this.timeService.getTimeDetail(id).subscribe(res =>{
       this.detail = res
       console.log(this.detail)
     })
@@ -141,20 +137,20 @@ export class SubjectComponent implements OnInit {
 
   getDetail(id:any,i:any){
     console.log(id)
-    this.subjectService.getSubjectDetail(id).subscribe(res=>{
+    this.timeService.getTimeDetail(id).subscribe(res=>{
       this.detail1 = res
       console.log(this.detail1)
-      this.subjectForm.setValue({
-        codesubject : res['codesubject'],
-        credit : res['credit'],
-        subjecttitle : res['subjecttitle']
+      this.timeForm.setValue({
+        orders : res['orders'],
+        duration : res['duration'],
+        longterm : res['longterm']
       })
     })
     this.modalService.open(this.modalUpdate, {centered: true })
   }
 
   Update():any{
-    this.subjectService.updateSubject(this.detail1.subject_id,this.subjectForm.value).subscribe(()=>{
+    this.timeService. updateTime(this.detail1.times_id,this.timeForm.value).subscribe(()=>{
       console.log('Update Success')
     })
     window.location.reload()
