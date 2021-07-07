@@ -14,6 +14,7 @@ import { StdInfoComponent } from './std/std-info/std-info.component';
 import { StdInfoEditComponent } from './std/std-info-edit/std-info-edit.component';
 import { SubjectComponent } from './subject/subject.component';
 import { TimeComponent } from './time/time.component';
+import { DayComponent } from './day/day.component';
 
 const routes: Routes = [
   {
@@ -61,14 +62,17 @@ const routes: Routes = [
     component: EmpLeaveComponent
   },
   {
-  path: 'subject',
+    path: 'subject',
     component: SubjectComponent
   },
   {
     path: 'time',
-      component: TimeComponent
-    },
- 
+    component: TimeComponent
+  },
+  {
+    path: 'day',
+    component: DayComponent
+  },
 
 ];
 
