@@ -15,7 +15,7 @@
         <div class="col-md-4">
         </div>
         <div class="col-md-4">
-            <button class="btn btn-primary mr-0" (click)="confirm(modalConfirm)">เพิ่มเวลา</button>
+            <button class="btn btn-primary mr-0" (click)="confirm(modalConfirm)">เพิ่ม</button>
         </div>
         <div class="col-md-12" >
             <div class="card  o-hidden">
@@ -40,10 +40,10 @@
                     </ngx-datatable-column>
                     <ngx-datatable-column name="">
                         <ng-template ngx-datatable-header-template>
-                            ระยะเวลา
+                            ระยะเวลา (นาที)
                         </ng-template>
                         <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                            {{row.longterm}} (นาที)
+                            {{row.longterm}}
                         </ng-template>
                     </ngx-datatable-column>
                     <ngx-datatable-column name="" >
@@ -79,26 +79,19 @@
     </div>
     <div class="modal-body">
         <form [formGroup]="timeForm">
-            <div class="form-group">
               <label>ลำดับ</label>
               <input id="orders" class="form-control form-control-rounded  " type="text" formControlName="orders" placeholder="ลำดับ">
-            </div>
-            <div class="form-group">
-                <label>เวลาเริ่มเรียน</label>
+                <p class="text-primary mb-1"><strong>เวลาเริ่มเรียน</strong></p>
                 <input id="starttime" class="form-control form-control-rounded  " type="text" formControlName="starttime" placeholder="00:00">
-            </div>
-            <div class="form-group">
-                <label>เวลาเลิกเรียน</label>
+                <p class="text-primary mb-1"><strong>เวลาเลิกเรียน</strong></p>
                 <input id="endtime" class="form-control form-control-rounded  " type="text" formControlName="endtime" placeholder="00:00">
-            </div>
-            <div class="form-group">
-                <label>ระยะเวลา</label>
+                <p class="text-primary mb-1"><strong>ระยะเวลา</strong></p>
                 <input id="longterm" class="form-control form-control-rounded  " type="number" formControlName="longterm" placeholder="00 นาที">
-            </div>
-            <div class="modal-footer">
-                <button type="button" ngbAutofocus class="btn btn-primary btn-rounded" (click)="onSubmit()">เพิ่ม</button>
-            </div>
         </form>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">ยกเลิก</button>
+            <button type="button" ngbAutofocus class="btn btn-primary btn-rounded" (click)="onSubmit()">เพิ่ม</button>
+        </div>
     </div>
 </ng-template>
 
@@ -132,22 +125,23 @@
     <div class="modal-body">
         <form [formGroup]="timeForm">
             <div class="form-group">
-              <label>ลำดับ</label>
-              <input id="orders" class="form-control form-control-rounded  " type="number" formControlName="orders" required>
+              <p class="text-primary mb-1"><strong>ลำดับ</strong></p>
+              <input id="orders" class="form-control" type="number" formControlName="orders" required>
             </div>
             <div class="form-group">
-                <label>เวลาเริ่มเรียน</label>
-                <input id="starttime" class="form-control form-control-rounded  " type="number" formControlName="starttime" required>
+                <p class="text-primary mb-1"><strong>เวลาเริ่มเรียน</strong></p>
+                <input id="starttime" class="form-control" type="text" formControlName="starttime" required>
             </div>
             <div class="form-group">
-                <label>เวลาเลิกเรียน</label>
-                <input id="endtime" class="form-control form-control-rounded  " type="text" formControlName="endtime" required>
+                <p class="text-primary mb-1"><strong>เวลาเลิกเรียน</strong></p>
+                <input id="endtime" class="form-control" type="text" formControlName="endtime" required>
             </div>
             <div class="form-group">
-                <label>ระยะเวลา</label>
-                <input id="longterm" class="form-control form-control-rounded  " type="text" formControlName="longterm" required>
+                <p class="text-primary mb-1"><strong>ระยะเวลา</strong></p>
+                <input id="longterm" class="form-control" type="number" formControlName="longterm" required>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">ยกเลิก</button>
                 <button type="button" ngbAutofocus class="btn btn-primary btn-rounded" (click) = "modal.dismiss(Update())">บันทึก</button>
             </div>
         </form>

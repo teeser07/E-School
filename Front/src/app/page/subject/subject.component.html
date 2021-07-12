@@ -15,7 +15,7 @@
         <div class="col-md-4">
         </div>
         <div class="col-md-4">
-            <button class="btn btn-primary mr-0" (click)="confirm(modalConfirm)">เพิ่มรายวิชา</button>
+            <button class="btn btn-primary mr-0" (click)="confirm(modalConfirm)">เพิ่ม</button>
         </div>
         <div class="col-md-12" >
             <div class="card  o-hidden">
@@ -89,6 +89,7 @@
         </form>
     </div>
     <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">ยกเลิก</button>
         <button type="button" ngbAutofocus class="btn btn-primary btn-rounded" (click)="onSubmit()">เพิ่ม</button>
     </div>
 </ng-template>
@@ -123,18 +124,19 @@
     <div class="modal-body">
         <form [formGroup]="subjectForm">
             <div class="form-group">
-              <label>รหัสวิชา</label>
-              <input id="codesubject" class="form-control form-control-rounded  " type="text" formControlName="codesubject" required>
+              <p class="text-primary mb-1"><strong>รหัสวิชา</strong></p>
+              <input id="codesubject" class="form-control" type="text" formControlName="codesubject" required>
             </div>
             <div class="form-group">
-                <label>หน่วยกิต</label>
-                <input id="credit" class="form-control form-control-rounded  " type="text" formControlName="credit" required>
+                <p class="text-primary mb-1"><strong>หน่วยกิต</strong></p>
+                <input id="credit" class="form-control" type="number" formControlName="credit" required>
             </div>
             <div class="form-group">
-                <label>รายชื่อวิชา</label>
-                <input id="subjecttitle" class="form-control form-control-rounded  " type="text" formControlName="subjecttitle" required>
+                <p class="text-primary mb-1"><strong>รายชื่อวิชา</strong></p>
+                <input id="subjecttitle" class="form-control" type="text" formControlName="subjecttitle" required>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">ยกเลิก</button>
                 <button type="button" ngbAutofocus class="btn btn-primary btn-rounded" (click) = "modal.dismiss(Update())">บันทึก</button>
             </div>
         </form>
