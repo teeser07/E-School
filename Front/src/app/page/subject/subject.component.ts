@@ -41,7 +41,7 @@ export class SubjectComponent implements OnInit {
   ngOnInit() {
     this.subjectForm = this.Fb.group({
       codesubject : [null, Validators.required],
-      credit : [null, Validators.required],
+      credit : [null, [Validators.min(1), Validators.max(9)]],
       subjecttitle : [null, Validators.required],
     });
     this.subjectService.getSubject()

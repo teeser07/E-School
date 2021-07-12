@@ -36,9 +36,9 @@ export class TimeComponent implements OnInit {
 
   ngOnInit() {
     this.timeForm = this.Fb.group({
-      orders : [null, Validators.required],
-      starttime : [null, Validators.required],
-      endtime : [null, Validators.required],
+      orders : [null,[Validators.min(1), Validators.max(10000)]],
+      starttime : [null, [Validators.min(0), Validators.max(100)]],
+      endtime : [null, [Validators.min(0), Validators.max(100)]],
       longterm : [null, Validators.required],
     });
     this.timeService.getTime()
