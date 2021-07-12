@@ -13,7 +13,7 @@ namespace App.Data.Models
     {
         public int Subject_id { get; set; }
         public string Codesubject { get; set; }
-        public string Credit { get; set; }
+        public int Credit { get; set; }
         public string Subjecttitle { get; set; }
     }
     public class SubjectConfiguration : BaseConfiguration<Subject>

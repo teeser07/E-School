@@ -15,7 +15,7 @@ namespace App.Data.Models
         public string Orders { get; set; }
         public string Starttime { get; set; }
         public string Endtime { get; set; }
-        public string Longterm { get; set; }
+        public int Longterm { get; set; }
     }
     public class TimesConfiguration : BaseConfiguration<Times>
     {

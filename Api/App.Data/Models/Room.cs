@@ -13,7 +13,7 @@ namespace App.Data.Models
     {
         public int Room_id { get; set; }
         public string Clas { get; set; }
-        public string Classroom { get; set; }
+        public int Classroom { get; set; }
         public int Maxstd { get; set; }
     }
     public class RoomConfiguration : BaseConfiguration<Room>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { NavigationService } from '../../../../services/navigation.service';
 import { SearchService } from '../../../../services/search.service';
-
+import { HeaderSidebarLargeService } from './header-sidebar-large.service';
 @Component({
   selector: 'app-header-sidebar-large',
   templateUrl: './header-sidebar-large.component.html',
@@ -11,11 +11,12 @@ import { SearchService } from '../../../../services/search.service';
 export class HeaderSidebarLargeComponent implements OnInit {
 
     notifications: any[];
-
+    user : any = []
     constructor(
       private navService: NavigationService,
       public searchService: SearchService,
-      private auth: AuthService
+      private auth: AuthService,
+      private HS: HeaderSidebarLargeService
     ) {
       this.notifications = [
         {
@@ -62,10 +63,16 @@ export class HeaderSidebarLargeComponent implements OnInit {
           link: '/dashboard/v3'
         }
       ];
+      this.HS.getUser().subscribe(res => {
+        this.user = res;
+        console.log(this.user)
+      });
     }
   
     ngOnInit() {
+      
     }
+    
   
     toggelSidebar() {
       const state = this.navService.sidebarState;

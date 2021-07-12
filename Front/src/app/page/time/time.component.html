@@ -43,7 +43,7 @@
                             ระยะเวลา
                         </ng-template>
                         <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                            {{row.longterm}}
+                            {{row.longterm}} (นาที)
                         </ng-template>
                     </ngx-datatable-column>
                     <ngx-datatable-column name="" >
@@ -51,7 +51,7 @@
                             แก้ไขช่วงเวลา
                         </ng-template>
                         <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                            <button class="btn btn-primary ml-0 " (click)="getDetail(row.times_id,i)">แก้ไข</button>
+                            <button class="btn btn-warning ml-0 " (click)="getDetail(row.times_id,i)">แก้ไข</button>
                         </ng-template>
                     </ngx-datatable-column>
                     <ngx-datatable-column name="">
@@ -93,7 +93,7 @@
             </div>
             <div class="form-group">
                 <label>ระยะเวลา</label>
-                <input id="longterm" class="form-control form-control-rounded  " type="text" formControlName="longterm" placeholder="00 นาที">
+                <input id="longterm" class="form-control form-control-rounded  " type="number" formControlName="longterm" placeholder="00 นาที">
             </div>
             <div class="modal-footer">
                 <button type="button" ngbAutofocus class="btn btn-primary btn-rounded" (click)="onSubmit()">เพิ่ม</button>

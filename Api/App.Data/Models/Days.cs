@@ -15,8 +15,8 @@ namespace App.Data.Models
         public string Day { get; set; }
         public DateTime Datetime { get; set; }
         public string Note { get; set; }
-        public string Year { get; set; }
-        public string Term { get; set; }
+        public int Year { get; set; }
+        public int Term { get; set; }
     }
     public class DaysConfiguration : BaseConfiguration<Days>
     {

@@ -51,7 +51,7 @@
                             แก้ไขรายวิชา
                         </ng-template>
                         <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                            <button class="btn btn-primary ml-0 " (click)="getDetail(row.subject_id,i)">แก้ไข</button>
+                            <button class="btn btn-warning ml-0 " (click)="getDetail(row.subject_id,i)">แก้ไข</button>
                         </ng-template>
                     </ngx-datatable-column>
                     <ngx-datatable-column name="">
@@ -80,22 +80,16 @@
     </div>
     <div class="modal-body">
         <form [formGroup]="subjectForm">
-            <div class="form-group">
-              <label>รหัสวิชา</label>
-              <input id="codesubject" class="form-control form-control-rounded  " type="text" formControlName="codesubject">
-            </div>
-            <div class="form-group">
-                <label>หน่วยกิต</label>
-                <input id="credit" class="form-control form-control-rounded  " type="text" formControlName="credit">
-            </div>
-            <div class="form-group">
-                <label>รายชื่อวิชา</label>
-                <input id="subjecttitle" class="form-control form-control-rounded  " type="text" formControlName="subjecttitle">
-            </div>
-            <div class="modal-footer">
-                <button type="button" ngbAutofocus class="btn btn-primary btn-rounded" (click)="onSubmit()">เพิ่ม</button>
-            </div>
+              <p class="text-primary mb-1"><strong>รหัสวิชา</strong></p>
+              <input id="codesubject" class="form-control" type="text" formControlName="codesubject">
+              <p class="text-primary mb-1"><strong>หน่วยกิต</strong></p>
+              <input id="credit" class="form-control" type="number" formControlName="credit">
+              <p class="text-primary mb-1"><strong>รายชื่อวิชา</strong></p>
+              <input id="subjecttitle" class="form-control" type="text" formControlName="subjecttitle">
         </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" ngbAutofocus class="btn btn-primary btn-rounded" (click)="onSubmit()">เพิ่ม</button>
     </div>
 </ng-template>
 
