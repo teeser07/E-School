@@ -37,8 +37,8 @@ export class ClassroomComponent implements OnInit {
   ngOnInit() {
     this.roomForm = this.formBuilder.group({
       clas: [null, Validators.required],
-      classroom: [null, Validators.required],
-      maxstd: [null, Validators.required],
+      classroom: [null,[Validators.min(1), Validators.max(100)]],
+      maxstd: [null,[Validators.min(1), Validators.max(1000)]],
     });
 
     
@@ -152,6 +152,11 @@ export class ClassroomComponent implements OnInit {
   }
 
   updateRoom():any{
+    if (this.roomForm.invalid) {
+      this.message.warning('กรุณากรอกข้อมูลให้ครบถ้วน');
+      return;
+    }
+    this.loading = true;
     this.classroomService.update(this.detail1.room_id,this.roomForm.value).subscribe(()=>{
       console.log('Update Success')
     })

@@ -133,11 +133,11 @@
         <form [formGroup]="timeForm">
             <div class="form-group">
               <label>ลำดับ</label>
-              <input id="orders" class="form-control form-control-rounded  " type="text" formControlName="orders" required>
+              <input id="orders" class="form-control form-control-rounded  " type="number" formControlName="orders" required>
             </div>
             <div class="form-group">
                 <label>เวลาเริ่มเรียน</label>
-                <input id="starttime" class="form-control form-control-rounded  " type="text" formControlName="starttime" required>
+                <input id="starttime" class="form-control form-control-rounded  " type="number" formControlName="starttime" required>
             </div>
             <div class="form-group">
                 <label>เวลาเลิกเรียน</label>
@@ -153,3 +153,4 @@
         </form>
     </div>
 </ng-template>
+

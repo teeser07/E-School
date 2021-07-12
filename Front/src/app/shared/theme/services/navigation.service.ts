@@ -96,6 +96,7 @@ export class NavigationService {
                     name: 'วัน',
                     type: 'link',
                     icon: 'i-Calendar-4',
+                    state: 'page/day'
                 },
                 {   
                     name: 'จัดตารางเรียน',

@@ -7,13 +7,16 @@
 <div class="row">
     <div class="col-md-4">
         <div class="form-group">
-            <input id="email" placeholder="Search Products" [formControl]="searchControl"
-                class="form-control form-control-rounded ml-0" type="email">
+            <input id="text" placeholder="ค้นหา" [formControl]="searchControl"
+                class="form-control form-control-rounded ml-0" type="text">
         </div>
     </div>
     <div class="col-md-4"></div>
     <div class="col-md-4">
-        <button class="btn btn-primary mr-0" (click)="confirm(modalAdd)">เพิ่ม</button>
+        <button class="btn btn-primary mr-0" (click)="confirm(modalAdd)">
+            <i class="i-Add"></i>
+            เพิ่ม
+        </button>
     </div>
     <div class="col-md-12">
         <div class="card  o-hidden">
@@ -88,9 +91,9 @@
             <p class="text-primary mb-1"><strong>เพิ่มชั้นเรียน</strong></p>
             <input id="clas" type="text" class="form-control" formControlName="clas">
             <p class="text-primary mb-1"><strong>เพิ่มห้องเรียน</strong></p>
-            <input id="classroom" type="text" class="form-control" formControlName="classroom">
+            <input id="classroom" type="number" class="form-control" formControlName="classroom">
             <p class="text-primary mb-1"><strong>จำนวนนักเรียน</strong></p>
-            <input id="maxstd" type="text" class="form-control" formControlName="maxstd">
+            <input id="maxstd" type="number" class="form-control" formControlName="maxstd">
         </form>
     </div>
     <div class="modal-footer">
@@ -116,11 +119,11 @@
             </div>
             <div class="form-group">
                 <p class="text-primary mb-1"><strong>ห้องเรียน</strong></p>
-                <input id="classroom" type="text" class="form-control" formControlName="classroom" required>
+                <input id="classroom" type="number" class="form-control" formControlName="classroom" required>
             </div>
             <div class="form-group">
                 <p class="text-primary mb-1"><strong>จำนวนนักเรียน</strong></p>
-                <input id="maxstd" type="text" class="form-control" formControlName="maxstd" required>
+                <input id="maxstd" type="number" class="form-control" formControlName="maxstd" required>
             </div>
         </form>
     </div>

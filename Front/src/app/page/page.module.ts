@@ -23,6 +23,7 @@ import { StdInfoComponent } from './std/std-info/std-info.component';
 import { SubjectComponent } from './subject/subject.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TimeComponent } from './time/time.component';
+import { DayComponent } from './day/day.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { TimeComponent } from './time/time.component';
     StdInfoComponent,
     SubjectComponent,
     TimeComponent,
+    DayComponent,
   ],
   imports: [
     CommonModule,

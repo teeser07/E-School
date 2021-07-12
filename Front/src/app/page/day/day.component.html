@@ -1,0 +1,162 @@
+<div class="breadcrumb">
+    <h1 class="text-primary">วัน</h1>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <input id="email" placeholder="ค้นหา" [formControl]="searchControl"
+                class="form-control form-control-rounded ml-0" type="email">
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <button class="btn btn-primary mr-0" (click)="confirm(modalAdd)">เพิ่ม</button>
+    </div>
+    <div class="col-md-12">
+        <div class="card  o-hidden">
+            <ngx-datatable style="height: 500px; box-shadow: none" class="material fullscreen" [columnMode]="'force'"
+                [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [rows]="row">
+
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        วัน
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.day}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        ปี-เดือน-วัน
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.datetime}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        หมายเหตุ
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.note}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        ปีการศึกษา
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.year}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        ภาคเรียน
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.term}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        แก้ไขวัน
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <button class="btn btn-warning ml-0" (click)="getDetail(row.days_id,i)">แก้ไข</button>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        ลบวัน
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <button class="btn btn-danger ml-0" (click)="getId(row.days_id,i)">ลบ</button>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+    </div>
+</div>
+
+
+
+<ng-template #modalAdd let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title text-primary" id="modal-title">เพิ่มวัน</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+            (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="dayForm">
+            <p class="text-primary mb-1"><strong>วัน</strong></p>
+            <input id="day" type="text" class="form-control" formControlName="day">
+            <p class="text-primary mb-1"><strong>ปี-เดือน-วัน</strong></p>
+            <input id="datetime" type="date" class="form-control" formControlName="datetime">
+            <p class="text-primary mb-1"><strong>หมายเหตุ</strong></p>
+            <input id="note" type="text" class="form-control" formControlName="note">
+            <p class="text-primary mb-1"><strong>ปีการศึกษา</strong></p>
+            <input id="year" type="number" class="form-control" formControlName="year">
+            <p class="text-primary mb-1"><strong>ภาคเรียน</strong></p>
+            <input id="term" type="number" class="form-control" formControlName="term">
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-rounded"
+            (click)="modal.dismiss('cancel')">Cancel</button>
+        <button type="button" ngbAutofocus class="btn btn-primary btn-rounded" (click)="onSubmit()">Ok</button>
+    </div>
+</ng-template>
+
+<ng-template #modalUpdate let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title text-primary" id="modal-title">แก้ไขวัน</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+            (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="dayForm">
+            <p class="text-primary mb-1"><strong>วัน</strong></p>
+            <input id="day" type="text" class="form-control" formControlName="day" required>
+            <p class="text-primary mb-1"><strong>ปี-เดือน-วัน</strong></p>
+            <input id="datetime" type="date" class="form-control" formControlName="datetime" required>
+            <p class="text-primary mb-1"><strong>หมายเหตุ</strong></p>
+            <input id="note" type="text" class="form-control" formControlName="note" required>
+            <p class="text-primary mb-1"><strong>ปีการศึกษา</strong></p>
+            <input id="year" type="number" class="form-control" formControlName="year" required>
+            <p class="text-primary mb-1"><strong>ภาคเรียน</strong></p>
+            <input id="term" type="number" class="form-control" formControlName="term" required>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-rounded"
+            (click)="modal.dismiss('cancel')">Cancel</button>
+        <button type="button" ngbAutofocus class="btn btn-primary btn-rounded"
+            (click)="modal.dismiss(Update())">Ok</button>
+    </div>
+</ng-template>
+
+<ng-template #modalDelete let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">ลบวัน</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+            (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p><strong>ต้องการลบวันนี้<span class="text-primary"></span> หรือไม่?</strong></p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-rounded"
+            (click)="modal.dismiss('cancel')">ยกเลิก</button>
+        <button type="button" ngbAutofocus class="btn btn-danger btn-rounded"
+            (click)="modal.dismiss(delete(detail.days_id,i))">ยืนยัน</button>
+    </div>
+</ng-template>
