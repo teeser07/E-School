@@ -10,7 +10,7 @@ namespace App.Services.Interfaces
 {
     public interface IAccountService
     {
-        Task<UserProfile> GetUser();
+        Task<User> GetUser();
         Task<AuthenticateResponse> Authenticate(AuthenticateRequest request);
         Task Register(RegisterRequest request);
         Task<AuthenticateResponse> RefreshToken(RefreshTokenRequest request);

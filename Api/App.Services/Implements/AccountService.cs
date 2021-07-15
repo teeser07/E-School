@@ -34,27 +34,24 @@ namespace App.Services.Implements
             _appSettings = appSettings.Value;
         }
 
-        public async Task<UserProfile> GetUser()
+        public async Task<User> GetUser()
         {
-            return await _context.UserProfile.FirstOrDefaultAsync(a => a.UserProfileId == _user.UserProfileId);
+            return await _context.User.FirstOrDefaultAsync(a => a.UserId == _user.UserProfileId);
         }
 
         public async Task Register(RegisterRequest request)
         {
-            if (_context.UserProfile.Any(a => a.Email == request.Email))
+            if (_context.User.Any(a => a.Email == request.Email))
                 throw new ApiException(HttpStatusCode.BadRequest, "Emal นี้มีผู้ใช้แล้ว");
 
-            if (_context.UserProfile.Any(a => a.UserName == request.UserName))
-                throw new ApiException(HttpStatusCode.BadRequest, "Username นี้มีผู้ใช้แล้ว");
+            //if (_context.UserProfile.Any(a => a.UserName == request.UserName))
+            //    throw new ApiException(HttpStatusCode.BadRequest, "Username นี้มีผู้ใช้แล้ว");
 
-            UserProfile user = new UserProfile();
+            User user = new User();
             user.Email = request.Email;
             user.SecurityStamp = Guid.NewGuid().ToString();
             user.PasswordHash = HashToMD5(request.Password, user.SecurityStamp);
-            user.FirstName = request.FirstName;
-            user.LastName = request.LastName;
-            user.UserName = request.UserName;
-            _context.UserProfile.Add(user);
+            _context.User.Add(user);
             await this._context.SaveChangesAsync();
             return;
         }
@@ -86,26 +83,26 @@ namespace App.Services.Implements
 
         public async Task<AuthenticateResponse> Authenticate(AuthenticateRequest request)
         {
-            UserProfile userProfile = await _context.UserProfile.FirstOrDefaultAsync(x => x.Email == request.Email || x.Email == request.Email);
+            User user = await _context.User.FirstOrDefaultAsync(x => x.Email == request.Email || x.EmpCode == request.Email || x.StudentCode == request.Email);
 
-            if (userProfile == null) return null;
+            if (user == null) return null;
 
-            string hash = HashToMD5(request.Password, userProfile.SecurityStamp);
+            string hash = HashToMD5(request.Password, user.SecurityStamp);
 
-            if (!userProfile.PasswordHash.Equals(hash)) return null;
+            if (!user.PasswordHash.Equals(hash)) return null;
 
             DateTime expiresDate = DateTime.Now.AddMinutes(_appSettings.MinuteOfTokenExpires);
-            string token = GenerateToken(userProfile, expiresDate);
-            string refreshToken = GenerateRefreshToken(ref userProfile);
+            string token = GenerateToken(user, expiresDate);
+            string refreshToken = GenerateRefreshToken(ref user);
            
-            _context.UserProfile.Attach(userProfile);
-            _context.Entry(userProfile).State = EntityState.Modified;
+            _context.User.Attach(user);
+            _context.Entry(user).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
-            return new AuthenticateResponse(userProfile, token, expiresDate, refreshToken);
+            return new AuthenticateResponse(user, token, expiresDate, refreshToken);
         }
 
-        private string GenerateToken(UserProfile user, DateTime expires)
+        private string GenerateToken(User user, DateTime expires)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
@@ -113,7 +110,7 @@ namespace App.Services.Implements
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.UserProfileId.ToString())
+                    new Claim(ClaimTypes.Name, user.UserId.ToString())
                 }),
                 Expires = expires,
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -122,7 +119,7 @@ namespace App.Services.Implements
             return tokenHandler.WriteToken(token);
         }
 
-        private string GenerateRefreshToken(ref UserProfile userProfile)
+        private string GenerateRefreshToken(ref User userProfile)
         {
             byte[] randomBytes = new byte[256];
             var rngCrypto = new RNGCryptoServiceProvider();
@@ -140,7 +137,7 @@ namespace App.Services.Implements
         {
             if (request.RefreshToken == null) return null;
             string refreshTokenHash = HashToSHA256(request.RefreshToken);
-            UserProfile userProfile = await _context.UserProfile.FirstOrDefaultAsync(w => w.RefreshTokenHash == refreshTokenHash);
+            User userProfile = await _context.User.FirstOrDefaultAsync(w => w.RefreshTokenHash == refreshTokenHash);
 
             // return null if no user found with token
             if (userProfile == null) return null;
@@ -154,7 +151,7 @@ namespace App.Services.Implements
 
             // replace old refresh token with a new one and save
             string newRefreshToken = GenerateRefreshToken(ref userProfile);
-            _context.UserProfile.Attach(userProfile);
+            _context.User.Attach(userProfile);
             _context.Entry(userProfile).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 

@@ -70,7 +70,7 @@ export class AuthService {
         if (!this.user)
             return of(false);
 
-        if (!this.user.id || !this.user.token || !this.user.userName || !this.user.expireDate)
+        if (!this.user.id || !this.user.token || !this.user.expireDate)
             return of(false);
 
         return of(true);

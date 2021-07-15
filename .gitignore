@@ -642,3 +642,6 @@ MigrationBackup/
 .vscode/tasks.json
 .vscode/launch.json
 
+Api/.vs/Api/config/applicationhost.config
+Api/.vs/Api/config/applicationhost.config
+Api/.vs/Api/DesignTimeBuild/.dtbcache.v2

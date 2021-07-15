@@ -15,10 +15,10 @@ namespace App.Data.Models
         public DateTime ExpireDate { get; set; }
         public string RefreshToken { get; set; }
 
-        public AuthenticateResponse(UserProfile user, string token, DateTime expireDate, string refreshToken)
+        public AuthenticateResponse(User user, string token, DateTime expireDate, string refreshToken)
         {
-            Id = user.UserProfileId;
-            UserName = user.UserName;
+            Id = user.UserId;
+            //UserName = user.UserName;
             Token = token;
             ExpireDate = expireDate;
             RefreshToken = refreshToken;

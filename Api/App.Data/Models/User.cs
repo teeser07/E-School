@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace App.Data.Models
 {
-    public class UserProfile : BaseModel
+    public class User : BaseModel
     {
-        public int UserProfileId { get; set; }
+        public int UserId { get; set; }
         public string Email { get; set; }
-        public string UserName { get; set; }
+        public string EmpCode { get; set; }
+        public string StudentCode { get; set; }
         [JsonIgnore]
         public string PasswordHash { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string Roles { get; set; }
         [JsonIgnore]
         public string SecurityStamp { get; set; }
         [JsonIgnore]
@@ -26,14 +26,16 @@ namespace App.Data.Models
         public DateTime? RefreshTokenExpiresDate { get; set; }
         [JsonIgnore]
         public DateTime? RefreshTokenCreatedDate { get; set; }
+        public int? EmpProfileId { get; set; }
+        public int? StudentProfileId { get; set; }
     }
 
-    public class UserProfileConfiguration : BaseConfiguration<UserProfile>
+    public class UserProfileConfiguration : BaseConfiguration<User>
     {
-        public override void Configure(EntityTypeBuilder<UserProfile> builder)
+        public override void Configure(EntityTypeBuilder<User> builder)
         {
             base.Configure(builder);
-            builder.HasKey(m => m.UserProfileId);
+            builder.HasKey(m => m.UserId);
         }
     }
 }
