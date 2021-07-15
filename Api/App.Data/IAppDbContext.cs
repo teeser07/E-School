@@ -24,5 +24,6 @@ namespace App.Data
         DbSet<Subject> Subject { get; set; }
         DbSet<Times> Times { get; set; }
         DbSet<Days> Days { get; set; }
+        DbSet<Student_profile> Student_profile { get; set; }
     }
 }

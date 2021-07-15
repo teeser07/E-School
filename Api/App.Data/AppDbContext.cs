@@ -19,6 +19,7 @@ namespace App.Data
         public DbSet<Subject> Subject { get; set; }
         public DbSet<Times> Times { get; set; }
         public DbSet<Days> Days { get; set; }
+        public DbSet<Student_profile> Student_profile { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options, ICurrentUserAccessor user) : base(options)
         {
             _user = user;
