@@ -28,28 +28,17 @@ namespace App.Services.Implements
 
         public async Task UpdateProfile(ProfileDemo profile)
         {
-            using (var transaction = await _context.BeginTransactionAsync())
+            this._context.ProfileDemo.Attach(profile);
+            _context.Entry(profile).State = EntityState.Modified;
+            await this._context.SaveChangesAsync();
+            if (profile.EducationalHistoryDemos.Count > 0)
             {
-                try
+                foreach (EducationalHistoryDemo eduHis in profile.EducationalHistoryDemos)
                 {
-                    this._context.ProfileDemo.Attach(profile);
-                    _context.Entry(profile).State = EntityState.Modified;
-                    await this._context.SaveChangesAsync();
-                    if (profile.EducationalHistoryDemos.Count > 0)
-                    {
-                        foreach (EducationalHistoryDemo eduHis in profile.EducationalHistoryDemos)
-                        {
-                            this._context.EducationalHistoryDemo.Attach(eduHis);
-                            _context.Entry(eduHis).State = EntityState.Modified;
-                        }
-                        await this._context.SaveChangesAsync();
-                    }
-                    await transaction.CommitAsync();
+                    this._context.EducationalHistoryDemo.Attach(eduHis);
+                    _context.Entry(eduHis).State = EntityState.Modified;
                 }
-                catch (Exception ex)
-                {
-                    await transaction.RollbackAsync();
-                }
+                await this._context.SaveChangesAsync();
             }
         }
 
@@ -67,30 +56,19 @@ namespace App.Services.Implements
 
         public async Task DeleteProfile(int profileId)
         {
-            using (var transaction = await _context.BeginTransactionAsync())
+            List<EducationalHistoryDemo> eduHisList = await _context.EducationalHistoryDemo.Where(w => w.ProfileId == profileId).ToListAsync();
+            if (eduHisList.Count > 0)
             {
-                try
+                foreach (EducationalHistoryDemo eduHis in eduHisList)
                 {
-                    List<EducationalHistoryDemo> eduHisList = await _context.EducationalHistoryDemo.Where(w => w.ProfileId == profileId).ToListAsync();
-                    if (eduHisList.Count > 0)
-                    {
-                        foreach (EducationalHistoryDemo eduHis in eduHisList)
-                        {
-                            this._context.EducationalHistoryDemo.Attach(eduHis);
-                            _context.Entry(eduHis).State = EntityState.Deleted;
-                        }
-                        await this._context.SaveChangesAsync();
-                    }
-                    ProfileDemo profile = await _context.ProfileDemo.Where(w => w.ProfileId == profileId).FirstOrDefaultAsync();
-                    _context.Entry(profile).State = EntityState.Deleted;
-                    await this._context.SaveChangesAsync();
-                    await transaction.CommitAsync();
+                    this._context.EducationalHistoryDemo.Attach(eduHis);
+                    _context.Entry(eduHis).State = EntityState.Deleted;
                 }
-                catch (Exception ex)
-                {
-                    await transaction.RollbackAsync();
-                }
+                await this._context.SaveChangesAsync();
             }
+            ProfileDemo profile = await _context.ProfileDemo.Where(w => w.ProfileId == profileId).FirstOrDefaultAsync();
+            _context.Entry(profile).State = EntityState.Deleted;
+            await this._context.SaveChangesAsync();
         }
 
         public async Task DeleteEducationalHistory(int EducationalHistoryId)

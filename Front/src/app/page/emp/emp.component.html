@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="col-md-6 col-sm-3 col-4">
-        <button class="btn btn-primary mr-0" (click)="add(modalAdd)">เพิ่มบุคลากร</button>
+        <button class="btn btn-primary mr-0" (click)="openModalDetail(modalDetail)">เพิ่มบุคลากร</button>
     </div>
     <div class="col-md-12 mt-3 mb-4">
         <div class="card o-hidden">
@@ -38,7 +38,7 @@
                         แก้ไข
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        <button class="btn btn-warning ml-0" routerLink='/page/emp-info'>แก้ไข</button>
+                        <button class="btn btn-warning ml-0" (click)="openModalDetail(modalDetail, row)">แก้ไข</button>
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column>
@@ -46,7 +46,7 @@
                         ลบ
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        <button class="btn btn-danger ml-0">ลบ</button>
+                        <button class="btn btn-danger ml-0" (click)="remove(row.userId, modalConfirm)">ลบ</button>
                     </ng-template>
                 </ngx-datatable-column>
             </ngx-datatable>
@@ -54,7 +54,7 @@
     </div>
 </div>
 
-<ng-template #modalAdd let-modal>
+<ng-template #modalDetail let-modal>
     <div class="modal-header">
         <h4 class="modal-title text-primary" id="modal-title">เพิ่มบุคลากร</h4>
         <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
@@ -80,7 +80,7 @@
             </div>
             <div class="col-md-6">
                 <p class="text-primary mb-1">บทบาท <span class="request-star">*</span></p>
-                <select class="form-control" formControlName="roles"
+                <select class="form-control" formControlName="role"
                     [class.is-invalid]="fu.hasError(addForm.controls.roles)">
                     <option disabled selected value></option>
                     <option value="T">คุณครู</option>
@@ -210,5 +210,23 @@
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.close()">Cancel</button>
         <button type="button" ngbAutofocus class="btn btn-primary btn-rounded" (click)="save()">Ok</button>
+    </div>
+</ng-template>
+
+<ng-template #modalConfirm let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">ยืนยัน</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+            (click)="modal.dismiss('cancel')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>คุณแน่ใจหรือไม่ว่าจะลบข้อมูลนี้</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-rounded"
+            (click)="modal.dismiss('cancel')">Cancel</button>
+        <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
     </div>
 </ng-template>

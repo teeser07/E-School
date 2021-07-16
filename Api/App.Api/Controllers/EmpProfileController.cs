@@ -31,5 +31,19 @@ namespace App.Api.Controllers
         {
             return Ok(await _empProfile.GetEmpProfile(keyword));
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromQuery] int userId)
+        {
+            await _empProfile.Delete(userId);
+            return Ok();
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] SaveEmpProfileRequest reques)
+        {
+            await _empProfile.Update(reques);
+            return Ok();
+        }
     }
 }

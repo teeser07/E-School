@@ -11,5 +11,7 @@ namespace App.Services.Interfaces
     {
         Task Save(SaveEmpProfileRequest request);
         Task<IEnumerable<dynamic>> GetEmpProfile(string keyword);
+        Task Delete(int userId);
+        Task Update(SaveEmpProfileRequest request);
     }
 }

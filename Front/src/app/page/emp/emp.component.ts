@@ -37,14 +37,13 @@ export class EmpComponent implements OnInit {
   search() {
     this.http.getEmp(this.keyword).subscribe(res => {
       this.empList = res;
-      console.log(this.empList)
     });
   }
 
-  add(content) {
+  openModalDetail(content, row?) {
     this.addForm = this.fb.group({
       empCode: [null, [Validators.required, Validators.maxLength(10)]],
-      roles: [null, Validators.required],
+      role: [null, Validators.required],
       firstName: [null, [Validators.required, Validators.maxLength(50)]],
       lastName: [null, [Validators.required, Validators.maxLength(50)]],
       tel: [null, [Validators.required, Validators.maxLength(10), Validators.pattern('[0-9-#,]*')]],
@@ -52,6 +51,8 @@ export class EmpComponent implements OnInit {
       email: [null, [Validators.required, Validators.maxLength(50), Validators.email]],
       password: [null, [Validators.required, Validators.maxLength(50)]],
       comfirmPassword: [null, [Validators.required, Validators.maxLength(50)]],
+      userId: null,
+      empProfileId: null
     });
     this.addForm.controls.password.valueChanges.subscribe(val => {
       if (val && val == this.addForm.value.comfirmPassword) {
@@ -69,6 +70,11 @@ export class EmpComponent implements OnInit {
         this.addForm.controls.comfirmPassword.setErrors({ required: true });
       }
     });
+    if (row) {
+      this.addForm.patchValue(row, { emitEvent: false });
+      this.addForm.controls.empCode.disable();
+      this.addForm.controls.email.disable();
+    }
     this.modalRef = this.modalService.open(content);
   }
 
@@ -80,6 +86,18 @@ export class EmpComponent implements OnInit {
     this.http.save(this.addForm.value).subscribe(() => {
       this.modalRef.close();
       this.message.success('บันทึกข้อมูลสำเร็จ');
+      this.search();
     });
+  }
+
+  remove(userId, modal) {
+    this.modalService.open(modal).result.then((result) => {
+      if (result.toLowerCase() == 'ok') {
+        this.http.delete(userId).subscribe(() => {
+          this.message.success('ลบข้อมูลสำเร็จ');
+          this.search();
+        });
+      }
+    }, (reson) => { });
   }
 }

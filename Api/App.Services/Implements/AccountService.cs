@@ -57,6 +57,18 @@ namespace App.Services.Implements
             await this._context.SaveChangesAsync();
         }
 
+        public async Task UpdateEmpUser(int? userId, string password, string role)
+        {
+            User user = await _context.User.Where(w => w.UserId == userId).FirstOrDefaultAsync();
+            if (user == null) throw new ApiException(HttpStatusCode.BadRequest, "บุคลากรคนนี้ไม่มีข้อมูลหรือถูกลบไปแล้ว");
+            user.SecurityStamp = Guid.NewGuid().ToString();
+            user.PasswordHash = HashToMD5(password, user.SecurityStamp);
+            user.Role = role;
+            _context.User.Attach(user);
+            _context.Entry(user).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+
         //public async Task Register(RegisterRequest request)
         //{
         //    if (_context.User.Any(a => a.Email == request.Email))

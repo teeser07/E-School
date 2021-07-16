@@ -7,10 +7,17 @@ export class EmpService {
   constructor(private http: HttpClient) { }
 
   save(value) {
-    return this.http.post('empprofile', value);
+    if (value.userId)
+      return this.http.put('empprofile', value);
+    else
+      return this.http.post('empprofile', value);
   }
 
   getEmp(keyword) {
-    return this.http.get('empprofile', { params: { keyword: keyword} });
+    return this.http.get('empprofile', { params: { keyword: keyword } });
+  }
+
+  delete(userId) {
+    return this.http.delete('empprofile', { params: { userId: userId } });
   }
 }

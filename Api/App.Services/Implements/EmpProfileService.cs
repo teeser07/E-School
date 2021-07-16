@@ -3,6 +3,7 @@ using App.Data.DTOs;
 using App.Data.Models;
 using App.Services.Interfaces;
 using App.Utility;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,26 +51,49 @@ namespace App.Services.Implements
                                         ep.first_name ""firstName"",
                                         ep.last_name ""lastName"",
                                         ep.tel,
-                                        s1.status_desc ""role"",
-                                        s2.status_desc ""status""
+                                        u.""role"",
+                                        ep.status, 
+                                        u.user_id ""userId"",
+                                        ep.emp_profile_id ""empProfileId""
                             from        ""user"" u
                             inner join  emp_profile ep
-                            on          ep.emp_profile_id = u.emp_profile_id
-                            left join   status s1
-                            on          s1.table_name = 'user'
-                                        and s1.column_name = 'role'
-                                        and s1.status_value = u.""role""
-                            left join   status s2
-                            on          s2.table_name = 'emp_profile'
-                                        and s2.column_name = 'status'
-                                        and s2.status_value = ep.status");
+                            on          ep.emp_profile_id = u.emp_profile_id");
 
             if (!string.IsNullOrEmpty(keyword))
-                sql.AppendLine("where       concat(u.email, u.emp_code, ep.first_name, ep.last_name, ep.tel, s1.status_desc, s2.status_desc) ilike '%' || @keyword || '%'");
+                sql.AppendLine("where       concat(u.email, u.emp_code, ep.first_name, ep.last_name, ep.tel) ilike '%' || @keyword || '%'");
 
             sql.AppendLine("order by u.emp_code");
             var data = await _context.QueryAsync<dynamic>(sql.ToString(), new { keyword = keyword });
             return data;
+        }
+
+        public async Task Delete(int userId)
+        {
+            User user = await _context.User.Where(w => w.UserId == userId).FirstOrDefaultAsync();
+            if (user == null) throw new ApiException(HttpStatusCode.BadRequest, "บุคลาการคนนี้ถูกลบไปแล้ว");
+            _context.User.Remove(user);
+            if (user.EmpProfileId != null)
+            {
+                EmpProfile empProfile = await _context.EmpProfile.Where(w => w.EmpProfileId == user.EmpProfileId).FirstOrDefaultAsync();
+                _context.EmpProfile.Remove(empProfile);
+            }
+
+            await this._context.SaveChangesAsync();
+        }
+
+        public async Task Update(SaveEmpProfileRequest request)
+        {
+            EmpProfile empProfile = await _context.EmpProfile.Where(w => w.EmpProfileId == request.EmpProfileId).FirstOrDefaultAsync();
+            if (empProfile == null) throw new ApiException(HttpStatusCode.BadRequest, "บุคลากรคนนี้ไม่มีข้อมูลหรือถูกลบไปแล้ว");
+            empProfile.FirstName = request.FirstName;
+            empProfile.LastName = request.LastName;
+            empProfile.Tel = request.Tel;
+            empProfile.Status = request.Status;
+            _context.EmpProfile.Attach(empProfile);
+            _context.Entry(empProfile).State = EntityState.Modified;
+            await this._context.SaveChangesAsync();
+            await _account.UpdateEmpUser(request.UserId, request.Password, request.Roles);
+            return;
         }
     }
 }
