@@ -41,7 +41,7 @@ namespace App.Services.Implements
             stdProfile.Status = request.Status;
             _context.StudentProfile.Add(stdProfile);
             await this._context.SaveChangesAsync();
-            await _account.CreateStuUser( request.StudentCode, request.Password, request.Role, stdProfile.Student_profile_id);
+            await _account.CreateStuUser( request.StudentCode, request.Password, stdProfile.Student_profile_id);
             return;
         }
 

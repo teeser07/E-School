@@ -9,7 +9,6 @@ namespace App.Data.DTOs
     public class SaveStudentProfileRequest
     {
         public string StudentCode { get; set; }
-        public string Role { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Studentid { get; set; }
