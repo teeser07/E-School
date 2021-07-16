@@ -5,63 +5,48 @@
 <div class="separator-breadcrumb border-top"></div>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6 col-sm-9 col-8">
         <div class="form-group">
-            <input id="email" placeholder="ค้นหาบุคลากร" [formControl]="searchControl"
+            <input id="email" placeholder="ค้นหาบุคลากร" [(ngModel)]="keyword" (keydown.enter)="search()"
                 class="form-control form-control-rounded ml-0" type="email">
         </div>
     </div>
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
-        <button class="btn btn-primary mr-0" (click)="confirm(modalConfirm)">ลงทะเบียน</button>
+    <div class="col-md-6 col-sm-3 col-4">
+        <button class="btn btn-primary mr-0" (click)="add(modalAdd)">เพิ่มบุคลากร</button>
     </div>
-    <div class="col-md-12">
-        <div class="card  o-hidden">
+    <div class="col-md-12 mt-3 mb-4">
+        <div class="card o-hidden">
             <ngx-datatable style="height: 500px; box-shadow: none" class="material fullscreen" [columnMode]="'force'"
-                [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [rows]="filteredProducts">
-
-                <ngx-datatable-column name="">
+                [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [rows]="empList">
+                <ngx-datatable-column name="empCode">
                     <ng-template ngx-datatable-header-template>
-                        รูปประจำตัวบุคลากร
+                        รหัสบุคลากร
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="">
+                <ngx-datatable-column name="firstName">
                     <ng-template ngx-datatable-header-template>
-                        เลขบัตรประจำตัวประชาชน
+                        ชื่อ
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="">
+                <ngx-datatable-column name="lastName">
                     <ng-template ngx-datatable-header-template>
-                        รายชื่อ
+                        นามสกุล
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="">
+                <ngx-datatable-column>
                     <ng-template ngx-datatable-header-template>
-                        สถานะการทำงาน
-                    </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="">
-                    <ng-template ngx-datatable-header-template>
-                        ลา
+                        แก้ไข
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        <button class="btn btn-primary ml-0" routerLink='/page/emp-leave'>ลา</button>
+                        <button class="btn btn-warning ml-0" routerLink='/page/emp-info'>แก้ไข</button>
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="">
+                <ngx-datatable-column>
                     <ng-template ngx-datatable-header-template>
-                        ข้อมูล
+                        ลบ
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        <button class="btn btn-warning ml-0" routerLink='/page/emp-info'>ข้อมูล</button>
-                    </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="">
-                    <ng-template ngx-datatable-header-template>
-                        ลบบุคลากร
-                    </ng-template>
-                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        <button class="btn btn-danger ml-0">ลบบุคลากร</button>
+                        <button class="btn btn-danger ml-0">ลบ</button>
                     </ng-template>
                 </ngx-datatable-column>
             </ngx-datatable>
@@ -69,53 +54,161 @@
     </div>
 </div>
 
-<ng-template #modalConfirm let-modal>
+<ng-template #modalAdd let-modal>
     <div class="modal-header">
-        <h4 class="modal-title text-primary" id="modal-title">ลงทะเบียนนักเรียน</h4>
+        <h4 class="modal-title text-primary" id="modal-title">เพิ่มบุคลากร</h4>
         <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
             (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="modal-body">
+    <div class="modal-body" [formGroup]="addForm">
         <div class="row">
-            <div class="col-md-12">
-                <img src="..." alt="...">
+            <div class="col-md-6">
+                <p class="text-primary mb-1">รหัสพนักงาน <span class="request-star">*</span></p>
+                <input type="text" class="form-control" formControlName="empCode"
+                    [class.is-invalid]="fu.hasError(addForm.controls.empCode)">
+                <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.empCode)">
+                    <div
+                        *ngIf="addForm.controls.empCode.hasError('required') || addForm.controls.empCode.hasError('empty')">
+                        กรุณาระบุข้อมูล
+                    </div>
+                    <div *ngIf="addForm.controls.empCode.hasError('maxlength')">
+                        กรุณาระบุข้อมูลไม่เกิน {{ addForm.controls.empCode.errors.maxlength.requiredLength }} ตัวอักษร
+                    </div>
+                </div>
             </div>
             <div class="col-md-6">
-                <p class="text-primary mb-1"><strong>ชื่อ</strong></p>
-                <input type="text" class="form-control">
+                <p class="text-primary mb-1">บทบาท <span class="request-star">*</span></p>
+                <select class="form-control" formControlName="roles"
+                    [class.is-invalid]="fu.hasError(addForm.controls.roles)">
+                    <option disabled selected value></option>
+                    <option value="T">คุณครู</option>
+                    <option value="A">ผู้ดูแลระบบ</option>
+                </select>
+                <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.roles)">
+                    <div
+                        *ngIf="addForm.controls.roles.hasError('required') || addForm.controls.roles.hasError('empty')">
+                        กรุณาระบุข้อมูล
+                    </div>
+                </div>
             </div>
             <div class="col-md-6">
-                <p class="text-primary mb-1"><strong>นามสกุล</strong></p>
-                <input type="text" class="form-control">
+                <p class="text-primary mb-1">ชื่อ <span class="request-star">*</span></p>
+                <input type="text" class="form-control" formControlName="firstName"
+                    [class.is-invalid]="fu.hasError(addForm.controls.firstName)">
+                <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.firstName)">
+                    <div
+                        *ngIf="addForm.controls.firstName.hasError('required') || addForm.controls.firstName.hasError('empty')">
+                        กรุณาระบุข้อมูล
+                    </div>
+                    <div *ngIf="addForm.controls.firstName.hasError('maxlength')">
+                        กรุณาระบุข้อมูลไม่เกิน {{ addForm.controls.firstName.errors.maxlength.requiredLength }} ตัวอักษร
+                    </div>
+                </div>
             </div>
             <div class="col-md-6">
-                <p class="text-primary mb-1"><strong>เลขบัตรประจำตัวประชาชน</strong></p>
-                <input type="text" class="form-control">
+                <p class="text-primary mb-1">นามสกุล <span class="request-star">*</span></p>
+                <input type="text" class="form-control" formControlName="lastName"
+                    [class.is-invalid]="fu.hasError(addForm.controls.lastName)">
+                <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.lastName)">
+                    <div
+                        *ngIf="addForm.controls.lastName.hasError('required') || addForm.controls.lastName.hasError('empty')">
+                        กรุณาระบุข้อมูล
+                    </div>
+                    <div *ngIf="addForm.controls.lastName.hasError('maxlength')">
+                        กรุณาระบุข้อมูลไม่เกิน {{ addForm.controls.lastName.errors.maxlength.requiredLength }} ตัวอักษร
+                    </div>
+                </div>
             </div>
             <div class="col-md-6">
-                <p class="text-primary mb-1"><strong>เบอร์โทร</strong></p>
-                <input type="text" class="form-control">
+                <p class="text-primary mb-1">เบอร์โทร <span class="request-star">*</span></p>
+                <input type="text" class="form-control" formControlName="tel"
+                    [class.is-invalid]="fu.hasError(addForm.controls.tel)">
+                <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.tel)">
+                    <div *ngIf="addForm.controls.tel.hasError('required') || addForm.controls.tel.hasError('empty')">
+                        กรุณาระบุข้อมูล
+                    </div>
+                    <div *ngIf="addForm.controls.tel.hasError('maxlength')">
+                        กรุณาระบุข้อมูลไม่เกิน {{ addForm.controls.tel.errors.maxlength.requiredLength }} ตัวอักษร
+                    </div>
+                    <div *ngIf="addForm.controls.tel.hasError('pattern')">
+                        ระบุได้เฉพาะตัวเลข
+                    </div>
+                </div>
             </div>
             <div class="col-md-6">
-                <p class="text-primary mb-1"><strong>E-mail</strong></p>
-                <input type="text" class="form-control">
+                <p class="text-primary mb-1">สถานะ <span class="request-star">*</span></p>
+                <select class="form-control" formControlName="status"
+                    [class.is-invalid]="fu.hasError(addForm.controls.status)">
+                    <option disabled selected value></option>
+                    <option value="A">พร้อมทำงาน</option>
+                    <option value="V">ลาพักร้อน</option>
+                    <option value="R">ลาออก</option>
+                </select>
+                <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.status)">
+                    <div
+                        *ngIf="addForm.controls.status.hasError('required') || addForm.controls.status.hasError('empty')">
+                        กรุณาระบุข้อมูล
+                    </div>
+                    <div *ngIf="addForm.controls.status.hasError('maxlength')">
+                        กรุณาระบุข้อมูลไม่เกิน {{ addForm.controls.status.errors.maxlength.requiredLength }} ตัวอักษร
+                    </div>
+                </div>
             </div>
             <div class="col-md-6">
-                <p class="text-primary mb-1"><strong>Password</strong></p>
-                <input type="text" class="form-control">
+                <p class="text-primary mb-1">E-mail <span class="request-star">*</span></p>
+                <input type="text" class="form-control" formControlName="email"
+                    [class.is-invalid]="fu.hasError(addForm.controls.email)">
+                <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.email)">
+                    <div
+                        *ngIf="addForm.controls.email.hasError('required') || addForm.controls.email.hasError('empty')">
+                        กรุณาระบุข้อมูล
+                    </div>
+                    <div *ngIf="addForm.controls.email.hasError('maxlength')">
+                        กรุณาระบุข้อมูลไม่เกิน {{ addForm.controls.status.email.maxlength.requiredLength }} ตัวอักษร
+                    </div>
+                    <div *ngIf="addForm.controls.email.hasError('email')">
+                        รูปแบบอีเมลไม่ถูกต้อง
+                    </div>
+                </div>
             </div>
             <div class="col-md-6">
-                <p class="text-primary mb-1"><strong>Confirm Password</strong></p>
-                <input type="text" class="form-control">
+                <p class="text-primary mb-1">รหัสผ่าน <span class="request-star">*</span></p>
+                <input type="password" class="form-control" formControlName="password"
+                    [class.is-invalid]="fu.hasError(addForm.controls.password)">
+                <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.password)">
+                    <div
+                        *ngIf="addForm.controls.password.hasError('required') || addForm.controls.password.hasError('empty')">
+                        กรุณาระบุข้อมูล
+                    </div>
+                    <div *ngIf="addForm.controls.password.hasError('maxlength')">
+                        กรุณาระบุข้อมูลไม่เกิน {{ addForm.controls.status.password.maxlength.requiredLength }} ตัวอักษร
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <p class="text-primary mb-1">ยืนยันรหัสผ่าน <span class="request-star">*</span></p>
+                <input type="password" class="form-control" formControlName="comfirmPassword"
+                    [class.is-invalid]="fu.hasError(addForm.controls.comfirmPassword)">
+                <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.comfirmPassword)">
+                    <div
+                        *ngIf="addForm.controls.comfirmPassword.hasError('required') || addForm.controls.comfirmPassword.hasError('empty')">
+                        กรุณาระบุข้อมูล
+                    </div>
+                    <div *ngIf="addForm.controls.comfirmPassword.hasError('maxlength')">
+                        กรุณาระบุข้อมูลไม่เกิน {{ addForm.controls.status.comfirmPassword.maxlength.requiredLength }}
+                        ตัวอักษร
+                    </div>
+                    <div *ngIf="addForm.controls.comfirmPassword.hasError('notMatchPasword')">
+                        รหัสผ่านไม่เหมือนกัน
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary btn-rounded"
-            (click)="modal.dismiss('cancel')">Cancel</button>
-        <button type="button" ngbAutofocus class="btn btn-primary btn-rounded"
-            (click)="modal.close('Save click')">Ok</button>
+        <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.close()">Cancel</button>
+        <button type="button" ngbAutofocus class="btn btn-primary btn-rounded" (click)="save()">Ok</button>
     </div>
 </ng-template>

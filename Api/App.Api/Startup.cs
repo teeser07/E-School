@@ -86,6 +86,7 @@ namespace App.Api
             services.AddScoped<ITimesService, TimesService>();
             services.AddScoped<IDaysService, DaysService>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IEmpProfileService, EmpProfileService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
@@ -103,7 +104,7 @@ namespace App.Api
 
             app.UseHttpsRedirection();
             app.UseMiddleware<ErrorHandlingMiddleware>();
-
+            app.UseMiddleware<TransactionHandilingMiddleware>();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

@@ -8,6 +8,7 @@ import { SearchModule } from './theme/components/search/search.module';
 import { SharedComponentsModule } from './theme/components/shared-components.module';
 import { SharedDirectivesModule } from './theme/directives/shared-directives.module';
 import { SharedPipesModule } from './theme/pipes/shared-pipes.module';
+import { FormUtilService } from './services/form-util.service';
 
 @NgModule({
   imports: [
@@ -20,6 +21,9 @@ import { SharedPipesModule } from './theme/pipes/shared-pipes.module';
     SharedDirectivesModule,
     SharedPipesModule,
     RouterModule
+  ],
+  providers: [
+    FormUtilService
   ]
 })
 export class SharedModule { }

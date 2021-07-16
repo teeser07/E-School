@@ -12,7 +12,8 @@ namespace App.Services.Interfaces
     {
         Task<User> GetUser();
         Task<AuthenticateResponse> Authenticate(AuthenticateRequest request);
-        Task Register(RegisterRequest request);
+        //Task Register(RegisterRequest request);
         Task<AuthenticateResponse> RefreshToken(RefreshTokenRequest request);
+        Task CreateEmpUser(string email, string empCode, string password, string role, int empProfileId);
     }
 }

@@ -8,7 +8,9 @@ namespace App.Data
 {
     public interface ICurrentUserAccessor
     {
-        public int UserProfileId { get; }
-        public string UserName { get; }
+        public int UserId { get; }
+        public string Role { get; }
+        public string EmpCode { get; }
+        public string StudentCode { get; }
     }
 }

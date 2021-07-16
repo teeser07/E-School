@@ -53,6 +53,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
   }
 
   private handleBackendError(error: HttpErrorResponse) {
+    console.error(error)
     switch (error.status) {
       case 0:
         this.message.error(`ไม่มีการตอบรับจาก url : ${error.url} กรุณาตรวจสอบการเชื่อมต่อ`);

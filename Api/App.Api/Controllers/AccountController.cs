@@ -24,13 +24,13 @@ namespace App.Api.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
-        [AllowAnonymous]
-        [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterRequest request)
-        {
-            await this._account.Register(request);
-            return Ok();
-        }
+        //[AllowAnonymous]
+        //[HttpPost("register")]
+        //public async Task<IActionResult> Register(RegisterRequest request)
+        //{
+        //    await this._account.Register(request);
+        //    return Ok();
+        //}
 
         [AllowAnonymous]
         [HttpPost("authenticate")]

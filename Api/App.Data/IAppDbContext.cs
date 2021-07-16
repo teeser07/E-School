@@ -7,14 +7,18 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace App.Data
 {
     public interface IAppDbContext
     {
+        Task<IEnumerable<T>> QueryAsync<T>(string sql, object param = null, CancellationToken token = default, bool isStore = false);
         Task<IDbContextTransaction> BeginTransactionAsync();
-        Task<IDbContextTransaction> BeginTransactionAsync(IsolationLevel level);
+        bool HasActiveTransaction { get; }
+        Task CommitTransactionAsync(IDbContextTransaction transaction);
+        void RollbackTransaction();
         EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
         Task<int> SaveChangesAsync();
         DbSet<ProfileDemo> ProfileDemo { get; set; }
@@ -24,5 +28,6 @@ namespace App.Data
         DbSet<Subject> Subject { get; set; }
         DbSet<Times> Times { get; set; }
         DbSet<Days> Days { get; set; }
+        public DbSet<EmpProfile> EmpProfile { get; set; }
     }
 }

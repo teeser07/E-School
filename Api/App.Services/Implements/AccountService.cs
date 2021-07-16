@@ -36,25 +36,43 @@ namespace App.Services.Implements
 
         public async Task<User> GetUser()
         {
-            return await _context.User.FirstOrDefaultAsync(a => a.UserId == _user.UserProfileId);
+            return await _context.User.FirstOrDefaultAsync(a => a.UserId == _user.UserId);
         }
 
-        public async Task Register(RegisterRequest request)
+        public async Task CreateEmpUser(string email, string empCode, string password, string role, int empProfileId)
         {
-            if (_context.User.Any(a => a.Email == request.Email))
-                throw new ApiException(HttpStatusCode.BadRequest, "Emal นี้มีผู้ใช้แล้ว");
-
-            //if (_context.UserProfile.Any(a => a.UserName == request.UserName))
-            //    throw new ApiException(HttpStatusCode.BadRequest, "Username นี้มีผู้ใช้แล้ว");
+            if (_context.User.Any(a => a.EmpCode == empCode))
+                throw new ApiException(HttpStatusCode.BadRequest, "รหัสพนักงานนี้มีอยู่แล้ว");
+            if (_context.User.Any(a => a.Email == email))
+                throw new ApiException(HttpStatusCode.BadRequest, "อีเมลนี้มีอยู่แล้ว");
 
             User user = new User();
-            user.Email = request.Email;
+            user.Email = email;
+            user.EmpCode = empCode;
             user.SecurityStamp = Guid.NewGuid().ToString();
-            user.PasswordHash = HashToMD5(request.Password, user.SecurityStamp);
+            user.PasswordHash = HashToMD5(password, user.SecurityStamp);
+            user.Role = role;
+            user.EmpProfileId = empProfileId;
             _context.User.Add(user);
             await this._context.SaveChangesAsync();
-            return;
         }
+
+        //public async Task Register(RegisterRequest request)
+        //{
+        //    if (_context.User.Any(a => a.Email == request.Email))
+        //        throw new ApiException(HttpStatusCode.BadRequest, "Emal นี้มีผู้ใช้แล้ว");
+
+        //    //if (_context.UserProfile.Any(a => a.UserName == request.UserName))
+        //    //    throw new ApiException(HttpStatusCode.BadRequest, "Username นี้มีผู้ใช้แล้ว");
+
+        //    User user = new User();
+        //    user.Email = request.Email;
+        //    user.SecurityStamp = Guid.NewGuid().ToString();
+        //    user.PasswordHash = HashToMD5(request.Password, user.SecurityStamp);
+        //    _context.User.Add(user);
+        //    await this._context.SaveChangesAsync();
+        //    return;
+        //}
 
         private string HashToMD5(string input, string salt)
         {
@@ -94,12 +112,18 @@ namespace App.Services.Implements
             DateTime expiresDate = DateTime.Now.AddMinutes(_appSettings.MinuteOfTokenExpires);
             string token = GenerateToken(user, expiresDate);
             string refreshToken = GenerateRefreshToken(ref user);
-           
+
             _context.User.Attach(user);
             _context.Entry(user).State = EntityState.Modified;
             await _context.SaveChangesAsync();
-
-            return new AuthenticateResponse(user, token, expiresDate, refreshToken);
+            return new AuthenticateResponse(
+                user.UserId,
+                user.Role,
+                user.EmpCode,
+                user.StudentCode,
+                token,
+                expiresDate,
+                refreshToken);
         }
 
         private string GenerateToken(User user, DateTime expires)
@@ -137,25 +161,31 @@ namespace App.Services.Implements
         {
             if (request.RefreshToken == null) return null;
             string refreshTokenHash = HashToSHA256(request.RefreshToken);
-            User userProfile = await _context.User.FirstOrDefaultAsync(w => w.RefreshTokenHash == refreshTokenHash);
+            User user = await _context.User.FirstOrDefaultAsync(w => w.RefreshTokenHash == refreshTokenHash);
 
             // return null if no user found with token
-            if (userProfile == null) return null;
+            if (user == null) return null;
 
             // return null if token is no longer active
-            if (userProfile.RefreshTokenExpiresDate < DateTime.Now) return null;
+            if (user.RefreshTokenExpiresDate < DateTime.Now) return null;
 
             // generate new token
             DateTime expiresDate = DateTime.Now.AddMinutes(_appSettings.MinuteOfTokenExpires);
-            string newToken = GenerateToken(userProfile, expiresDate);
+            string newToken = GenerateToken(user, expiresDate);
 
             // replace old refresh token with a new one and save
-            string newRefreshToken = GenerateRefreshToken(ref userProfile);
-            _context.User.Attach(userProfile);
-            _context.Entry(userProfile).State = EntityState.Modified;
+            string newRefreshToken = GenerateRefreshToken(ref user);
+            _context.User.Attach(user);
+            _context.Entry(user).State = EntityState.Modified;
             await _context.SaveChangesAsync();
-
-            return new AuthenticateResponse(userProfile, newToken, expiresDate, newRefreshToken);
+            return new AuthenticateResponse(
+                user.UserId,
+                user.Role,
+                user.EmpCode,
+                user.StudentCode,
+                newToken, 
+                expiresDate, 
+                newRefreshToken);
         }
     }
 }

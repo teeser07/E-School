@@ -17,23 +17,44 @@ namespace App.Data
             _httpContextAccessor = httpContextAccessor;
         }
 
-        private StringValues _userProfileId;
-        public int UserProfileId
+        private StringValues _userId;
+        public int UserId
         {
             get
             {
-                _httpContextAccessor.HttpContext.Request.Headers.TryGetValue("userProfileId", out _userProfileId);
-                return int.Parse(_userProfileId);
+                _httpContextAccessor.HttpContext.Request.Headers.TryGetValue("userId", out _userId);
+                if (string.IsNullOrEmpty(_userId)) return 0;
+                else return int.Parse(_userId);
             }
         }
 
-        private StringValues _userName;
-        public string UserName
+        private StringValues _role;
+        public string Role
         {
             get
             {
-                _httpContextAccessor.HttpContext.Request.Headers.TryGetValue("userName", out _userName);
-                return _userName;
+                _httpContextAccessor.HttpContext.Request.Headers.TryGetValue("role", out _role);
+                return _role;
+            }
+        }
+
+        private StringValues _empCode;
+        public string EmpCode
+        {
+            get
+            {
+                _httpContextAccessor.HttpContext.Request.Headers.TryGetValue("empCode", out _empCode);
+                return _empCode;
+            }
+        }
+
+        private StringValues _studentCode;
+        public string StudentCode
+        {
+            get
+            {
+                _httpContextAccessor.HttpContext.Request.Headers.TryGetValue("studentCode", out _studentCode);
+                return _studentCode;
             }
         }
     }

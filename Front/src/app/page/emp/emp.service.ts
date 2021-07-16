@@ -1,9 +1,16 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class EmpService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  save(value) {
+    return this.http.post('empprofile', value);
+  }
+
+  getEmp(keyword) {
+    return this.http.get('empprofile', { params: { keyword: keyword} });
+  }
 }

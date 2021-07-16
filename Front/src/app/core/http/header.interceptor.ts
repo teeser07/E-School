@@ -20,8 +20,10 @@ export class HeaderInterceptor implements HttpInterceptor {
         if (reg.test(request.url)) {
             let user = this.authService.user;
             let headers = Object.assign({}, {
-                userProfileId: user.id.toString(),
-                userName : user.userName,
+                userId: user.id.toString(),
+                role: user.role,
+                empCode: user.empCode || '',
+                studentCode: user.studentCode || ''
             });
             let req = request.clone({ headers: new HttpHeaders(headers) });
             return next.handle(req);

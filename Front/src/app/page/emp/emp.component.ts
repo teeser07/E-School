@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { debounceTime } from 'rxjs/operators';
+import { MessageService } from 'src/app/core/message.service';
+import { FormUtilService } from 'src/app/shared/services/form-util.service';
 import { ProductService } from 'src/app/shared/theme/services/product.service';
+import { EmpService } from './emp.service';
 
 @Component({
   selector: 'app-emp',
@@ -13,56 +16,70 @@ export class EmpComponent implements OnInit {
   searchControl: FormControl = new FormControl();
   products;
   filteredProducts;
+  modalRef: NgbModalRef;
+  addForm: FormGroup;
+  empList: any;
+  keyword: string = '';
 
   constructor(
     private productService: ProductService,
     private modalService: NgbModal,
+    private fb: FormBuilder,
+    private fu: FormUtilService,
+    private http: EmpService,
+    private message: MessageService
   ) { }
 
   ngOnInit() {
-    this.productService.getProducts()
-    .subscribe((res: any[]) => {
-      this.products = [...res];
-      this.filteredProducts = res;
-    });
+    this.search();
+  }
 
-    this.searchControl.valueChanges
-    .pipe(debounceTime(200))
-    .subscribe(value => {
-      this.filerData(value);
+  search() {
+    this.http.getEmp(this.keyword).subscribe(res => {
+      this.empList = res;
+      console.log(this.empList)
     });
   }
 
-  filerData(val) {
-    if (val) {
-      val = val.toLowerCase();
-    } else {
-      return this.filteredProducts = [...this.products];
-    }
-
-    const columns = Object.keys(this.products[0]);
-    if (!columns.length) {
-      return;
-    }
-
-    const rows = this.products.filter(function(d) {
-      for (let i = 0; i <= columns.length; i++) {
-        const column = columns[i];
-        // console.log(d[column]);
-        if (d[column] && d[column].toString().toLowerCase().indexOf(val) > -1) {
-          return true;
-        }
+  add(content) {
+    this.addForm = this.fb.group({
+      empCode: [null, [Validators.required, Validators.maxLength(10)]],
+      roles: [null, Validators.required],
+      firstName: [null, [Validators.required, Validators.maxLength(50)]],
+      lastName: [null, [Validators.required, Validators.maxLength(50)]],
+      tel: [null, [Validators.required, Validators.maxLength(10), Validators.pattern('[0-9-#,]*')]],
+      status: [null, [Validators.required]],
+      email: [null, [Validators.required, Validators.maxLength(50), Validators.email]],
+      password: [null, [Validators.required, Validators.maxLength(50)]],
+      comfirmPassword: [null, [Validators.required, Validators.maxLength(50)]],
+    });
+    this.addForm.controls.password.valueChanges.subscribe(val => {
+      if (val && val == this.addForm.value.comfirmPassword) {
+        this.addForm.controls.comfirmPassword.setErrors(null);
+      } else if (val && val != this.addForm.value.comfirmPassword) {
+        this.addForm.controls.comfirmPassword.setErrors({ notMatchPasword: true });
       }
     });
-    this.filteredProducts = rows;
+    this.addForm.controls.comfirmPassword.valueChanges.subscribe(val => {
+      if (val && val == this.addForm.value.password) {
+        this.addForm.controls.comfirmPassword.setErrors(null);
+      } else if (val && val != this.addForm.value.password) {
+        this.addForm.controls.comfirmPassword.setErrors({ notMatchPasword: true });
+      } else {
+        this.addForm.controls.comfirmPassword.setErrors({ required: true });
+      }
+    });
+    this.modalRef = this.modalService.open(content);
   }
 
-  confirm(content) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title'})
-    .result.then((result) => {
-      console.log(result);
-    }, (reason) => {
-      console.log('Err!', reason);
+  save() {
+    if (this.addForm.invalid) {
+      this.fu.markFormGroupTouched(this.addForm);
+      return;
+    }
+    this.http.save(this.addForm.value).subscribe(() => {
+      this.modalRef.close();
+      this.message.success('บันทึกข้อมูลสำเร็จ');
     });
   }
 }
