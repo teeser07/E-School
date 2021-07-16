@@ -17,7 +17,7 @@ namespace App.Data.Models
         public string StudentCode { get; set; }
         [JsonIgnore]
         public string PasswordHash { get; set; }
-        public string Roles { get; set; }
+        public string Role { get; set; }
         [JsonIgnore]
         public string SecurityStamp { get; set; }
         [JsonIgnore]

@@ -11,6 +11,7 @@ namespace App.Data.Models
     {
         public int Id { get; set; }
         public string UserName { get; set; }
+        public string Role { get; set; }
         public string Token { get; set; }
         public DateTime ExpireDate { get; set; }
         public string RefreshToken { get; set; }
@@ -19,6 +20,7 @@ namespace App.Data.Models
         {
             Id = user.UserId;
             //UserName = user.UserName;
+            Role = user.Role;
             Token = token;
             ExpireDate = expireDate;
             RefreshToken = refreshToken;

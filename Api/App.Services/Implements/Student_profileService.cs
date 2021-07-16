@@ -8,6 +8,8 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using App.Utility;
+using System.Net;
 
 namespace App.Services.Implements
 {
@@ -39,6 +41,12 @@ namespace App.Services.Implements
         //Save-Student
         public async Task SaveStudent(Student_profile Student)
         {
+            if (_context.Student_profile.Any(a => a.Student_code == Student.Student_code))
+                throw new ApiException(HttpStatusCode.BadRequest, "รหัสนักเรียนนี้มีผู้ใช้แล้ว");
+
+            if (_context.Student_profile.Any(a => a.Studentid == Student.Studentid))
+                throw new ApiException(HttpStatusCode.BadRequest, "รหัสประจำตัวนักเรียนซ้ำกัน");
+
             this._context.Student_profile.Add(Student);
             await this._context.SaveChangesAsync();
         }
@@ -68,6 +76,12 @@ namespace App.Services.Implements
             var isStudentidModified = _context.Entry(students).Property("Studentid").IsModified;
             var isTelModified = _context.Entry(students).Property("Tel").IsModified;
             var isStatusModified = _context.Entry(students).Property("Status").IsModified;
+
+            if (_context.Student_profile.Any(a => a.Student_code == Student.Student_code))
+                throw new ApiException(HttpStatusCode.BadRequest, "รหัสนักเรียนนี้มีผู้ใช้แล้ว");
+
+            if (_context.Student_profile.Any(a => a.Studentid == Student.Studentid))
+                throw new ApiException(HttpStatusCode.BadRequest, "รหัสประจำตัวนักเรียนซ้ำกัน");
 
             await this._context.SaveChangesAsync();
         }
