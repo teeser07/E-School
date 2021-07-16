@@ -1,5 +1,7 @@
-﻿using App.Data.Models;
+﻿using App.Data.DTOs;
 using App.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -17,43 +19,13 @@ namespace App.Api.Controllers
             _student = student;
         }
 
-        
-
-        [HttpGet("get-students")]
-        public async Task<IActionResult> GetStudent()
+        [HttpPost("save-std")]
+        public async Task<IActionResult> Post([FromBody] SaveStudentProfileRequest request)
         {
-            List<Student_profile> student = await this._student.GetStudent();
-            return Ok(student);
-        }
-
-
-        [HttpGet("get-student-detail")]
-        public async Task<IActionResult> GetStudentDetail(int student_profile_id)
-        {
-            Student_profile subject = await this._student.GetStudentDetail(student_profile_id);
-            return Ok(subject);
-        }
-
-
-        [HttpPost("save-student")]
-        public async Task<IActionResult> SaveStudent( Student_profile Student)
-        {
-            await this._student.SaveStudent(Student);
+            await _student.Save(request);
             return Ok();
         }
 
-        [HttpDelete("delete-student")]
-        public async Task<IActionResult> DeleteStudent(int student_profile_id)
-        {
-            await this._student.DeleteStudent(student_profile_id);
-            return Ok();
-        }
 
-        [HttpPut("update-student")]
-        public async Task<IActionResult> UpdateStudent(int student_profile_id, [FromBody] Student_profile Student)
-        {
-            await this._student.UpdateStudent(student_profile_id, Student);
-            return Ok();
-        }
     }
 }

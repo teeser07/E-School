@@ -29,6 +29,6 @@ namespace App.Data
         DbSet<Times> Times { get; set; }
         DbSet<Days> Days { get; set; }
         DbSet<EmpProfile> EmpProfile { get; set; }
-        DbSet<Student_profile> Student_profile { get; set; }
+        DbSet<StudentProfile> StudentProfile { get; set; }
     }
 }

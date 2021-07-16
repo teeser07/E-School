@@ -68,6 +68,20 @@ namespace App.Services.Implements
             _context.Entry(user).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
+        
+        public async Task CreateStuUser(string studentCode, string password ,int Student_profile_id)
+        {
+            if (_context.User.Any(a => a.StudentCode == studentCode))
+                throw new ApiException(HttpStatusCode.BadRequest, "รหัสนักเรียนนี้มีอยู่แล้ว");
+            User user = new User();
+            user.StudentCode = studentCode;
+            user.SecurityStamp = Guid.NewGuid().ToString();
+            user.PasswordHash = HashToMD5(password, user.SecurityStamp);
+            user.Role = "S";
+            user.StudentProfileId = Student_profile_id;
+            _context.User.Add(user);
+            await this._context.SaveChangesAsync();
+        }
 
         //public async Task Register(RegisterRequest request)
         //{
