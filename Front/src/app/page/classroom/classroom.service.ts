@@ -11,7 +11,6 @@ export class Room {
   providedIn: 'root'
 })
 export class ClassroomService {
-
   constructor(private http: HttpClient) { }
 
   getRoom() {
@@ -29,4 +28,5 @@ export class ClassroomService {
   gatDetailRoom(id :any) {
     return this.http.get(`Room/get-room-detail?room_id=${id}`);
   }
+
 }

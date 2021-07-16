@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { debounceTime } from 'rxjs/operators';
 import { ProductService } from 'src/app/shared/theme/services/product.service';
-
+import { StdService } from './std.service';
 @Component({
   selector: 'app-std',
   templateUrl: './std.component.html',
@@ -17,6 +17,7 @@ export class StdComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private modalService: NgbModal,
+    private stdService : StdService,
   ) { }
 
   ngOnInit() {
@@ -65,5 +66,6 @@ export class StdComponent implements OnInit {
       console.log('Err!', reason);
     });
   }
+
 
 }
