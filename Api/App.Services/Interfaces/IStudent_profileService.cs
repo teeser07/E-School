@@ -11,6 +11,10 @@ namespace App.Services.Interfaces
     {
 
         Task Save(SaveStudentProfileRequest request);
-    
+        Task<IEnumerable<dynamic>> GetStudentProfile(string keyword);
+        Task Delete(int userId);
+        Task Update(SaveStudentProfileRequest request);
+        
+        
     }
 }

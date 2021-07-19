@@ -70,7 +70,7 @@ namespace App.Services.Implements
         public async Task Delete(int userId)
         {
             User user = await _context.User.Where(w => w.UserId == userId).FirstOrDefaultAsync();
-            if (user == null) throw new ApiException(HttpStatusCode.BadRequest, "บุคลาการคนนี้ถูกลบไปแล้ว");
+            if (user == null) throw new ApiException(HttpStatusCode.BadRequest, "บุคลากรคนนี้ถูกลบไปแล้ว");
             _context.User.Remove(user);
             if (user.EmpProfileId != null)
             {

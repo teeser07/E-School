@@ -26,6 +26,25 @@ namespace App.Api.Controllers
             return Ok();
         }
 
+        [HttpGet("get-student-profile")]
+        public async Task<IActionResult> Get([FromQuery] string keyword)
+        {
+            return Ok(await _student.GetStudentProfile(keyword));
+        }
 
+
+        [HttpDelete("delete-student")]
+        public async Task<IActionResult> Delete([FromQuery] int userId)
+        {
+            await _student.Delete(userId);
+            return Ok();
+        }
+
+        [HttpPut("update-student")]
+        public async Task<IActionResult> Put([FromBody] SaveStudentProfileRequest request)
+        {
+            await _student.Update(request);
+            return Ok();
+        }
     }
 }

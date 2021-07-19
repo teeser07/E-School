@@ -68,7 +68,18 @@ namespace App.Services.Implements
             _context.Entry(user).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
-        
+
+        public async Task UpdateStdUser(int? userId, string password)
+        {
+            User user = await _context.User.Where(w => w.UserId == userId).FirstOrDefaultAsync();
+            if (user == null) throw new ApiException(HttpStatusCode.BadRequest, "นักเรียนคนนี้ไม่มีข้อมูลหรือถูกลบไปแล้ว");
+            user.SecurityStamp = Guid.NewGuid().ToString();
+            user.PasswordHash = HashToMD5(password, user.SecurityStamp);
+            _context.User.Attach(user);
+            _context.Entry(user).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+
         public async Task CreateStuUser(string studentCode, string password ,int Student_profile_id)
         {
             if (_context.User.Any(a => a.StudentCode == studentCode))

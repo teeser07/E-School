@@ -17,5 +17,6 @@ namespace App.Services.Interfaces
         Task CreateEmpUser(string email, string empCode, string password, string role, int empProfileId);
         Task UpdateEmpUser(int? userId, string password, string role);
         Task CreateStuUser(string studentCode, string password, int Student_profile_id);
+        Task UpdateStdUser(int? userId, string password);
     }
 }
