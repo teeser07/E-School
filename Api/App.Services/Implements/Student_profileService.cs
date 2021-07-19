@@ -30,14 +30,10 @@ namespace App.Services.Implements
             if (_context.StudentProfile.Any(a => a.Student_code == request.StudentCode))
                 throw new ApiException(HttpStatusCode.BadRequest, "รหัสนักเรียนมีอยู่แล้ว");
 
-            if (_context.StudentProfile.Any(a => a.Studentid == request.Studentid))
-                throw new ApiException(HttpStatusCode.BadRequest, "รหัสประจำตัวนักเรียนนี้มีอยู่แล้ว");
-
             StudentProfile stdProfile = new StudentProfile();
             stdProfile.Student_code = request.StudentCode;
             stdProfile.First_name = request.FirstName;
             stdProfile.Last_name = request.LastName;
-            stdProfile.Studentid = request.Studentid;
             stdProfile.Tel = request.Tel;
             stdProfile.Status = request.Status;
             _context.StudentProfile.Add(stdProfile);
@@ -54,7 +50,6 @@ namespace App.Services.Implements
                                         sp.first_name ""firstName"",
                                         sp.last_name ""lastName"",
                                         sp.tel,
-                                        sp.studentid,
                                         u.""role"",
                                         sp.status, 
                                         u.user_id ""userId"",
@@ -64,7 +59,7 @@ namespace App.Services.Implements
                             on          sp.student_profile_id = u.student_profile_id");
 
             if (!string.IsNullOrEmpty(keyword))
-                sql.AppendLine("where       concat(u.email, u.student_code, sp.first_name, sp.last_name, sp.tel,sp.studentid) ilike '%' || @keyword || '%'");
+                sql.AppendLine("where       concat(u.email, u.student_code, sp.first_name, sp.last_name, sp.tel) ilike '%' || @keyword || '%'");
 
             sql.AppendLine("order by u.student_code");
             var data = await _context.QueryAsync<dynamic>(sql.ToString(), new { keyword = keyword });

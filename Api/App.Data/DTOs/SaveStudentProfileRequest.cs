@@ -11,7 +11,6 @@ namespace App.Data.DTOs
         public string StudentCode { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Studentid { get; set; }
         public string Tel { get; set; }
         public string Status { get; set; }
         public string Password { get; set; }

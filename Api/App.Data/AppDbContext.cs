@@ -21,8 +21,8 @@ namespace App.Data
         public DbSet<User> User { get; set; }
         public DbSet<Room> Room { get; set; }
         public DbSet<Subject> Subject { get; set; }
-        public DbSet<Times> Times { get; set; }
-        public DbSet<Days> Days { get; set; }
+        public DbSet<Period> Period { get; set; }
+        public DbSet<Holiday> Holiday { get; set; }
         public DbSet<EmpProfile> EmpProfile { get; set; }
         public DbSet<StudentProfile> StudentProfile { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options, ICurrentUserAccessor user) : base(options)

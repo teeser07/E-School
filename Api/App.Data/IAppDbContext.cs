@@ -26,8 +26,8 @@ namespace App.Data
         DbSet<User> User { get; set; }
         DbSet<Room> Room { get; set; }
         DbSet<Subject> Subject { get; set; }
-        DbSet<Times> Times { get; set; }
-        DbSet<Days> Days { get; set; }
+        DbSet<Period> Period { get; set; }
+        DbSet<Holiday> Holiday { get; set; }
         DbSet<EmpProfile> EmpProfile { get; set; }
         DbSet<StudentProfile> StudentProfile { get; set; }
     }

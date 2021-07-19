@@ -15,7 +15,6 @@ namespace App.Data.Models
         public string Student_code { get; set; }
         public string First_name { get; set; }
         public string Last_name { get; set; }
-        public string Studentid { get; set; }
         public string Tel { get; set; }
         public string Status { get; set; }
     }

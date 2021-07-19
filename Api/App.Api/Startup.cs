@@ -83,8 +83,8 @@ namespace App.Api
             services.AddScoped<IProfileDemoService, ProfileDemoService>();
             services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<ISubjectService, SubjectService>();
-            services.AddScoped<ITimesService, TimesService>();
-            services.AddScoped<IDaysService, DaysService>();
+            services.AddScoped<IPeriodService, PeriodService>();
+            services.AddScoped<IHolidayService, HolidayService>();
             services.AddScoped<IStudent_profileService, Student_profileService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IEmpProfileService, EmpProfileService>();

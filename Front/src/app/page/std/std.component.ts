@@ -44,7 +44,6 @@ export class StdComponent implements OnInit {
     this.addForm = this.fb.group({
       firstName: [null, [Validators.required, Validators.maxLength(50)]],
       studentCode: [null, [Validators.required, Validators.maxLength(10)]],
-      studentid: [null, [Validators.required, Validators.maxLength(10)]],
       lastName: [null, [Validators.required, Validators.maxLength(50)]],
       tel: [null, [Validators.required, Validators.maxLength(10), Validators.pattern('[0-9-#,]*')]],
       status: [null, [Validators.required]],

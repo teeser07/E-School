@@ -23,13 +23,8 @@ namespace App.Services.Implements
         //Save-Subject
         public async Task SaveSubject(Subject subject)
         {
-            Subject user = new Subject();
-            user.Codesubject = subject.Codesubject;
-            user.Credit = subject.Credit;
-            user.Subjecttitle = subject.Subjecttitle;
-            _context.Subject.Add(user);
+            this._context.Subject.Add(subject);
             await this._context.SaveChangesAsync();
-            return;
         }
 
         //Delete-Subject
@@ -51,13 +46,13 @@ namespace App.Services.Implements
         public async Task UpdateSubject(int subjectid, Subject subject)
         {
             var subjects = _context.Subject.FirstOrDefault(c => c.Subject_id.Equals(subjectid));
-            subjects.Codesubject = subject.Codesubject;
-            subjects.Credit = subject.Credit;
-            subjects.Subjecttitle = subject.Subjecttitle;
+            subjects.Subject_code = subject.Subject_code;
+            subjects.Subject_name = subject.Subject_name;
+            subjects.Subject_teacher = subject.Subject_teacher;
 
-            var isCodesubjectModified = _context.Entry(subjects).Property("Codesubject").IsModified;
-            var isCreditModified = _context.Entry(subjects).Property("Credit").IsModified;
-            var isSubjecttitleModified = _context.Entry(subjects).Property("Subjecttitle").IsModified;
+            var isSubject_codeModified = _context.Entry(subjects).Property("Subject_code").IsModified;
+            var isSubject_nameModified = _context.Entry(subjects).Property("Subject_name").IsModified;
+            var isSubject_teacherModified = _context.Entry(subjects).Property("Subject_teacher").IsModified;
 
             await this._context.SaveChangesAsync();
         }
