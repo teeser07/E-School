@@ -18,6 +18,10 @@ import { DayComponent } from './day/day.component';
 
 const routes: Routes = [
   {
+    path: 'custom-demo',
+    loadChildren: () => import('./custom-demo/custom-demo.module').then(m => m.CustomDemoModule)
+  },
+  {
     path: 'lobby',
     component: LobbyComponent
   },

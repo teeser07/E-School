@@ -156,6 +156,14 @@ export class NavigationService {
                     type: 'extLink',
                     icon: 'i-Safe-Box1',
                     state: 'http://demos.ui-lib.com/gull-doc'
+                },
+                {
+                    name: 'Custom Demo',
+                    type: 'dropDown',
+                    icon: 'i-Code-Window',
+                    sub: [
+                        { icon: 'i-Code-Window', name: 'Tool Bar', state: '/page/custom-demo/toolbar', type: 'link' }
+                    ]
                 }
             ]
         },

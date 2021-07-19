@@ -1,0 +1,15 @@
+<div class="toolbar">
+    <div class="container-fluid">
+        <div class="row justify-content-between">
+            <div class="col-auto" [ngClass]="navService.sidebarState.sidenavOpen ? 'sidebar-open' : 'sidebar-close'">
+                <button *ngIf="!hideBack" type="button"
+                    class="btn btn-outline-primary m-2 no-line d-flex align-items-center" (click)="back()">
+                    กลับ
+                </button>
+            </div>
+            <div class="col-auto m-2">
+                <ng-content></ng-content>
+            </div>
+        </div>
+    </div>
+</div>

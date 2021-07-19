@@ -27,3 +27,7 @@
 .request-star {
     color: #d22346;
 }
+
+toolbar + * > .breadcrumb, toolbar + .breadcrumb {
+    margin-top: 40px;
+}

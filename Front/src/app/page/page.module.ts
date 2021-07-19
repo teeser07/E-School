@@ -24,6 +24,7 @@ import { SubjectComponent } from './subject/subject.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TimeComponent } from './time/time.component';
 import { DayComponent } from './day/day.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { DayComponent } from './day/day.component';
     NgxDatatableModule,
     NgbModule,
     ReactiveFormsModule, 
-    FormsModule
+    FormsModule,
+    SharedModule
   ],
   providers: [
     LobbyService,

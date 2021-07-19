@@ -9,8 +9,12 @@ import { SharedComponentsModule } from './theme/components/shared-components.mod
 import { SharedDirectivesModule } from './theme/directives/shared-directives.module';
 import { SharedPipesModule } from './theme/pipes/shared-pipes.module';
 import { FormUtilService } from './services/form-util.service';
+import { ToolbarComponent } from './conponents/toolbar/toolbar.component';
 
 @NgModule({
+  declarations: [
+    ToolbarComponent
+  ],
   imports: [
     CommonModule,
     PerfectScrollbarModule,
@@ -21,6 +25,9 @@ import { FormUtilService } from './services/form-util.service';
     SharedDirectivesModule,
     SharedPipesModule,
     RouterModule
+  ],
+  exports: [
+    ToolbarComponent
   ],
   providers: [
     FormUtilService
