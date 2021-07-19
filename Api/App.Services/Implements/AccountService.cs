@@ -131,6 +131,9 @@ namespace App.Services.Implements
 
             if (user == null) return null;
 
+            if (string.IsNullOrEmpty(user.Role) || (string.IsNullOrEmpty(user.EmpCode)&& string.IsNullOrEmpty(user.StudentCode)))
+                throw new ApiException(HttpStatusCode.BadRequest, "มีปัญหาเกี่ยวกับข้อมูลผู้ใช้ กรุณาติดต่อผู้ดูแลระบบ");
+
             string hash = HashToMD5(request.Password, user.SecurityStamp);
 
             if (!user.PasswordHash.Equals(hash)) return null;

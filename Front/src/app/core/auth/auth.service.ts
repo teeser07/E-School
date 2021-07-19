@@ -51,7 +51,7 @@ export class AuthService {
     signin(value) {
         return this.http.disableAuth().disableHeader().disableLoading().post('account/authenticate', value).pipe(
             tap((user: User) => this.user = user),
-            tap(() => this.init())
+            //tap(() => this.init())
         );
     }
 
