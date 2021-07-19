@@ -7,8 +7,8 @@
 <div class="row">
     <div class="col-md-4">
         <div class="form-group">
-            <input id="email" placeholder="ค้นหานักเรียน" [formControl]="searchControl"
-                class="form-control form-control-rounded ml-0" type="email">
+            <input id="text" placeholder="ค้นหานักเรียน" [(ngModel)]="keyword" (keydown.enter)="search()"
+                class="form-control form-control-rounded ml-0" type="text">
         </div>
     </div>
     <div class="col-md-4"></div>
@@ -169,7 +169,7 @@
             </div>
             <div class="col-md-6">
                 <p class="text-primary mb-1">Password <span class="request-star">*</span></p>
-                <input type="text" class="form-control" formControlName="password"
+                <input type="password" class="form-control" formControlName="password"
                     [class.is-invalid]="fu.hasError(addForm.controls.password)">
                 <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.password)">
                     <div
