@@ -17,6 +17,7 @@ namespace App.Data.Models
         public string Last_name { get; set; }
         public string Tel { get; set; }
         public string Status { get; set; }
+        public int? Map_class_room_teacher_id { get; set; }
     }
     public class StudentProfileConfiguration : BaseConfiguration<StudentProfile>
     {

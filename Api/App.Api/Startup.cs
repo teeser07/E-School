@@ -81,7 +81,7 @@ namespace App.Api
             services.AddHttpContextAccessor();
             services.AddScoped<ICurrentUserAccessor, CurrentUserAccessor>();
             services.AddScoped<IProfileDemoService, ProfileDemoService>();
-            services.AddScoped<IRoomService, RoomService>();
+            services.AddScoped<IMapClassRoomTeacherService, MapClassRoomTeacherService>();
             services.AddScoped<ISubjectService, SubjectService>();
             services.AddScoped<IPeriodService, PeriodService>();
             services.AddScoped<IHolidayService, HolidayService>();

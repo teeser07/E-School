@@ -19,7 +19,7 @@ namespace App.Data
         public DbSet<ProfileDemo> ProfileDemo { get; set; }
         public DbSet<EducationalHistoryDemo> EducationalHistoryDemo { get; set; }
         public DbSet<User> User { get; set; }
-        public DbSet<Room> Room { get; set; }
+        public DbSet<MapClassRoomTeacher> MapClassRoomTeacher { get; set; }
         public DbSet<Subject> Subject { get; set; }
         public DbSet<Period> Period { get; set; }
         public DbSet<Holiday> Holiday { get; set; }
