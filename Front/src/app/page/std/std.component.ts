@@ -71,7 +71,6 @@ export class StdComponent implements OnInit {
     if (row) {
       this.addForm.patchValue(row, { emitEvent: false });
       this.addForm.controls.studentCode.disable();
-      this.addForm.controls.studentid.disable();
     }
     this.modalRef = this.modalService.open(content);
   }

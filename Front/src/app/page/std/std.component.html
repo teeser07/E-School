@@ -100,20 +100,6 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <p class="text-primary mb-1">เลขประจำตัวนักเรียน <span class="request-star">*</span></p>
-                <input type="text" class="form-control" formControlName="studentid"
-                    [class.is-invalid]="fu.hasError(addForm.controls.studentid)">
-                <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.studentid)">
-                    <div
-                        *ngIf="addForm.controls.studentid.hasError('required') || addForm.controls.studentid.hasError('empty')">
-                        กรุณาระบุข้อมูล
-                    </div>
-                    <div *ngIf="addForm.controls.studentid.hasError('maxlength')">
-                        กรุณาระบุข้อมูลไม่เกิน {{ addForm.controls.studentid.errors.maxlength.requiredLength }} ตัวอักษร
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
                 <p class="text-primary mb-1">รหัสนักเรียน <span class="request-star">*</span></p>
                 <input type="text" class="form-control" formControlName="studentCode"
                     [class.is-invalid]="fu.hasError(addForm.controls.studentCode)">
@@ -148,7 +134,7 @@
                 <select class="form-control" formControlName="status"
                     [class.is-invalid]="fu.hasError(addForm.controls.status)">
                     <option disabled selected value></option>
-                    <option value="นักเรียน">นักเรียน</option>
+                    <option value="พร้อมเรียน">พร้อมเรียน</option>
                     <option value="พักการเรียน">พักการเรียน</option>
                     <option value="ลาออก">ลาออก</option>
                 </select>
@@ -178,7 +164,7 @@
             </div>
             <div class="col-md-6">
                 <p class="text-primary mb-1">Confirm Password <span class="request-star">*</span></p>
-                <input type="text" class="form-control" formControlName="comfirmPassword"
+                <input type="password" class="form-control" formControlName="comfirmPassword"
                     [class.is-invalid]="fu.hasError(addForm.controls.comfirmPassword)">
                 <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.comfirmPassword)">
                     <div
