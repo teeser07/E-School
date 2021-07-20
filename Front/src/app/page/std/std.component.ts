@@ -82,6 +82,7 @@ export class StdComponent implements OnInit {
     this.stdService.save(this.addForm.value).subscribe(() => {
       this.modalRef.close();
       this.message.success('บันทึกข้อมูลสำเร็จ');
+      this.search();
     });
   }
 
