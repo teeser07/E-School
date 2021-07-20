@@ -14,7 +14,6 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { ClassroomInfoComponent } from './classroom/classroom-info/classroom-info.component';
-import { ClassroomScoreComponent } from './classroom/classroom-score/classroom-score.component';
 import { EmpInfoComponent } from './emp/emp-info/emp-info.component';
 import { EmpLeaveComponent } from './emp/emp-leave/emp-leave.component';
 import { EmpInfoEditComponent } from './emp/emp-info-edit/emp-info-edit.component';
@@ -34,7 +33,6 @@ import { HolidayComponent } from './holiday/holiday.component';
     StdComponent,
     EmpComponent,
     ClassroomInfoComponent,
-    ClassroomScoreComponent,
     EmpInfoComponent,
     EmpLeaveComponent,
     EmpInfoEditComponent,

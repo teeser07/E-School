@@ -6,7 +6,6 @@ import { ClassroomComponent } from './classroom/classroom.component';
 import { StdComponent } from './std/std.component';
 import { EmpComponent } from './emp/emp.component';
 import { ClassroomInfoComponent } from './classroom/classroom-info/classroom-info.component';
-import { ClassroomScoreComponent } from './classroom/classroom-score/classroom-score.component';
 import { EmpInfoComponent } from './emp/emp-info/emp-info.component';
 import { EmpInfoEditComponent } from './emp/emp-info-edit/emp-info-edit.component';
 import { EmpLeaveComponent } from './emp/emp-leave/emp-leave.component';
@@ -40,10 +39,6 @@ const routes: Routes = [
   {
     path: 'classroom-info',
     component: ClassroomInfoComponent
-  },
-  {
-    path: 'classroom-score',
-    component: ClassroomScoreComponent
   },
   {
     path: 'emp-info',
