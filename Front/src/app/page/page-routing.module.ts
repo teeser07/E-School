@@ -13,8 +13,8 @@ import { EmpLeaveComponent } from './emp/emp-leave/emp-leave.component';
 import { StdInfoComponent } from './std/std-info/std-info.component';
 import { StdInfoEditComponent } from './std/std-info-edit/std-info-edit.component';
 import { SubjectComponent } from './subject/subject.component';
-import { TimeComponent } from './time/time.component';
-import { DayComponent } from './day/day.component';
+import { PeriodComponent } from './period/period.component';
+import { HolidayComponent } from './holiday/holiday.component';
 
 const routes: Routes = [
   {
@@ -70,12 +70,12 @@ const routes: Routes = [
     component: SubjectComponent
   },
   {
-    path: 'time',
-    component: TimeComponent
+    path: 'period',
+    component: PeriodComponent
   },
   {
-    path: 'day',
-    component: DayComponent
+    path: 'holiday',
+    component: HolidayComponent
   },
 
 ];

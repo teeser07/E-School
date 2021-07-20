@@ -27,15 +27,7 @@
                             รหัสวิชา
                         </ng-template>
                         <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                            {{row.codesubject}}
-                        </ng-template>
-                    </ngx-datatable-column>
-                    <ngx-datatable-column name="">
-                        <ng-template ngx-datatable-header-template>
-                            หน่วยกิต
-                        </ng-template>
-                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                            {{row.credit}}
+                            {{row.subject_code}}
                         </ng-template>
                     </ngx-datatable-column>
                     <ngx-datatable-column name="">
@@ -43,7 +35,7 @@
                             รายชื่อวิชา
                         </ng-template>
                         <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                            {{row.subjecttitle}}
+                            {{row.subject_name}}
                         </ng-template>
                     </ngx-datatable-column>
                     <ngx-datatable-column name="" >
@@ -81,11 +73,9 @@
     <div class="modal-body">
         <form [formGroup]="subjectForm">
               <p class="text-primary mb-1"><strong>รหัสวิชา</strong></p>
-              <input id="codesubject" class="form-control" type="text" formControlName="codesubject">
-              <p class="text-primary mb-1"><strong>หน่วยกิต</strong></p>
-              <input id="credit" class="form-control" type="number" formControlName="credit">
+              <input id="subject_code" class="form-control" type="text" formControlName="subject_code">
               <p class="text-primary mb-1"><strong>รายชื่อวิชา</strong></p>
-              <input id="subjecttitle" class="form-control" type="text" formControlName="subjecttitle">
+              <input id="subject_name" class="form-control" type="text" formControlName="subject_name">
         </form>
     </div>
     <div class="modal-footer">
@@ -125,15 +115,11 @@
         <form [formGroup]="subjectForm">
             <div class="form-group">
               <p class="text-primary mb-1"><strong>รหัสวิชา</strong></p>
-              <input id="codesubject" class="form-control" type="text" formControlName="codesubject" required>
-            </div>
-            <div class="form-group">
-                <p class="text-primary mb-1"><strong>หน่วยกิต</strong></p>
-                <input id="credit" class="form-control" type="number" formControlName="credit" required>
+              <input id="subject_code" class="form-control" type="text" formControlName="subject_code" required>
             </div>
             <div class="form-group">
                 <p class="text-primary mb-1"><strong>รายชื่อวิชา</strong></p>
-                <input id="subjecttitle" class="form-control" type="text" formControlName="subjecttitle" required>
+                <input id="subject_name" class="form-control" type="text" formControlName="subject_name" required>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">ยกเลิก</button>

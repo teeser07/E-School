@@ -27,7 +27,7 @@
                             ลำดับ
                         </ng-template>
                         <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                            {{row.orders}}
+                            {{row.order}}
                         </ng-template>
                     </ngx-datatable-column>
                     <ngx-datatable-column name="">
@@ -35,15 +35,7 @@
                             ช่วงเวลา
                         </ng-template>
                         <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                            {{row.starttime}}-{{row.endtime}}
-                        </ng-template>
-                    </ngx-datatable-column>
-                    <ngx-datatable-column name="">
-                        <ng-template ngx-datatable-header-template>
-                            ระยะเวลา (นาที)
-                        </ng-template>
-                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                            {{row.longterm}}
+                            {{row.start_time}}-{{row.end_time}}
                         </ng-template>
                     </ngx-datatable-column>
                     <ngx-datatable-column name="" >
@@ -51,7 +43,7 @@
                             แก้ไขช่วงเวลา
                         </ng-template>
                         <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                            <button class="btn btn-warning ml-0 " (click)="getDetail(row.times_id,i)">แก้ไข</button>
+                            <button class="btn btn-warning ml-0 " (click)="getDetail(row.period_id,i)">แก้ไข</button>
                         </ng-template>
                     </ngx-datatable-column>
                     <ngx-datatable-column name="">
@@ -59,7 +51,7 @@
                             ลบรายช่วงเวลา
                         </ng-template>
                         <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                            <button class="btn btn-danger  ml-0 " (click)="getId(row.times_id,i)">ลบ</button>
+                            <button class="btn btn-danger  ml-0 " (click)="getId(row.period_id,i)">ลบ</button>
                         </ng-template>
                     </ngx-datatable-column>
                 </ngx-datatable>
@@ -78,15 +70,13 @@
         </button>
     </div>
     <div class="modal-body">
-        <form [formGroup]="timeForm">
+        <form [formGroup]="periodForm">
               <label>ลำดับ</label>
-              <input id="orders" class="form-control form-control-rounded  " type="text" formControlName="orders" placeholder="ลำดับ">
+              <input id="orders" class="form-control form-control-rounded  " type="text" formControlName="order" placeholder="ลำดับ">
                 <p class="text-primary mb-1"><strong>เวลาเริ่มเรียน</strong></p>
-                <input id="starttime" class="form-control form-control-rounded  " type="text" formControlName="starttime" placeholder="00:00">
+                <input id="starttime" class="form-control form-control-rounded  " type="text" formControlName="start_time" placeholder="00:00">
                 <p class="text-primary mb-1"><strong>เวลาเลิกเรียน</strong></p>
-                <input id="endtime" class="form-control form-control-rounded  " type="text" formControlName="endtime" placeholder="00:00">
-                <p class="text-primary mb-1"><strong>ระยะเวลา</strong></p>
-                <input id="longterm" class="form-control form-control-rounded  " type="number" formControlName="longterm" placeholder="00 นาที">
+                <input id="endtime" class="form-control form-control-rounded  " type="text" formControlName="end_time" placeholder="00:00">
         </form>
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">ยกเลิก</button>
@@ -108,7 +98,7 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">ยกเลิก</button>
-      <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click) = "modal.dismiss(delete(detail.times_id,i))">ยืนยัน</button>
+      <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click) = "modal.dismiss(delete(detail.period_id,i))">ยืนยัน</button>
     </div>
 </ng-template>
 
@@ -123,22 +113,18 @@
         </button>
     </div>
     <div class="modal-body">
-        <form [formGroup]="timeForm">
+        <form [formGroup]="periodForm">
             <div class="form-group">
               <p class="text-primary mb-1"><strong>ลำดับ</strong></p>
-              <input id="orders" class="form-control" type="number" formControlName="orders" required>
+              <input id="order" class="form-control" type="number" formControlName="order" required>
             </div>
             <div class="form-group">
                 <p class="text-primary mb-1"><strong>เวลาเริ่มเรียน</strong></p>
-                <input id="starttime" class="form-control" type="text" formControlName="starttime" required>
+                <input id="start_time" class="form-control" type="text" formControlName="start_time" required>
             </div>
             <div class="form-group">
                 <p class="text-primary mb-1"><strong>เวลาเลิกเรียน</strong></p>
-                <input id="endtime" class="form-control" type="text" formControlName="endtime" required>
-            </div>
-            <div class="form-group">
-                <p class="text-primary mb-1"><strong>ระยะเวลา</strong></p>
-                <input id="longterm" class="form-control" type="number" formControlName="longterm" required>
+                <input id="end_time" class="form-control" type="text" formControlName="end_time" required>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">ยกเลิก</button>

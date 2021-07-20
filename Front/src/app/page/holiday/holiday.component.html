@@ -22,18 +22,10 @@
 
                 <ngx-datatable-column name="">
                     <ng-template ngx-datatable-header-template>
-                        วัน
-                    </ng-template>
-                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        {{row.day}}
-                    </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="">
-                    <ng-template ngx-datatable-header-template>
                         ปี-เดือน-วัน
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        {{row.datetime}}
+                        {{row.date}}
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="">
@@ -46,26 +38,10 @@
                 </ngx-datatable-column>
                 <ngx-datatable-column name="">
                     <ng-template ngx-datatable-header-template>
-                        ปีการศึกษา
-                    </ng-template>
-                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        {{row.year}}
-                    </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="">
-                    <ng-template ngx-datatable-header-template>
-                        ภาคเรียน
-                    </ng-template>
-                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        {{row.term}}
-                    </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="">
-                    <ng-template ngx-datatable-header-template>
                         แก้ไขวัน
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        <button class="btn btn-warning ml-0" (click)="getDetail(row.days_id,i)">แก้ไข</button>
+                        <button class="btn btn-warning ml-0" (click)="getDetail(row.holiday_id,i)">แก้ไข</button>
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="">
@@ -73,7 +49,7 @@
                         ลบวัน
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        <button class="btn btn-danger ml-0" (click)="getId(row.days_id,i)">ลบ</button>
+                        <button class="btn btn-danger ml-0" (click)="getId(row.holiday_id,i)">ลบ</button>
                     </ng-template>
                 </ngx-datatable-column>
             </ngx-datatable>
@@ -92,17 +68,11 @@
         </button>
     </div>
     <div class="modal-body">
-        <form [formGroup]="dayForm">
-            <p class="text-primary mb-1"><strong>วัน</strong></p>
-            <input id="day" type="text" class="form-control" formControlName="day">
+        <form [formGroup]="holidayForm">
             <p class="text-primary mb-1"><strong>ปี-เดือน-วัน</strong></p>
-            <input id="datetime" type="date" class="form-control" formControlName="datetime">
+            <input id="date" type="date" class="form-control" formControlName="date">
             <p class="text-primary mb-1"><strong>หมายเหตุ</strong></p>
             <input id="note" type="text" class="form-control" formControlName="note">
-            <p class="text-primary mb-1"><strong>ปีการศึกษา</strong></p>
-            <input id="year" type="number" class="form-control" formControlName="year">
-            <p class="text-primary mb-1"><strong>ภาคเรียน</strong></p>
-            <input id="term" type="number" class="form-control" formControlName="term">
         </form>
     </div>
     <div class="modal-footer">
@@ -121,17 +91,11 @@
         </button>
     </div>
     <div class="modal-body">
-        <form [formGroup]="dayForm">
-            <p class="text-primary mb-1"><strong>วัน</strong></p>
-            <input id="day" type="text" class="form-control" formControlName="day" required>
+        <form [formGroup]="holidayForm">
             <p class="text-primary mb-1"><strong>ปี-เดือน-วัน</strong></p>
-            <input id="datetime" type="date" class="form-control" formControlName="datetime" required>
+            <input id="date" type="date" class="form-control" formControlName="date" required>
             <p class="text-primary mb-1"><strong>หมายเหตุ</strong></p>
             <input id="note" type="text" class="form-control" formControlName="note" required>
-            <p class="text-primary mb-1"><strong>ปีการศึกษา</strong></p>
-            <input id="year" type="number" class="form-control" formControlName="year" required>
-            <p class="text-primary mb-1"><strong>ภาคเรียน</strong></p>
-            <input id="term" type="number" class="form-control" formControlName="term" required>
         </form>
     </div>
     <div class="modal-footer">
@@ -157,6 +121,6 @@
         <button type="button" class="btn btn-outline-secondary btn-rounded"
             (click)="modal.dismiss('cancel')">ยกเลิก</button>
         <button type="button" ngbAutofocus class="btn btn-danger btn-rounded"
-            (click)="modal.dismiss(delete(detail.days_id,i))">ยืนยัน</button>
+            (click)="modal.dismiss(delete(detail.holiday_id,i))">ยืนยัน</button>
     </div>
 </ng-template>

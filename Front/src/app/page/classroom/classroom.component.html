@@ -5,6 +5,95 @@
 <div class="separator-breadcrumb border-top"></div>
 
 <div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <input id="email" placeholder="Search Products" [formControl]="searchControl"
+                class="form-control form-control-rounded ml-0" type="email">
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <input id="email" placeholder="Search Products" [formControl]="searchControl"
+                class="form-control form-control-rounded ml-0" type="email">
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <input id="email" placeholder="Search Products" [formControl]="searchControl"
+                class="form-control form-control-rounded ml-0" type="email">
+        </div>
+    </div>
+    <div class="col-md-2">
+        <button class="btn ml-0">ค้นหา</button>
+    </div>
+    <div class="col-md-1">
+        <button class="btn btn-primary">เพิ่ม</button>
+    </div>
+    <div class="col-md-12">
+        <div class="card  o-hidden">
+            <ngx-datatable style="height: 500px; box-shadow: none" class="material fullscreen" [columnMode]="'force'"
+                [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [rows]="filteredProducts">
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        ชั้นเรียน
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        อาจารย์ 1
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        อาจารย์ 2
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        จำนวนนักเรียน
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column>
+                    <ng-template ngx-datatable-header-template>
+                        แก้ไข
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <button class="btn btn-warning ml-0">แก้ไข</button>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column>
+                    <ng-template ngx-datatable-header-template>
+                        ลบ
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <button class="btn btn-danger ml-0">ลบ</button>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="breadcrumb">
+    <h1 class="text-primary">ชั้นเรียนและห้องเรียน</h1>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row">
     <div class="col-md-4">
         <div class="form-group">
             <input id="text" placeholder="ค้นหา" [formControl]="searchControl"
@@ -22,7 +111,14 @@
         <div class="card  o-hidden">
             <ngx-datatable style="height: 500px; box-shadow: none" class="material fullscreen" [columnMode]="'force'"
                 [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [rows]="row">
-
+                <ngx-datatable-column name="">
+                    <ng-template ngx-datatable-header-template>
+                        ระดับ
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        
+                    </ng-template>
+                </ngx-datatable-column>
                 <ngx-datatable-column name="">
                     <ng-template ngx-datatable-header-template>
                         ชั้นเรียน
@@ -37,14 +133,6 @@
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                         {{row.classroom}}
-                    </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="">
-                    <ng-template ngx-datatable-header-template>
-                        จำนวนนักเรียน
-                    </ng-template>
-                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        {{row.maxstd}}
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="">
@@ -149,4 +237,4 @@
       <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">ยกเลิก</button>
       <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click) = "modal.dismiss(delete(detail.room_id,i))">ยืนยัน</button>
     </div>
-</ng-template>
+</ng-template> -->

@@ -2,19 +2,19 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
 import { MessageService } from 'src/app/core/message.service';
-import { DayService } from './day.service';
+import { HolidayService } from './holiday.service';
+import { ToastrService } from 'ngx-toastr';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-day',
-  templateUrl: './day.component.html',
-  styleUrls: ['./day.component.scss']
+  selector: 'app-holiday',
+  templateUrl: './holiday.component.html',
+  styleUrls: ['./holiday.component.scss']
 })
-export class DayComponent implements OnInit {
-  dayForm: FormGroup;
+export class HolidayComponent implements OnInit {
+  holidayForm: FormGroup;
   row: any[];
   loading: boolean;
   searchControl: FormControl = new FormControl();
@@ -27,7 +27,7 @@ export class DayComponent implements OnInit {
   refresh: Subject<any> = new Subject();
 
   constructor(
-    private dayService: DayService,
+    private holidayService: HolidayService,
     private modalService: NgbModal,
     private Fb: FormBuilder,
     private message: MessageService,
@@ -36,15 +36,12 @@ export class DayComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.dayForm = this.Fb.group({
-      day: [null, Validators.required],
-      datetime: [null, Validators.required],
+    this.holidayForm = this.Fb.group({
+      date: [null, Validators.required],
       note: [null, Validators.required],
-      year: [null, [Validators.min(2560), Validators.max(10000)]],
-      term: [null, [Validators.min(1), Validators.max(9)]],
 
     });
-    this.dayService.getDay()
+    this.holidayService.getHoliday()
       .subscribe((res: any[]) => {
         this.products = [...res];
         this.row = res;
@@ -81,21 +78,19 @@ export class DayComponent implements OnInit {
   }
   delete(id: any, i: any) {
     console.log(id)
-    this.dayService.deleteDay(id).subscribe(res => {
+    this.holidayService.deleteHoliday(id).subscribe(res => {
       this.row.splice(i, 1);
       setTimeout(() => {
         this.loading = false;
         this.toastr.success('สำเร็จ', 'ลบวัน', { progressBar: true });
       }, 500);
-      this.dayService.getDay()
+      this.holidayService.getHoliday()
         .subscribe((res: any[]) => {
           this.products = [...res];
           this.row = res;
           console.log(this.row)
         });
-
     })
-
   }
 
   confirm(content) {
@@ -108,18 +103,18 @@ export class DayComponent implements OnInit {
   }
 
   onSubmit(): any {
-    if (this.dayForm.invalid) {
+    if (this.holidayForm.invalid) {
       this.message.warning('กรุณากรอกข้อมูลให้ครบถ้วน');
       return;
     }
     this.loading = true;
-    this.dayService.saveDay(this.dayForm.value).subscribe(res => {
+    this.holidayService.saveHoliday(this.holidayForm.value).subscribe(res => {
       console.log(res);
       setTimeout(() => {
         this.loading = false;
         this.toastr.success('สำเร็จ', 'เพิ่มวัน', { progressBar: true });
       }, 500);
-      this.dayService.getDay()
+      this.holidayService.getHoliday()
         .subscribe((res: any[]) => {
           this.products = [...res];
           this.row = res;
@@ -131,7 +126,7 @@ export class DayComponent implements OnInit {
 
   getId(id: any, i: any) {
     console.log(id)
-    this.dayService.getDayDetail(id).subscribe(res => {
+    this.holidayService.getHolidayDetail(id).subscribe(res => {
       this.detail = res
       console.log(this.detail)
     })
@@ -140,31 +135,26 @@ export class DayComponent implements OnInit {
 
   getDetail(id: any, i: any) {
     console.log(id)
-    this.dayService.getDayDetail(id).subscribe(res => {
+    this.holidayService.getHolidayDetail(id).subscribe(res => {
       this.detail1 = res
       console.log(this.detail1)
-      this.dayForm.setValue({
-        day: res['day'],
-        datetime: res['datetime'],
-        note: res['note'],
-        year: res['year'],
-        term: res['term']
+      this.holidayForm.setValue({
+        date: res['date'],
+        note: res['note']
       })
     })
     this.modalService.open(this.modalUpdate, { centered: true })
   }
 
   Update(): any {
-    if (this.dayForm.invalid) {
+    if (this.holidayForm.invalid) {
       this.message.warning('กรุณากรอกข้อมูลให้ครบถ้วน');
       return;
     }
     this.loading = true;
-    this.dayService.updateDay(this.detail1.days_id, this.dayForm.value).subscribe(() => {
-      console.log(this.dayForm)
+    this.holidayService.updateHoliday(this.detail1.holiday_id, this.holidayForm.value).subscribe(() => {
+      console.log(this.holidayForm)
     })
-    
-
   }
 
 }

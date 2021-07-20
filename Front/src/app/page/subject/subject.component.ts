@@ -40,9 +40,8 @@ export class SubjectComponent implements OnInit {
 
   ngOnInit() {
     this.subjectForm = this.Fb.group({
-      codesubject : [null, Validators.required],
-      credit : [null, [Validators.min(1), Validators.max(9)]],
-      subjecttitle : [null, Validators.required],
+      subject_code : [null, Validators.required],
+      subject_name : [null, Validators.required],
     });
     this.subjectService.getSubject()
     .subscribe((res: any[]) => {
@@ -145,9 +144,8 @@ export class SubjectComponent implements OnInit {
       this.detail1 = res
       console.log(this.detail1)
       this.subjectForm.setValue({
-        codesubject : res['codesubject'],
-        credit : res['credit'],
-        subjecttitle : res['subjecttitle']
+        subject_code : res['subject_code'],
+        subject_name : res['subject_name']
       })
     })
     this.modalService.open(this.modalUpdate, {centered: true })

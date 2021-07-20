@@ -22,9 +22,9 @@ import { StdInfoEditComponent } from './std/std-info-edit/std-info-edit.componen
 import { StdInfoComponent } from './std/std-info/std-info.component';
 import { SubjectComponent } from './subject/subject.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { TimeComponent } from './time/time.component';
-import { DayComponent } from './day/day.component';
 import { SharedModule } from '../shared/shared.module';
+import { PeriodComponent } from './period/period.component';
+import { HolidayComponent } from './holiday/holiday.component';
 
 
 @NgModule({
@@ -41,8 +41,8 @@ import { SharedModule } from '../shared/shared.module';
     StdInfoEditComponent,
     StdInfoComponent,
     SubjectComponent,
-    TimeComponent,
-    DayComponent,
+    PeriodComponent,
+    HolidayComponent,
   ],
   imports: [
     CommonModule,

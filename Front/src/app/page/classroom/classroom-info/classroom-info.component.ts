@@ -14,10 +14,12 @@ export class ClassroomInfoComponent implements OnInit {
   filteredProducts;
 
   constructor(
-    private productService: ProductService
+    private productService: ProductService,
   ) { }
+    
 
   ngOnInit(): void {
+
     this.productService.getProducts()
     .subscribe((res: any[]) => {
       this.products = [...res];
@@ -53,4 +55,6 @@ export class ClassroomInfoComponent implements OnInit {
     });
     this.filteredProducts = rows;
   }
+
+  
 }

@@ -168,7 +168,7 @@ export class NavigationService {
             ]
         },
         {
-            name: 'ข้อมูลโรงเรียน',
+            name: 'ข้อมูลรายชื่อ',
             type: 'dropDown',
             icon: 'i-University',
             sub: [
@@ -198,25 +198,25 @@ export class NavigationService {
             icon: 'i-Calendar',
             sub: [
                 {   
-                    name: 'รายวิชา',
+                    name: 'กำหนดรายวิชา',
                     type: 'link',
                     icon: 'i-Receipt-3',
                     state: 'page/subject'
                 },
                 {   
-                    name: 'ช่วงเวลาการเรียน',
+                    name: 'กำหนดคาบเรียน',
                     type: 'link',
                     icon: 'i-Clock',
-                    state: 'page/time'
+                    state: 'page/period'
                 },
                 {   
-                    name: 'วัน',
+                    name: 'กำหนดวันหยุด',
                     type: 'link',
                     icon: 'i-Calendar-4',
-                    state: 'page/day'
+                    state: 'page/holiday'
                 },
                 {   
-                    name: 'จัดตารางเรียน',
+                    name: 'กำหนดตารางเรียน',
                     type: 'link',
                     icon: 'i-Add',
                 },

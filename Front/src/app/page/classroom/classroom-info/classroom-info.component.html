@@ -5,55 +5,71 @@
 <div class="separator-breadcrumb border-top"></div>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="form-group">
             <input id="email" placeholder="Search Products" [formControl]="searchControl"
                 class="form-control form-control-rounded ml-0" type="email">
         </div>
     </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <input id="email" placeholder="Search Products" [formControl]="searchControl"
+                class="form-control form-control-rounded ml-0" type="email">
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <input id="email" placeholder="Search Products" [formControl]="searchControl"
+                class="form-control form-control-rounded ml-0" type="email">
+        </div>
+    </div>
+    <div class="col-md-2">
+        <button class="btn ml-0">ค้นหา</button>
+    </div>
+    <div class="col-md-1">
+        <button class="btn btn-primary">เพิ่ม</button>
+    </div>
     <div class="col-md-12">
         <div class="card  o-hidden">
             <ngx-datatable style="height: 500px; box-shadow: none" class="material fullscreen" [columnMode]="'force'"
                 [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [rows]="filteredProducts">
-
                 <ngx-datatable-column name="">
                     <ng-template ngx-datatable-header-template>
-                        รูปประจำตัวนักเรียน
+                        ชั้นเรียน
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="">
                     <ng-template ngx-datatable-header-template>
-                        เลขประจำตัวนักเรียน
+                        อาจารย์ 1
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="">
                     <ng-template ngx-datatable-header-template>
-                        ลำดับที่
+                        อาจารย์ 2
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="">
                     <ng-template ngx-datatable-header-template>
-                        รายชื่อ
+                        จำนวนนักเรียน
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="">
+                <ngx-datatable-column>
                     <ng-template ngx-datatable-header-template>
-                        สถานะนักเรียน
-                    </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="">
-                    <ng-template ngx-datatable-header-template>
-                        คะแนน
+                        แก้ไข
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        <button class="btn btn-primary ml-0" routerLink='/page/classroom-score'>คะแนน</button>
+                        <button class="btn btn-warning ml-0">แก้ไข</button>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column>
+                    <ng-template ngx-datatable-header-template>
+                        ลบ
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <button class="btn btn-danger ml-0">ลบ</button>
                     </ng-template>
                 </ngx-datatable-column>
             </ngx-datatable>
         </div>
     </div>
 </div>
-
-
-
-
