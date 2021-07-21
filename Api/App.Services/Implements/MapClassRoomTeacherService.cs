@@ -43,10 +43,15 @@ namespace App.Services.Implements
                                         emp.first_name ""firstName"",
                                         emp.last_name ""lastName"",
                                         emp.emp_profile_id ""empProfileId"",
+                                        emp2.first_name ""firstName2"",
+                                        emp2.last_name ""lastName2"",
+                                        emp2.emp_profile_id ""empProfileId2"",
                                         mcrt.map_class_room_teacher_id ""mapclassroomteacherId""
-                            from        emp_profile emp
-                            inner join  map_class_room_teacher mcrt
-                            on          mcrt.emp_profile_id_first = emp.emp_profile_id or mcrt.emp_profile_id_second = emp.emp_profile_id ");
+                            from        map_class_room_teacher mcrt
+                            inner join  emp_profile emp
+                            on          mcrt.emp_profile_id_first = emp.emp_profile_id 
+                            left join   emp_profile emp2
+                            on          mcrt.emp_profile_id_second = emp2.emp_profile_id");
 
             if (!string.IsNullOrEmpty(keyword))
                 sql.AppendLine("where       concat(mcrt.class, mcrt.room, mcrt.map_class_room_teacher_name, emp.first_name, emp.last_name) ilike '%' || @keyword || '%'");
