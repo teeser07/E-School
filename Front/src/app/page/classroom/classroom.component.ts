@@ -2,9 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup ,FormBuilder, Validators } from '@angular/forms';
 import { ClassroomService } from './classroom.service';
 import { debounceTime } from 'rxjs/operators';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'src/app/core/message.service';
+import { FormUtilService } from 'src/app/shared/services/form-util.service';
 
 
 @Component({
@@ -16,26 +17,62 @@ export class ClassroomComponent implements OnInit {
   searchControl: FormControl = new FormControl();
   products;
   filteredProducts;
-  confirmResut;
-  roomForm : FormGroup ;
-  row:any[];
-  loading: boolean;
-  @ViewChild('modalDelete', { static: true }) modalDelete;
-  @ViewChild('modalUpdate', { static: true }) modalUpdate;
-  detail ;
-  detail1 ;
+  modalRef: NgbModalRef;
+  addForm: FormGroup;
+  roomList: any;
+  keyword: string = '';
 
 
   constructor(
     private classroomService : ClassroomService,
     private modalService: NgbModal,
-    private formBuilder: FormBuilder,
+    private fb: FormBuilder,
     private message: MessageService,
     private toastr : ToastrService,
+    private fu: FormUtilService,
    ) { }
 
   ngOnInit() {
+    this.search();
+  }
+  search() {
+    this.classroomService.getRoom(this.keyword).subscribe(res => {
+      this.roomList = res;
+      console.log(this.roomList)
+    });
+  }
+  openModalDetail(content, row?) {
+    this.addForm = this.fb.group({
+      education_level: [null, [Validators.required, Validators.maxLength(50)]],
+      class: [null, [Validators.required, Validators.maxLength(10)]],
+      room: [null, [Validators.required, Validators.maxLength(10)]],
+      empProfileIdFirst:[null, [Validators.required, Validators.maxLength(10)]],
+      empProfileIdSecond: [null, [Validators.required, Validators.maxLength(10)]],
+      mapClassRoomTeacherName: [null, [Validators.required, Validators.maxLength(50)]],
 
+    });
+    this.modalRef = this.modalService.open(content);
+  }
+  save() {
+    if (this.addForm.invalid) {
+      this.fu.markFormGroupTouched(this.addForm);
+      return;
+    }
+    this.classroomService.save(this.addForm.value).subscribe(() => {
+      this.modalRef.close();
+      this.message.success('บันทึกข้อมูลสำเร็จ');
+      this.search();
+    });
+  }
+  remove(mapclassroomteacherId, modal) {
+    this.modalService.open(modal).result.then((result) => {
+      if (result.toLowerCase() == 'ok') {
+        this.classroomService.deleteRoom(mapclassroomteacherId).subscribe(() => {
+          this.message.success('ลบข้อมูลสำเร็จ');
+          this.search();
+        });
+      }
+    }, (reson) => { });
   }
 }
   

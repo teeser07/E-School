@@ -7,43 +7,43 @@
 <div class="row">
     <div class="col-md-3">
         <div class="form-group">
-            <input id="email" placeholder="Search Products" [formControl]="searchControl"
-                class="form-control form-control-rounded ml-0" type="email">
+            <input id="text" placeholder="ค้นหาบุคลากร" [(ngModel)]="keyword" (keydown.enter)="search()"
+                class="form-control form-control-rounded ml-0" type="text">
         </div>
     </div>
     <div class="col-md-3">
         <div class="form-group">
-            <input id="email" placeholder="Search Products" [formControl]="searchControl"
-                class="form-control form-control-rounded ml-0" type="email">
+            <input id="text" placeholder="ค้นหาบุคลากร" [(ngModel)]="keyword" (keydown.enter)="search()"
+                class="form-control form-control-rounded ml-0" type="text">
         </div>
     </div>
     <div class="col-md-3">
         <div class="form-group">
-            <input id="email" placeholder="Search Products" [formControl]="searchControl"
-                class="form-control form-control-rounded ml-0" type="email">
+            <input id="text" placeholder="ค้นหาบุคลากร" [(ngModel)]="keyword" (keydown.enter)="search()"
+                class="form-control form-control-rounded ml-0" type="text">
         </div>
     </div>
     <div class="col-md-2">
         <button class="btn ml-0">ค้นหา</button>
     </div>
     <div class="col-md-1">
-        <button class="btn btn-primary">เพิ่ม</button>
+        <button class="btn btn-primary" (click)="openModalDetail(modalConfirm)">เพิ่ม</button>
     </div>
     <div class="col-md-12">
         <div class="card  o-hidden">
             <ngx-datatable style="height: 500px; box-shadow: none" class="material fullscreen" [columnMode]="'force'"
-                [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [rows]="filteredProducts">
-                <ngx-datatable-column name="">
+                [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [rows]="roomList">
+                <ngx-datatable-column name="mapClassRoomTeacherName">
                     <ng-template ngx-datatable-header-template>
                         ชั้นเรียน
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="">
+                <ngx-datatable-column name="empProfileIdFirst">
                     <ng-template ngx-datatable-header-template>
                         อาจารย์ 1
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="">
+                <ngx-datatable-column name="empProfileIdSecond">
                     <ng-template ngx-datatable-header-template>
                         อาจารย์ 2
                     </ng-template>
@@ -58,7 +58,7 @@
                         แก้ไข
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        <button class="btn btn-warning ml-0">แก้ไข</button>
+                        <button class="btn btn-warning ml-0" (click)="openModalDetail(modalConfirm, row)">แก้ไข</button>
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column>
@@ -66,7 +66,7 @@
                         ลบ
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        <button class="btn btn-danger ml-0">ลบ</button>
+                        <button class="btn btn-danger ml-0" (click)="remove(row.mapclassroomteacherId, modalDelete)">ลบ</button>
                     </ng-template>
                 </ngx-datatable-column>
             </ngx-datatable>
@@ -74,7 +74,122 @@
     </div>
 </div>
 
+<ng-template #modalConfirm let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title text-primary" id="modal-title">ชั้นเรียนและห้องเรียน</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+            (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" [formGroup]="addForm">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="text-primary mb-1">ชื่อห้อง <span class="request-star">*</span></p>
+                <input type="text" class="form-control" formControlName="mapClassRoomTeacherName"
+                    [class.is-invalid]="fu.hasError(addForm.controls.mapClassRoomTeacherName)">
+                <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.mapClassRoomTeacherName)">
+                    <div
+                        *ngIf="addForm.controls.mapClassRoomTeacherName.hasError('required') || addForm.controls.mapClassRoomTeacherName.hasError('empty')">
+                        กรุณาระบุข้อมูล
+                    </div>
+                    <div *ngIf="addForm.controls.mapClassRoomTeacherName.hasError('maxlength')">
+                        กรุณาระบุข้อมูลไม่เกิน {{ addForm.controls.mapClassRoomTeacherName.errors.maxlength.requiredLength }} ตัวอักษร
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <p class="text-primary mb-1">ระดับชั้น <span class="request-star">*</span></p>
+                <input type="text" class="form-control" formControlName="education_level"
+                    [class.is-invalid]="fu.hasError(addForm.controls.education_level)">
+                <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.education_level)">
+                    <div
+                        *ngIf="addForm.controls.education_level.hasError('required') || addForm.controls.education_level.hasError('empty')">
+                        กรุณาระบุข้อมูล
+                    </div>
+                    <div *ngIf="addForm.controls.education_level.hasError('maxlength')">
+                        กรุณาระบุข้อมูลไม่เกิน {{ addForm.controls.firstName.errors.maxlength.requiredLength }} ตัวอักษร
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <p class="text-primary mb-1">ชั้นเรียน <span class="request-star">*</span></p>
+                <input type="text" class="form-control" formControlName="class"
+                    [class.is-invalid]="fu.hasError(addForm.controls.class)">
+                <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.class)">
+                    <div
+                        *ngIf="addForm.controls.class.hasError('required') || addForm.controls.class.hasError('empty')">
+                        กรุณาระบุข้อมูล
+                    </div>
+                    <div *ngIf="addForm.controls.class.hasError('maxlength')">
+                        กรุณาระบุข้อมูลไม่เกิน {{ addForm.controls.class.errors.maxlength.requiredLength }} ตัวอักษร
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <p class="text-primary mb-1">ห้องเรียน <span class="request-star">*</span></p>
+                <input type="text" class="form-control" formControlName="room"
+                    [class.is-invalid]="fu.hasError(addForm.controls.room)">
+                <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.room)">
+                    <div
+                        *ngIf="addForm.controls.room.hasError('required') || addForm.controls.room.hasError('empty')">
+                        กรุณาระบุข้อมูล
+                    </div>
+                    <div *ngIf="addForm.controls.room.hasError('maxlength')">
+                        กรุณาระบุข้อมูลไม่เกิน {{ addForm.controls.room.errors.maxlength.requiredLength }} ตัวอักษร
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <p class="text-primary mb-1">อาจารย์ 1 <span class="request-star">*</span></p>
+                <input type="text" class="form-control" formControlName="empProfileIdFirst"
+                    [class.is-invalid]="fu.hasError(addForm.controls.empProfileIdFirst)">
+                <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.empProfileIdFirst)">
+                    <div
+                        *ngIf="addForm.controls.empProfileIdFirst.hasError('required') || addForm.controls.empProfileIdFirst.hasError('empty')">
+                        กรุณาระบุข้อมูล
+                    </div>
+                    <div *ngIf="addForm.controls.empProfileIdFirst.hasError('maxlength')">
+                        กรุณาระบุข้อมูลไม่เกิน {{ addForm.controls.empProfileIdFirst.errors.maxlength.requiredLength }} ตัวอักษร
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <p class="text-primary mb-1">อาจารย์ 2 </p>
+                <input type="text" class="form-control" formControlName="empProfileIdSecond">
+                <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.empProfileIdSecond)">
+                    <div *ngIf="addForm.controls.empProfileIdSecond.hasError('maxlength')">
+                        กรุณาระบุข้อมูลไม่เกิน {{ addForm.controls.empProfileIdSecond.errors.maxlength.requiredLength }} ตัวอักษร
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-rounded"
+            (click)="modal.dismiss('cancel')">Cancel</button>
+        <button type="button" ngbAutofocus class="btn btn-primary btn-rounded"
+        (click)="save()">Ok</button>
+    </div>
+</ng-template>
 
+<ng-template #modalDelete let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">ยืนยัน</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+            (click)="modal.dismiss('cancel')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>คุณแน่ใจหรือไม่ว่าจะลบข้อมูลนี้</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-rounded"
+            (click)="modal.dismiss('cancel')">Cancel</button>
+        <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
+    </div>
+</ng-template>
 
 
 
