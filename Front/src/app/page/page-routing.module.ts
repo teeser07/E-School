@@ -5,7 +5,7 @@ import { LobbyComponent } from './lobby/lobby.component';
 import { ClassroomComponent } from './classroom/classroom.component';
 import { StdComponent } from './std/std.component';
 import { EmpComponent } from './emp/emp.component';
-import { ClassroomInfoComponent } from './classroom/classroom-info/classroom-info.component';
+import { AddClassComponent } from './classroom/add-class/add-class.component';
 import { EmpInfoComponent } from './emp/emp-info/emp-info.component';
 import { EmpInfoEditComponent } from './emp/emp-info-edit/emp-info-edit.component';
 import { EmpLeaveComponent } from './emp/emp-leave/emp-leave.component';
@@ -35,10 +35,6 @@ const routes: Routes = [
   {
     path: 'emp',
     component: EmpComponent
-  },
-  {
-    path: 'classroom-info',
-    component: ClassroomInfoComponent
   },
   {
     path: 'emp-info',
@@ -71,6 +67,10 @@ const routes: Routes = [
   {
     path: 'holiday',
     component: HolidayComponent
+  },
+  {
+    path: 'add-room',
+    component: AddClassComponent
   },
 
 ];

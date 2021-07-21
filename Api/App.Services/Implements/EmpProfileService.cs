@@ -39,7 +39,7 @@ namespace App.Services.Implements
             empProfile.Status = request.Status;
             _context.EmpProfile.Add(empProfile);
             await this._context.SaveChangesAsync();
-            await _account.CreateEmpUser(request.Email, request.EmpCode, request.Password, request.Roles, empProfile.EmpProfileId);
+            await _account.CreateEmpUser(request.Email, request.EmpCode, request.Password, request.Role, empProfile.EmpProfileId);
             return;
         }
 
@@ -92,7 +92,7 @@ namespace App.Services.Implements
             _context.EmpProfile.Attach(empProfile);
             _context.Entry(empProfile).State = EntityState.Modified;
             await this._context.SaveChangesAsync();
-            await _account.UpdateEmpUser(request.UserId, request.Password, request.Roles);
+            await _account.UpdateEmpUser(request.UserId, request.Password, request.Role);
             return;
         }
     }

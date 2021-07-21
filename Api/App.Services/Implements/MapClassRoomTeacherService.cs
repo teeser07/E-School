@@ -1,4 +1,5 @@
 ﻿using App.Data;
+using App.Data.DTOs;
 using App.Data.Models;
 using App.Services.Interfaces;
 using App.Utility;
@@ -16,10 +17,14 @@ namespace App.Services.Implements
     public class MapClassRoomTeacherService : IMapClassRoomTeacherService
     {
         private readonly IAppDbContext _context;
+        private readonly ICurrentUserAccessor _user;
+        private readonly IAccountService _account;
 
-        public MapClassRoomTeacherService(IAppDbContext context)
+        public MapClassRoomTeacherService(IAppDbContext context,ICurrentUserAccessor user, IAccountService account)
         {
             _context = context;
+            _user = user;
+            _account = account;
         }
 
         public async Task Save(MapClassRoomTeacher mapclassroomteacher)
@@ -31,14 +36,14 @@ namespace App.Services.Implements
         public async Task<IEnumerable<dynamic>> GetMapClassRoomTeacher(string keyword)
         {
             StringBuilder sql = new StringBuilder();
-            sql.AppendLine(@"select     mcrt.map_class_room_teacher_name,
-                                        mcrt.education_level ,
+            sql.AppendLine(@"select     mcrt.map_class_room_teacher_name ""mapClassRoomTeacherName"",
+                                        mcrt.education_level ""educationLevel"",
                                         mcrt.class,
 			                            mcrt.room,
                                         emp.first_name ""firstName"",
                                         emp.last_name ""lastName"",
                                         emp.emp_profile_id ""empProfileId"",
-                                        mcrt.map_class_room_teacher_id ""MapClassRoomId""
+                                        mcrt.map_class_room_teacher_id ""mapclassroomteacherId""
                             from        emp_profile emp
                             inner join  map_class_room_teacher mcrt
                             on          mcrt.emp_profile_id_first = emp.emp_profile_id or mcrt.emp_profile_id_second = emp.emp_profile_id ");
@@ -52,9 +57,9 @@ namespace App.Services.Implements
 
         }
 
-        public async Task Delete(int mapclassroomteacherid)
+        public async Task Delete(int mapclassroomteacherId)
         {
-            MapClassRoomTeacher user = await _context.MapClassRoomTeacher.Where(w => w.MapClassRoomTeacherId == mapclassroomteacherid).FirstOrDefaultAsync();
+            MapClassRoomTeacher user = await _context.MapClassRoomTeacher.Where(w => w.MapClassRoomTeacherId == mapclassroomteacherId).FirstOrDefaultAsync();
             if (user == null) throw new ApiException(HttpStatusCode.BadRequest, "ห้องเรียนนี้ถูกลบไปแล้ว");
             _context.MapClassRoomTeacher.Remove(user);
             if (user.MapClassRoomTeacherId != null)
@@ -81,5 +86,34 @@ namespace App.Services.Implements
             return;
         }
 
+
+        public async Task<IEnumerable<dynamic>> GetEmpProfile(string key)
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.AppendLine(@"select     u.email,
+			                            u.emp_code ""empCode"",
+                                        ep.first_name ""firstName"",
+                                        ep.last_name ""lastName"",
+                                        ep.tel,
+                                        u.""role"",
+                                        ep.status, 
+                                        u.user_id ""userId"",
+                                        ep.emp_profile_id ""empProfileId""
+                            from        ""user"" u
+                            inner join  emp_profile ep
+                            on          ep.emp_profile_id = u.emp_profile_id");
+
+            if (!string.IsNullOrEmpty(key))
+                sql.AppendLine("where       concat(u.role) ilike '%' || @key || '%'");
+
+            sql.AppendLine("order by u.emp_code");
+            var data = await _context.QueryAsync<dynamic>(sql.ToString(), new { key = key });
+            return data;
+        }
     }
+
+
+
+
+    
 }

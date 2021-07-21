@@ -14,10 +14,14 @@ export class ClassroomService {
   save(value) {
     if (value.mapclassroomteacherId)
     return this.http.put('MapClassRoomTeacher/update-mcrt',value);
-  else
+    else
     return this.http.post('MapClassRoomTeacher/save-mcrt',value);
   }
   deleteRoom(mapclassroomteacherId) {
     return this.http.delete('MapClassRoomTeacher/delete-mcrt', { params: { mapclassroomteacherId: mapclassroomteacherId }});
+  }
+
+  getEmp(key) {
+    return this.http.get('MapClassRoomTeacher/get-emp', { params: { key: key } });
   }
 }

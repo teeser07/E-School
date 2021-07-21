@@ -11,7 +11,8 @@ namespace App.Services.Interfaces
     {
         Task Save(MapClassRoomTeacher mapclassroomteacher);
         Task<IEnumerable<dynamic>> GetMapClassRoomTeacher(string keyword);
-        Task Delete(int mapclassroomteacherid);
+        Task Delete(int mapclassroomteacherId);
         Task Update(MapClassRoomTeacher mapclassroomteacher);
+        Task<IEnumerable<dynamic>> GetEmpProfile(string key);
     }
 }

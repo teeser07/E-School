@@ -1,0 +1,73 @@
+<div class="toolbar">
+    <div class="container-fluid">
+        <div class="row justify-content-between">
+            <div class="col-auto" [ngClass]="navService.sidebarState.sidenavOpen ? 'sidebar-open' : 'sidebar-close'">
+                <button *ngIf="!hideBack" type="button"
+                    class="btn btn-outline-primary m-2 no-line d-flex align-items-center" (click)="back()">
+                    กลับ
+                </button>
+            </div>
+            <div class="col-auto m-2">
+                <ng-content></ng-content>
+            </div>
+        </div>
+    </div>
+</div>
+<toolbar>
+    <button type="button" class="btn btn-primary ml-1 mr-1 pl-3 pr-3 d-flex align-items-center" (click)="save()">
+        บันทึก
+    </button>
+</toolbar>
+
+<div class="row">
+    <div class="col-md-12 mt-5">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="card-title mb-3">เพิ่มห้องเรียน</div>
+                <form [formGroup]="addForm">
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label>ชื่อห้อง</label>
+                            <input type="text" class="form-control" formControlName="mapClassRoomTeacherName">
+                        </div>
+
+                        <div class="col-md-6 form-group mb-3">
+                            <label>ระดับชั้น</label>
+                            <input type="text" class="form-control" formControlName="educationLevel">
+                        </div>
+
+
+                        <div class="col-md-6 form-group mb-3">
+                            <label>ชั้น</label>
+                            <input type="text" class="form-control" formControlName="class">
+                        </div>
+
+                        <div class="col-md-6 form-group mb-3">
+                            <label>ห้องเรียน</label>
+                            <input type="text" class="form-control" formControlName="room">
+
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label>อาจารย์คนที่ 1</label>
+                            <select class="form-control" formControlName="empProfileIdFirst">
+                                <option value="null">เลือกครูประจำชั้น</option>
+                                <option *ngFor="let emp of EmpList" [value]="emp.empProfileId">{{emp.firstName}}
+                                    {{emp.lastName}}</option>
+                            </select>
+
+                        </div>
+
+                        <div class="col-md-6 form-group mb-3">
+                            <label>อาจารย์คนที่ 2</label>
+                            <select class="form-control" formControlName="empProfileIdSecond">
+                                <option value="null">เลือกครูประจำชั้น</option>
+                                <option *ngFor="let emp of EmpList" [value]="emp.empProfileId">{{emp.firstName}}
+                                    {{emp.lastName}}</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

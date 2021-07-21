@@ -27,13 +27,13 @@
         <button class="btn ml-0">ค้นหา</button>
     </div>
     <div class="col-md-1">
-        <button class="btn btn-primary" (click)="openModalDetail(modalConfirm)">เพิ่ม</button>
+        <button class="btn btn-primary" routerLink="/page/add-room">เพิ่ม</button>
     </div>
     <div class="col-md-12">
         <div class="card  o-hidden">
             <ngx-datatable style="height: 500px; box-shadow: none" class="material fullscreen" [columnMode]="'force'"
                 [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [rows]="roomList">
-                <ngx-datatable-column name="mapClassRoomTeacherName">
+                <ngx-datatable-column name="map_class_room_teacher_name">
                     <ng-template ngx-datatable-header-template>
                         ชั้นเรียน
                     </ng-template>
@@ -100,9 +100,9 @@
             </div>
             <div class="col-md-6">
                 <p class="text-primary mb-1">ระดับชั้น <span class="request-star">*</span></p>
-                <input type="text" class="form-control" formControlName="education_level"
-                    [class.is-invalid]="fu.hasError(addForm.controls.education_level)">
-                <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.education_level)">
+                <input type="text" class="form-control" formControlName="educationLevel"
+                    [class.is-invalid]="fu.hasError(addForm.controls.educationLevel)">
+                <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.educationLevel)">
                     <div
                         *ngIf="addForm.controls.education_level.hasError('required') || addForm.controls.education_level.hasError('empty')">
                         กรุณาระบุข้อมูล
@@ -142,8 +142,11 @@
             </div>
             <div class="col-md-6">
                 <p class="text-primary mb-1">อาจารย์ 1 <span class="request-star">*</span></p>
-                <input type="text" class="form-control" formControlName="empProfileIdFirst"
-                    [class.is-invalid]="fu.hasError(addForm.controls.empProfileIdFirst)">
+                <select class="form-control" formControlName="empProfileIdFirst"
+                [class.is-invalid]="fu.hasError(addForm.controls.empProfileIdFirst)">
+                <option value="null">เลือกครูประจำชั้น</option>
+                <option *ngFor = "let emp of EmpList" [value]="emp.empProfileId">{{emp.firstName}}  {{emp.lastName}}</option>
+                </select>
                 <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.empProfileIdFirst)">
                     <div
                         *ngIf="addForm.controls.empProfileIdFirst.hasError('required') || addForm.controls.empProfileIdFirst.hasError('empty')">
@@ -156,12 +159,11 @@
             </div>
             <div class="col-md-6">
                 <p class="text-primary mb-1">อาจารย์ 2 </p>
-                <input type="text" class="form-control" formControlName="empProfileIdSecond">
-                <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.empProfileIdSecond)">
-                    <div *ngIf="addForm.controls.empProfileIdSecond.hasError('maxlength')">
-                        กรุณาระบุข้อมูลไม่เกิน {{ addForm.controls.empProfileIdSecond.errors.maxlength.requiredLength }} ตัวอักษร
-                    </div>
-                </div>
+                <select class="form-control" formControlName="empProfileIdSecond"
+                [class.is-invalid]="fu.hasError(addForm.controls.empProfileIdSecond)">
+                <option value="null">เลือกครูประจำชั้น</option>
+                <option *ngFor = "let emp of EmpList" [value]="emp.empProfileId">{{emp.firstName}}  {{emp.lastName}}</option>
+                </select>
             </div>
         </div>
     </div>

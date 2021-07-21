@@ -13,7 +13,6 @@ import { SharedComponentsModule } from '../shared/theme/components/shared-compon
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxEchartsModule } from 'ngx-echarts';
-import { ClassroomInfoComponent } from './classroom/classroom-info/classroom-info.component';
 import { EmpInfoComponent } from './emp/emp-info/emp-info.component';
 import { EmpLeaveComponent } from './emp/emp-leave/emp-leave.component';
 import { EmpInfoEditComponent } from './emp/emp-info-edit/emp-info-edit.component';
@@ -24,6 +23,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { PeriodComponent } from './period/period.component';
 import { HolidayComponent } from './holiday/holiday.component';
+import { AddClassComponent } from './classroom/add-class/add-class.component';
 
 
 @NgModule({
@@ -32,7 +32,6 @@ import { HolidayComponent } from './holiday/holiday.component';
     ClassroomComponent,
     StdComponent,
     EmpComponent,
-    ClassroomInfoComponent,
     EmpInfoComponent,
     EmpLeaveComponent,
     EmpInfoEditComponent,
@@ -41,6 +40,7 @@ import { HolidayComponent } from './holiday/holiday.component';
     SubjectComponent,
     PeriodComponent,
     HolidayComponent,
+    AddClassComponent,
   ],
   imports: [
     CommonModule,

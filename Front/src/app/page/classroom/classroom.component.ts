@@ -21,7 +21,8 @@ export class ClassroomComponent implements OnInit {
   addForm: FormGroup;
   roomList: any;
   keyword: string = '';
-
+  key : string = 'T';
+  EmpList :any;
 
   constructor(
     private classroomService : ClassroomService,
@@ -41,17 +42,29 @@ export class ClassroomComponent implements OnInit {
       console.log(this.roomList)
     });
   }
+  getEmp(){
+    this.classroomService.getEmp(this.key).subscribe(res => {
+      this.EmpList = res;
+      console.log(this.EmpList)
+    })
+
+  }
   openModalDetail(content, row?) {
     this.addForm = this.fb.group({
-      education_level: [null, [Validators.required, Validators.maxLength(50)]],
+      educationLevel: [null, [Validators.required, Validators.maxLength(50)]],
       class: [null, [Validators.required, Validators.maxLength(10)]],
       room: [null, [Validators.required, Validators.maxLength(10)]],
       empProfileIdFirst:[null, [Validators.required, Validators.maxLength(10)]],
-      empProfileIdSecond: [null, [Validators.required, Validators.maxLength(10)]],
+      empProfileIdSecond: [null],
       mapClassRoomTeacherName: [null, [Validators.required, Validators.maxLength(50)]],
-
+      mapclassroomteacherId : [],
     });
+    if (row) {
+      this.addForm.patchValue(row, { emitEvent: false });
+    }
     this.modalRef = this.modalService.open(content);
+    this.getEmp()
+  
   }
   save() {
     if (this.addForm.invalid) {

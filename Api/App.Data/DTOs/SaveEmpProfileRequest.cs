@@ -9,7 +9,7 @@ namespace App.Data.DTOs
     public class SaveEmpProfileRequest
     {
         public string EmpCode { get; set; }
-        public string Roles { get; set; }
+        public string Role { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Tel { get; set; }

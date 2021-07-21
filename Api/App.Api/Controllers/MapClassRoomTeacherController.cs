@@ -31,9 +31,9 @@ namespace App.Api.Controllers
         }
 
         [HttpDelete("delete-mcrt")]
-        public async Task<IActionResult> Delete([FromQuery] int mapclassroomteacherid)
+        public async Task<IActionResult> Delete([FromQuery] int mapclassroomteacherId)
         {
-            await _MapClassRoomTeacher.Delete(mapclassroomteacherid);
+            await _MapClassRoomTeacher.Delete(mapclassroomteacherId);
             return Ok();
         }
 
@@ -43,6 +43,13 @@ namespace App.Api.Controllers
             await _MapClassRoomTeacher.Update(mapclassroomteacher);
             return Ok();
         }
+
+        [HttpGet("get-emp")]
+        public async Task<IActionResult> GetEmp([FromQuery] string key)
+        {
+            return Ok(await _MapClassRoomTeacher.GetEmpProfile(key));
+        }
+
 
 
     }
