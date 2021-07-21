@@ -32,20 +32,26 @@
     <div class="col-md-12">
         <div class="card  o-hidden">
             <ngx-datatable style="height: 500px; box-shadow: none" class="material fullscreen" [columnMode]="'force'"
-                [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [rows]="roomList">
+                [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [rows]="row">
                 <ngx-datatable-column name="map_class_room_teacher_name">
                     <ng-template ngx-datatable-header-template>
                         ชั้นเรียน
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="firstName">
+                <ngx-datatable-column>
                     <ng-template ngx-datatable-header-template>
                         อาจารย์ 1
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.firstName}} {{row.lastName}}
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="firstName2">
                     <ng-template ngx-datatable-header-template>
                         อาจารย์ 2
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.firstName2}} {{row.lastName2}}
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="">

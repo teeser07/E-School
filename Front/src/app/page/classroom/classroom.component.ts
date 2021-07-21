@@ -23,6 +23,7 @@ export class ClassroomComponent implements OnInit {
   keyword: string = '';
   key : string = 'T';
   EmpList :any;
+  row: any[];
 
   constructor(
     private classroomService : ClassroomService,
@@ -37,9 +38,10 @@ export class ClassroomComponent implements OnInit {
     this.search();
   }
   search() {
-    this.classroomService.getRoom(this.keyword).subscribe(res => {
+    this.classroomService.getRoom(this.keyword).subscribe((res: any[]) => {
       this.roomList = res;
-      console.log(this.roomList)
+      this.row = res;
+      console.log(this.row)
     });
   }
   getEmp(){
