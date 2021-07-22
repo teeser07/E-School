@@ -38,6 +38,11 @@
                         บทบาท
                     </ng-template>
                 </ngx-datatable-column>
+                <ngx-datatable-column name="statusName">
+                    <ng-template ngx-datatable-header-template>
+                        สถานะ
+                    </ng-template>
+                </ngx-datatable-column>
                 <ngx-datatable-column>
                     <ng-template ngx-datatable-header-template>
                         แก้ไข
@@ -147,7 +152,7 @@
                 <select class="form-control" formControlName="status"
                     [class.is-invalid]="fu.hasError(addForm.controls.status)">
                     <option disabled selected value></option>
-                    <option value="A">พร้อมทำงาน</option>
+                    <option value="a">พร้อมทำงาน</option>
                     <option value="V">ลาพักร้อน</option>
                     <option value="R">ลาออก</option>
                 </select>

@@ -52,12 +52,15 @@ namespace App.Services.Implements
                                         ep.last_name ""lastName"",
                                         ep.tel,
                                         u.""role"",
-                                        ep.status, 
+                                        ep.status,
+                                        st.status_desc ""statusName"",
                                         u.user_id ""userId"",
                                         ep.emp_profile_id ""empProfileId""
                             from        ""user"" u
                             inner join  emp_profile ep
-                            on          ep.emp_profile_id = u.emp_profile_id");
+                            on          ep.emp_profile_id = u.emp_profile_id
+                            inner join  status st
+                            on          ep.status = st.status_value");
 
             if (!string.IsNullOrEmpty(keyword))
                 sql.AppendLine("where       concat(u.email, u.emp_code, ep.first_name, ep.last_name, ep.tel) ilike '%' || @keyword || '%'");

@@ -47,13 +47,12 @@ export class AddClassComponent implements OnInit {
       }
       this.EmpList2 = this.EmpList1
       this.EmpList2 = this.EmpList2.filter(emp => emp.empProfileId != value)
-      console.log(this.EmpList2)
     })
     this.getEmp()
    }
 
  ngOnInit(): void {
-    console.log(history.state)
+
     console.log(this.hideBack)
   }
 
@@ -65,6 +64,7 @@ export class AddClassComponent implements OnInit {
     this.classroomService.getEmp(this.key).subscribe((res :any[]) => {
       this.EmpList1 = res;
       this.EmpList2 = res;
+      console.log(this.EmpList1)
     })
   }
 
