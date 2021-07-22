@@ -37,6 +37,7 @@ export class EmpComponent implements OnInit {
   search() {
     this.http.getEmp(this.keyword).subscribe(res => {
       this.empList = res;
+      console.log(this.empList)
     });
   }
 
@@ -85,7 +86,6 @@ export class EmpComponent implements OnInit {
     }
     this.http.save(this.addForm.value).subscribe(() => {
       this.modalRef.close();
-      console.log(this.addForm)
       this.message.success('บันทึกข้อมูลสำเร็จ');
       this.search();
     });
