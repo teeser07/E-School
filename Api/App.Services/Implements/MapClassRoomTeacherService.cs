@@ -109,7 +109,7 @@ namespace App.Services.Implements
                             on          ep.emp_profile_id = u.emp_profile_id");
 
             if (!string.IsNullOrEmpty(key))
-                sql.AppendLine("where  u.role='T' and (ep.status = 'A' or ep.status = 'V')");
+                sql.AppendLine("where  u.role='T' and (ep.status = 'a' or ep.status = 'V')");
 
             sql.AppendLine("order by u.emp_code");
             var data = await _context.QueryAsync<dynamic>(sql.ToString(), new { key = key });
