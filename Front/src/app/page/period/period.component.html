@@ -72,11 +72,11 @@
     <div class="modal-body">
         <form [formGroup]="periodForm">
               <label>ลำดับ</label>
-              <input id="orders" class="form-control form-control-rounded  " type="text" formControlName="order" placeholder="ลำดับ">
+              <input id="orders" class="form-control  " type="text" formControlName="order" placeholder="ลำดับ">
                 <p class="text-primary mb-1"><strong>เวลาเริ่มเรียน</strong></p>
-                <input id="starttime" class="form-control form-control-rounded  " type="text" formControlName="start_time" placeholder="00:00">
+                <input id="starttime" class="form-control  " type="text" formControlName="start_time" placeholder="00:00">
                 <p class="text-primary mb-1"><strong>เวลาเลิกเรียน</strong></p>
-                <input id="endtime" class="form-control form-control-rounded  " type="text" formControlName="end_time" placeholder="00:00">
+                <input id="endtime" class="form-control " type="text" formControlName="end_time" placeholder="00:00">
         </form>
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">ยกเลิก</button>

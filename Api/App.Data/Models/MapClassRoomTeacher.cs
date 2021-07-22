@@ -11,7 +11,7 @@ namespace App.Data.Models
 
     public class MapClassRoomTeacher : BaseModel
     {
-        public int MapClassRoomTeacherId { get; set; }
+        public int? MapClassRoomTeacherId { get; set; }
         public string Class { get; set; }
         public string Room { get; set; }
         public string EducationLevel { get; set; }

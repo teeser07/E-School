@@ -50,8 +50,8 @@
                         <div class="col-md-6 form-group mb-3">
                             <label>อาจารย์คนที่ 1</label>
                             <select class="form-control" formControlName="empProfileIdFirst">
-                                <option value="null">เลือกครูประจำชั้น</option>
-                                <option *ngFor="let emp of EmpList" [value]="emp.empProfileId">{{emp.firstName}}
+                                <option disabled selected value></option>
+                                <option *ngFor="let emp of EmpList1" [value]="emp.empProfileId">{{emp.firstName}}
                                     {{emp.lastName}}</option>
                             </select>
 
@@ -60,8 +60,8 @@
                         <div class="col-md-6 form-group mb-3">
                             <label>อาจารย์คนที่ 2</label>
                             <select class="form-control" formControlName="empProfileIdSecond">
-                                <option value="null">เลือกครูประจำชั้น</option>
-                                <option *ngFor="let emp of EmpList" [value]="emp.empProfileId">{{emp.firstName}}
+                                <option value="null">เลือกครูประจำชั้นคนที่ 2</option>
+                                <option *ngFor="let emp of EmpList2" [value]="emp.empProfileId">{{emp.firstName}}
                                     {{emp.lastName}}</option>
                             </select>
                         </div>

@@ -6,7 +6,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'src/app/core/message.service';
 import { FormUtilService } from 'src/app/shared/services/form-util.service';
-
+import {Router} from '@angular/router'
 
 @Component({
   selector: 'app-classroom',
@@ -22,10 +22,12 @@ export class ClassroomComponent implements OnInit {
   roomList: any;
   keyword: string = '';
   key : string = 'T';
-  EmpList :any;
+  EmpList1 :any;
+  EmpList2 : any;
   row: any[];
 
   constructor(
+    private router : Router,
     private classroomService : ClassroomService,
     private modalService: NgbModal,
     private fb: FormBuilder,
@@ -46,12 +48,12 @@ export class ClassroomComponent implements OnInit {
   }
   getEmp(){
     this.classroomService.getEmp(this.key).subscribe(res => {
-      this.EmpList = res;
-      console.log(this.EmpList)
+      this.EmpList1 = res;
+      console.log(this.EmpList1)
     })
 
   }
-  openModalDetail(content, row?) {
+  openModalDetail(row) {
     this.addForm = this.fb.group({
       educationLevel: [null, [Validators.required, Validators.maxLength(50)]],
       class: [null, [Validators.required, Validators.maxLength(10)]],
@@ -59,12 +61,13 @@ export class ClassroomComponent implements OnInit {
       empProfileIdFirst:[null, [Validators.required, Validators.maxLength(10)]],
       empProfileIdSecond: [null],
       mapClassRoomTeacherName: [null, [Validators.required, Validators.maxLength(50)]],
-      mapclassroomteacherId : [],
+      mapclassroomteacherId : null,
     });
-    if (row) {
-      this.addForm.patchValue(row, { emitEvent: false });
+    if (row){
+      this.addForm.patchValue(row, {emitEvent: false });
     }
-    this.modalRef = this.modalService.open(content);
+    this.router.navigateByUrl('/page/add-room',{state:row})
+    console.log(this.addForm)
     this.getEmp()
   
   }

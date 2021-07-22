@@ -6,6 +6,7 @@ import { ClassroomService } from '../classroom.service';
 import { FormUtilService } from 'src/app/shared/services/form-util.service';
 import { MessageService } from 'src/app/core/message.service';
 import {Router, ActivatedRoute} from '@angular/router'
+
 @Component({
   selector: 'app-add-class',
   templateUrl: './add-class.component.html',
@@ -15,8 +16,8 @@ export class AddClassComponent implements OnInit {
   searchControl: FormControl = new FormControl();
   addForm: FormGroup;
   key : string = 'T';
-  EmpList :any;
-
+  EmpList1 :any[] =[];
+  EmpList2 :any[] =[];
   @Input() hideBack: boolean;
   constructor(
     private router : Router,
@@ -34,11 +35,25 @@ export class AddClassComponent implements OnInit {
       empProfileIdFirst:[null, [Validators.required, Validators.maxLength(10)]],
       empProfileIdSecond: [null],
       mapClassRoomTeacherName: [null, [Validators.required, Validators.maxLength(50)]],
+      mapclassroomteacherId : null,
     });
+    if (history.state){
+      this.addForm.patchValue(history.state,{emitEvent: false });
+    }
+    this.addForm.controls.empProfileIdSecond.disable()
+    this.addForm.controls.empProfileIdFirst.valueChanges.subscribe(value=>{
+      if(value){
+        this.addForm.controls.empProfileIdSecond.enable()
+      }
+      this.EmpList2 = this.EmpList1
+      this.EmpList2 = this.EmpList2.filter(emp => emp.empProfileId != value)
+      console.log(this.EmpList2)
+    })
     this.getEmp()
    }
 
  ngOnInit(): void {
+    console.log(history.state)
     console.log(this.hideBack)
   }
 
@@ -47,9 +62,9 @@ export class AddClassComponent implements OnInit {
   }
 
   getEmp(){
-    this.classroomService.getEmp(this.key).subscribe(res => {
-      this.EmpList = res;
-      console.log(this.EmpList)
+    this.classroomService.getEmp(this.key).subscribe((res :any[]) => {
+      this.EmpList1 = res;
+      this.EmpList2 = res;
     })
   }
 

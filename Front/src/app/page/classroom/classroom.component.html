@@ -64,7 +64,7 @@
                         แก้ไข
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        <button class="btn btn-warning ml-0" (click)="openModalDetail(modalConfirm, row)">แก้ไข</button>
+                        <button class="btn btn-warning ml-0" (click)="openModalDetail(row)">แก้ไข</button>
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column>
@@ -148,10 +148,10 @@
             </div>
             <div class="col-md-6">
                 <p class="text-primary mb-1">อาจารย์ 1 <span class="request-star">*</span></p>
-                <select class="form-control" formControlName="empProfileIdFirst"
+                <select class="form-control" formControlName="empProfileIdFirst" 
                 [class.is-invalid]="fu.hasError(addForm.controls.empProfileIdFirst)">
                 <option value="null">เลือกครูประจำชั้น</option>
-                <option *ngFor = "let emp of EmpList" [value]="emp.empProfileId">{{emp.firstName}}  {{emp.lastName}}</option>
+                <option *ngFor = "let emp of EmpList1" [value]="emp.empProfileId">{{emp.firstName}}  {{emp.lastName}}</option>
                 </select>
                 <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.empProfileIdFirst)">
                     <div
@@ -165,10 +165,10 @@
             </div>
             <div class="col-md-6">
                 <p class="text-primary mb-1">อาจารย์ 2 </p>
-                <select class="form-control" formControlName="empProfileIdSecond"
+                <select class="form-control" formControlName="empProfileIdSecond" 
                 [class.is-invalid]="fu.hasError(addForm.controls.empProfileIdSecond)">
                 <option value="null">เลือกครูประจำชั้น</option>
-                <option *ngFor = "let emp of EmpList" [value]="emp.empProfileId">{{emp.firstName}}  {{emp.lastName}}</option>
+                <option *ngFor = "let emp of EmpList2" [value]="emp.empProfileId">{{emp.firstName}}  {{emp.lastName}}</option>
                 </select>
             </div>
         </div>
