@@ -52,7 +52,7 @@ export class AddClassComponent implements OnInit {
    }
 
  ngOnInit(): void {
-
+    console.log(history.state)
     console.log(this.hideBack)
   }
 

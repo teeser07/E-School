@@ -1,11 +1,13 @@
 ﻿using App.Data;
 using App.Data.Models;
 using App.Services.Interfaces;
+using App.Utility;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,40 +30,51 @@ namespace App.Services.Implements
         }
 
         //Delete-Subject
-        public async Task DeleteSubject(int subjectid)
+        public async Task DeleteSubject(int subjectId)
         {
-            Subject subject = await _context.Subject.Where(w => w.Subject_id == subjectid).FirstOrDefaultAsync();
-            _context.Entry(subject).State = EntityState.Deleted;
+            Subject user = await _context.Subject.Where(w => w.SubjectId == subjectId).FirstOrDefaultAsync();
+            if (user == null) throw new ApiException(HttpStatusCode.BadRequest, "วิชานี้ถูกลบไปแล้ว");
+            _context.Subject.Remove(user);
+            if (user.SubjectId != null)
+            {
+                Subject Mcrt = await _context.Subject.Where(w => w.SubjectId == user.SubjectId).FirstOrDefaultAsync();
+                _context.Subject.Remove(Mcrt);
+            }
             await this._context.SaveChangesAsync();
         }
 
         //Get-Subject-All
-        public async Task<List<Subject>> GetSubject()
+        public async Task<IEnumerable<dynamic>> GetSubject(string keyword)
         {
-            List<Subject> profile = await _context.Subject.ToListAsync();
-            return profile;
+            StringBuilder sql = new StringBuilder();
+            sql.AppendLine(@"select    sj.subject_id ""subjectId"",
+                                       sj.subject_code ""subjectCode"",
+                                       sj.subject_name ""subjectName"",
+                                       sj.subject_teacher ""subjectTeacher""
+                            from       subject sj");
+
+            if (!string.IsNullOrEmpty(keyword))
+                sql.AppendLine("where   sj.subject_code is not null");
+
+            sql.AppendLine("order by sj.subject_code");
+            var data = await _context.QueryAsync<dynamic>(sql.ToString(), new { keyword = keyword });
+            return data;
         }
 
         //Update-Subject
-        public async Task UpdateSubject(int subjectid, Subject subject)
+        public async Task UpdateSubject(Subject subject)
         {
-            var subjects = _context.Subject.FirstOrDefault(c => c.Subject_id.Equals(subjectid));
-            subjects.Subject_code = subject.Subject_code;
-            subjects.Subject_name = subject.Subject_name;
-            subjects.Subject_teacher = subject.Subject_teacher;
-
-            var isSubject_codeModified = _context.Entry(subjects).Property("Subject_code").IsModified;
-            var isSubject_nameModified = _context.Entry(subjects).Property("Subject_name").IsModified;
-            var isSubject_teacherModified = _context.Entry(subjects).Property("Subject_teacher").IsModified;
-
+            Subject sj = await _context.Subject.Where(w => w.SubjectId == subject.SubjectId).FirstOrDefaultAsync();
+            if (sj == null) throw new ApiException(HttpStatusCode.BadRequest, "วิชานี้ไม่มีข้อมูลหรือถูกลบไปแล้ว");
+            sj.SubjectCode = subject.SubjectCode;
+            sj.SubjectName = subject.SubjectName;
+            sj.SubjectTeacher = subject.SubjectTeacher;
+            _context.Subject.Attach(sj);
+            _context.Entry(sj).State = EntityState.Modified;
             await this._context.SaveChangesAsync();
+            return;
         }
 
-        //Get-subject-Detail
-        public async Task<Subject> GetSubjectDetail(int subject_id)
-        {
-            Subject subject = await _context.Subject.Where(w => w.Subject_id == subject_id).FirstOrDefaultAsync();
-            return subject;
-        }
+        
     }
 }

@@ -26,33 +26,27 @@ namespace App.Api.Controllers
 
 
         [HttpDelete("delete-subject")]
-        public async Task<IActionResult> DeleteSubject(int subject_id)
+        public async Task<IActionResult> DeleteSubject([FromQuery] int subjectId)
         {
-            await this._subject.DeleteSubject(subject_id);
+            await _subject.DeleteSubject(subjectId);
             return Ok();
         }
 
         [HttpGet("get-subject")]
-        public async Task<IActionResult> GetSubject()
+        public async Task<IActionResult> GetSubject([FromQuery] string keyword)
         {
-            List<Subject> subject = await this._subject.GetSubject();
-            return Ok(subject);
+            return Ok(await _subject.GetSubject(keyword));
         }
 
         [HttpPut("update-subject")]
-        public async Task<IActionResult> UpdateSubject(int subject_id, [FromBody]Subject subject)
+        public async Task<IActionResult> UpdateSubject([FromBody] Subject subject)
         {
-            await this._subject.UpdateSubject(subject_id, subject);
+            await this._subject.UpdateSubject(subject);
             return Ok();
         }
 
 
-        [HttpGet("get-subject-detail")]
-        public async Task<IActionResult> GetSubjectDetail(int subject_id)
-        {
-            Subject subject = await this._subject.GetSubjectDetail(subject_id);
-            return Ok(subject);
-        }
+ 
 
     }
 }

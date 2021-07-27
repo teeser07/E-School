@@ -1,12 +1,12 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
-import { FormControl,FormGroup, FormBuilder,Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup ,FormBuilder, Validators } from '@angular/forms';
 import { SubjectService } from './subject.service';
 import { debounceTime } from 'rxjs/operators';
-import { NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import { MessageService } from 'src/app/core/message.service';
-import { Router } from '@angular/router';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { Subject } from 'rxjs';
+import { MessageService } from 'src/app/core/message.service';
+import { FormUtilService } from 'src/app/shared/services/form-util.service';
+import {Router} from '@angular/router'
 
 @Component({
   selector: 'app-subject',
@@ -14,149 +14,84 @@ import { Subject } from 'rxjs';
   styleUrls: ['./subject.component.scss']
 })
 export class SubjectComponent implements OnInit {
-  
-  subjectForm : FormGroup;
-  row : any[];
-  loading: boolean;
   searchControl: FormControl = new FormControl();
   products;
   filteredProducts;
-  @ViewChild('modalDelete', { static: true }) modalDelete;
-  @ViewChild('modalUpdate', { static: true }) modalUpdate;
-  detail ;
-  detail1 ; 
-  refresh: Subject<any> = new Subject();
+  modalRef: NgbModalRef;
+  addForm: FormGroup;
+  subjectList: any ;
+  row: any[];
+  keyword: string = '';
   
-
   constructor(
-    private subjectService: SubjectService,
+    private router : Router,
+    private subjectService : SubjectService,
     private modalService: NgbModal,
-    private Fb: FormBuilder,
-    private message : MessageService,
-    private router: Router,
-    private toastr: ToastrService,
+    private fb: FormBuilder,
+    private message: MessageService,
+    private toastr : ToastrService,
+    private fu: FormUtilService,
 
   ) { }
 
   ngOnInit() {
-    this.subjectForm = this.Fb.group({
-      subject_code : [null, Validators.required],
-      subject_name : [null, Validators.required],
-    });
-    this.subjectService.getSubject()
-    .subscribe((res: any[]) => {
-      this.products = [...res];
-      this.row = res;
-      console.log(this.row)
-    });
-
-    this.searchControl.valueChanges
-    .pipe(debounceTime(100))
-    .subscribe(value => {
-      this.filerData(value);
-    });
+    this.search();
   }
-  filerData(val) {
-    if (val) {
-      val = val.toLowerCase();
-    } else {
-      return this.row = [...this.products];
-    }
+  search() {
+    this.subjectService.getSubject(this.keyword).subscribe(res => {
+      this.subjectList = res;
+      console.log(this.subjectList)
+    });
 
-    const columns = Object.keys(this.products[0]);
-    if (!columns.length) {
+  }
+  openModalDetail(content, row?) {
+    this.addForm = this.fb.group({
+      subjectCode: [null, [Validators.required, Validators.maxLength(50)]],
+      subjectName: [null, [Validators.required, Validators.maxLength(50)]],
+      subjectTeacher: [null, [Validators.required, Validators.maxLength(50)]],
+      subjectId: null
+    });
+    if (row) {
+      this.addForm.patchValue(row, { emitEvent: false });
+    }
+    this.modalRef = this.modalService.open(content);
+  }
+  save() {
+    if (this.addForm.invalid) {
+      this.fu.markFormGroupTouched(this.addForm);
       return;
     }
+    this.subjectService.save(this.addForm.value).subscribe(() => {
+      this.modalRef.close();
+      this.message.success('บันทึกข้อมูลสำเร็จ');
+      this.search();
+    });
+  }
 
-    const rows = this.products.filter(function(d) {
-      for (let i = 0; i <= columns.length; i++) {
-        const column = columns[i];
-        // console.log(d[column]);
-        if (d[column] && d[column].toString().toLowerCase().indexOf(val) > -1) {
-          return true;
-        }
+  remove(subjectId, modal) {
+    this.modalService.open(modal).result.then((result) => {
+      if (result.toLowerCase() == 'ok') {
+        this.subjectService.deleteSubject(subjectId).subscribe(() => {
+          this.message.success('ลบข้อมูลสำเร็จ');
+          this.search();
+        });
       }
-    });
-    this.row = rows;
-  }
-  delete(id:any,i:any){
-    console.log(id)
-      this.subjectService.deleteSubject(id).subscribe(res=>{
-        this.row.splice(i,1);
-        setTimeout(() => {
-          this.loading = false;
-          this.toastr.success('สำเร็จ', 'ลบรายวิชา', {progressBar: true});
-        }, 500);
-        this.subjectService.getSubject()
-        .subscribe((res: any[]) => {
-        this.products = [...res];
-        this.row = res;
-        console.log(this.row)
-      });
-        
-    })
-  
-  }
-
-  confirm(content) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true})
-    .result.then((result) => {
-      console.log(result);
-    }, (reason) => {
-      console.log('Err!', reason);
-    });
-  }
-
-  onSubmit():any{
-    if (this.subjectForm.invalid) {
-      this.message.warning('กรุณากรอกข้อมูลให้ครบถ้วน');
-      return;
-    }
-    this.loading = true;
-    this.subjectService.saveSubject(this.subjectForm.value).subscribe(res=>{
-      console.log(res);
-      setTimeout(() => {
-        this.loading = false;
-        this.toastr.success('สำเร็จ', 'เพิ่มรายวิชา', {progressBar: true});
-      }, 500);
-      this.subjectService.getSubject()
-      .subscribe((res: any[]) => {
-      this.products = [...res];
-      this.row = res;
-      console.log(this.row)
-    });
-      
-  })
+    }, (reson) => { });
   }
   
-  getId(id:any,i:any){
-    console.log(id)
-    this.subjectService.getSubjectDetail(id).subscribe(res =>{
-      this.detail = res
-      console.log(this.detail)
-    })
-    this.modalService.open(this.modalDelete, {centered: true })
-  }
-
-  getDetail(id:any,i:any){
-    console.log(id)
-    this.subjectService.getSubjectDetail(id).subscribe(res=>{
-      this.detail1 = res
-      console.log(this.detail1)
-      this.subjectForm.setValue({
-        subject_code : res['subject_code'],
-        subject_name : res['subject_name']
-      })
-    })
-    this.modalService.open(this.modalUpdate, {centered: true })
-  }
-
-  Update():any{
-    this.subjectService.updateSubject(this.detail1.subject_id,this.subjectForm.value).subscribe(()=>{
-      console.log('Update Success')
-    })
-    window.location.reload()
-  }
-
-
+  
 }
+ 
+  
+
+  
+
+  
+  
+  
+  
+
+ 
+
+
+

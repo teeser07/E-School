@@ -11,25 +11,23 @@ export class SubjectService {
   constructor(private http: HttpClient
     ) { }
 
-  getSubject(){
-    return this.http.get('Subject/get-subject');
+  getSubject(keyword){
+    return this.http.get('Subject/get-subject',{ params: { keyword: keyword } });
   }
 
-  deleteSubject(id:any){
-    return this.http.delete(`Subject/delete-subject?subject_id=${id}`)
+  deleteSubject(subjectId){
+    return this.http.delete('Subject/delete-subject',{ params: { subjectId: subjectId } });
   }
 
-  saveSubject(data:any){
-    return this.http.post('Subject/save-subject',data)
+  save(value) {
+    if (value.subjectId)
+      return this.http.put('Subject/update-subject', value);
+    else
+      return this.http.post('Subject/save-subject', value);
   }
+  
 
-  getSubjectDetail(id:any){
-    return this.http.get(`Subject/get-subject-detail?subject_id=${id}`)
-  }
-
-  updateSubject(id:any,data:any){
-    return this.http.put(`Subject/update-subject?subject_id=${id}`,data)
-  }
+  
 
 
 }
