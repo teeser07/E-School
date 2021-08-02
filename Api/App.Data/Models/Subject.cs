@@ -11,17 +11,17 @@ namespace App.Data.Models
 
     public class Subject : BaseModel
     {
-        public int Subject_id { get; set; }
-        public string Subject_code { get; set; }
-        public string Subject_name { get; set; }
-        public string Subject_teacher { get; set; }
+        public int? SubjectId { get; set; }
+        public string SubjectCode { get; set; }
+        public string SubjectName { get; set; }
+        public string SubjectTeacher { get; set; }
     }
     public class SubjectConfiguration : BaseConfiguration<Subject>
     {
         public override void Configure(EntityTypeBuilder<Subject> builder)
         {
             base.Configure(builder);
-            builder.HasKey(m => m.Subject_id);
+            builder.HasKey(m => m.SubjectId);
         }
     }
 }

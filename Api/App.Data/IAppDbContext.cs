@@ -30,5 +30,6 @@ namespace App.Data
         DbSet<Holiday> Holiday { get; set; }
         DbSet<EmpProfile> EmpProfile { get; set; }
         DbSet<StudentProfile> StudentProfile { get; set; }
+        DbSet<TimeTable> TimeTable { get; set; }
     }
 }

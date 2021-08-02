@@ -88,6 +88,7 @@ namespace App.Api
             services.AddScoped<IStudent_profileService, Student_profileService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IEmpProfileService, EmpProfileService>();
+            services.AddScoped<ITimeTableService, TimeTableService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 

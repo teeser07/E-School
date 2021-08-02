@@ -65,7 +65,7 @@ namespace App.Services.Implements
             if (!string.IsNullOrEmpty(keyword))
                 sql.AppendLine("where       concat(u.email, u.emp_code, ep.first_name, ep.last_name, ep.tel) ilike '%' || @keyword || '%'");
 
-            sql.AppendLine("order by u.role");
+            sql.AppendLine("order by u.role,st.status_desc");
             var data = await _context.QueryAsync<dynamic>(sql.ToString(), new { keyword = keyword });
             return data;
         }

@@ -9,10 +9,9 @@ namespace App.Services.Interfaces
 {
     public interface ISubjectService
     {
-        Task<Subject> GetSubjectDetail(int subject_id);
         Task SaveSubject(Subject subject);
-        Task DeleteSubject(int subject_id);
-        Task<List<Subject>> GetSubject();
-        Task UpdateSubject(int subject_id, Subject subject);
+        Task DeleteSubject(int subjectId);
+        Task<IEnumerable<dynamic>> GetSubject(string keyword);
+        Task UpdateSubject(Subject subject);
     }
 }
