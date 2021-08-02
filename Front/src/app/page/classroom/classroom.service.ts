@@ -9,19 +9,32 @@ export class ClassroomService {
   constructor(private http: HttpClient) { }
 
   getRoom(keyword) {
-    return this.http.get('MapClassRoomTeacher/get-mcrt', { params: { keyword: keyword }});
+    return this.http.get('MapClassRoomTeacher/get-mcrt', { params: { keyword: keyword } });
   }
   save(value) {
     if (value.mapclassroomteacherId)
-    return this.http.put('MapClassRoomTeacher/update-mcrt',value);
+      return this.http.put('MapClassRoomTeacher/update-mcrt', value);
     else
-    return this.http.post('MapClassRoomTeacher/save-mcrt',value);
+      return this.http.post('MapClassRoomTeacher/save-mcrt', value);
   }
   deleteRoom(mapclassroomteacherId) {
-    return this.http.delete('MapClassRoomTeacher/delete-mcrt', { params: { mapclassroomteacherId: mapclassroomteacherId }});
+    return this.http.delete('MapClassRoomTeacher/delete-mcrt', { params: { mapclassroomteacherId: mapclassroomteacherId } });
   }
 
   getEmp(key) {
     return this.http.get('MapClassRoomTeacher/get-emp', { params: { key: key } });
+  }
+
+  getStudent(mapclassroomteacherId?) {
+    if (!mapclassroomteacherId) mapclassroomteacherId = 0
+    return this.http.get('MapClassRoomTeacher/student', { params: { mapclassroomteacherId: mapclassroomteacherId } });
+  }
+
+  saveStudent(students, mapclassroomteacherId) {
+    return this.http.post('MapClassRoomTeacher/student', { students: students, mapclassroomteacherId: mapclassroomteacherId });
+  }
+
+  removeStudent(id) {
+    return this.http.delete('MapClassRoomTeacher/student', { params: { id: id } });
   }
 }

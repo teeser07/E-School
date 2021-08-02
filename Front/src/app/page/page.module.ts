@@ -24,6 +24,7 @@ import { SharedModule } from '../shared/shared.module';
 import { PeriodComponent } from './period/period.component';
 import { HolidayComponent } from './holiday/holiday.component';
 import { AddClassComponent } from './classroom/add-class/add-class.component';
+import { AddStudentComponent } from './classroom/add-student/add-student.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { AddClassComponent } from './classroom/add-class/add-class.component';
     PeriodComponent,
     HolidayComponent,
     AddClassComponent,
+    AddStudentComponent,
   ],
   imports: [
     CommonModule,

@@ -14,6 +14,7 @@ import { StdInfoEditComponent } from './std/std-info-edit/std-info-edit.componen
 import { SubjectComponent } from './subject/subject.component';
 import { PeriodComponent } from './period/period.component';
 import { HolidayComponent } from './holiday/holiday.component';
+import { AddStudentComponent } from './classroom/add-student/add-student.component';
 
 const routes: Routes = [
   {
@@ -72,7 +73,10 @@ const routes: Routes = [
     path: 'add-room',
     component: AddClassComponent
   },
-
+  {
+    path: 'add-student',
+    component: AddStudentComponent
+  },
 ];
 
 @NgModule({

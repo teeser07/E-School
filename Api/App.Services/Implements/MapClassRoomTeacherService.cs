@@ -115,6 +115,48 @@ namespace App.Services.Implements
             var data = await _context.QueryAsync<dynamic>(sql.ToString(), new { key = key });
             return data;
         }
+
+        public async Task<GetStudentResponse> GetStudent(int? mapClassRoomTeacherId)
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.AppendLine(@"
+            select		student_profile_id ""studentProfileId"",
+			            student_code ""studentCode"",
+                        concat(first_name, ' ', last_name) ""studentName""
+            from        student_profile sp
+            where       1=1");
+            if (mapClassRoomTeacherId == null || mapClassRoomTeacherId == 0)
+                sql.AppendLine(@"and map_class_room_teacher_id is null");
+            else
+                sql.AppendLine(@"and map_class_room_teacher_id = @id");
+            sql.AppendLine(@"order by    student_code");
+            var studentList = await _context.QueryAsync<dynamic>(sql.ToString(), new { id = mapClassRoomTeacherId });
+            return new GetStudentResponse() { StudentList = studentList };
+        }
+
+        public async Task SaveStudent(SaveStudentRequest request)
+        {
+            foreach(int id in request.students)
+            {
+                StudentProfile student = await _context.StudentProfile.FirstOrDefaultAsync(f => f.Student_profile_id == id);
+                student.Map_class_room_teacher_id = request.MapClassRoomTeacherId;
+                _context.StudentProfile.Attach(student);
+                _context.Entry(student).State = EntityState.Modified;
+            }
+
+            await this._context.SaveChangesAsync();
+            return;
+        }
+
+        public async Task DeleteStudent(int id)
+        {
+            StudentProfile student = await _context.StudentProfile.Where(w => w.Student_profile_id == id).FirstOrDefaultAsync();
+            student.Map_class_room_teacher_id = null;
+            _context.StudentProfile.Attach(student);
+            _context.Entry(student).State = EntityState.Modified;
+            await this._context.SaveChangesAsync();
+            return;
+        }
     }
 
 
