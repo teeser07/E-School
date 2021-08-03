@@ -25,6 +25,8 @@ import { PeriodComponent } from './period/period.component';
 import { HolidayComponent } from './holiday/holiday.component';
 import { AddClassComponent } from './classroom/add-class/add-class.component';
 import { TimetableComponent } from './timetable/timetable.component';
+import { AddStudentComponent } from './classroom/add-student/add-student.component';
+
 
 
 @NgModule({
@@ -43,6 +45,7 @@ import { TimetableComponent } from './timetable/timetable.component';
     HolidayComponent,
     AddClassComponent,
     TimetableComponent,
+    AddStudentComponent,
   ],
   imports: [
     CommonModule,

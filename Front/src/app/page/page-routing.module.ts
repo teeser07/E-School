@@ -14,7 +14,11 @@ import { StdInfoEditComponent } from './std/std-info-edit/std-info-edit.componen
 import { SubjectComponent } from './subject/subject.component';
 import { PeriodComponent } from './period/period.component';
 import { HolidayComponent } from './holiday/holiday.component';
+
 import { TimetableComponent } from './timetable/timetable.component';
+
+import { AddStudentComponent } from './classroom/add-student/add-student.component';
+
 
 const routes: Routes = [
   {
@@ -74,8 +78,13 @@ const routes: Routes = [
     component: AddClassComponent
   },
   {
+
     path: 'timetable',
     component: TimetableComponent
+  },
+  {
+    path: 'add-student',
+    component: AddStudentComponent
   },
 
 ];

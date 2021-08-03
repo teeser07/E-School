@@ -1,4 +1,5 @@
-﻿using App.Data.Models;
+﻿using App.Data.DTOs;
+using App.Data.Models;
 using App.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -50,7 +51,24 @@ namespace App.Api.Controllers
             return Ok(await _MapClassRoomTeacher.GetEmpProfile(key));
         }
 
+        [HttpGet("student")]
+        public async Task<IActionResult> GetStudent(int? mapClassRoomTeacherId)
+        {
+            return Ok(await _MapClassRoomTeacher.GetStudent(mapClassRoomTeacherId));
+        }
 
+        [HttpPost("student")]
+        public async Task<IActionResult> SaveStudent(SaveStudentRequest student)
+        {
+            await _MapClassRoomTeacher.SaveStudent(student);
+            return Ok();
+        }
 
+        [HttpDelete("student")]
+        public async Task<IActionResult> DeleteStudent(int id)
+        {
+            await _MapClassRoomTeacher.DeleteStudent(id);
+            return Ok();
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using App.Data.Models;
+﻿using App.Data.DTOs;
+using App.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,8 @@ namespace App.Services.Interfaces
         Task Delete(int mapclassroomteacherId);
         Task Update(MapClassRoomTeacher mapclassroomteacher);
         Task<IEnumerable<dynamic>> GetEmpProfile(string key);
+        Task<GetStudentResponse> GetStudent(int? mapClassRoomTeacherId);
+        Task SaveStudent(SaveStudentRequest request);
+        Task DeleteStudent(int id);
     }
 }

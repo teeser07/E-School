@@ -1,0 +1,35 @@
+<toolbar>
+    <button type="button" class="btn btn-primary ml-1 mr-1 pl-3 pr-3 d-flex align-items-center" (click)="save()">
+        บันทึก
+    </button>
+</toolbar>
+
+<div class="card mt-4 mb-4">
+    <div class="card-body">
+        <div class="card-title" style="margin-bottom: unset;">เพิ่มนักเรียน</div>
+    </div>
+    <div class="card-body">
+        <div class="card o-hidden">
+            <!-- <ngx-datatable style="height: 500px; box-shadow: none" class="material" [columnMode]="'force'"
+                [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [rows]="studentList"
+                (select)="onSelect($event)" [selectionType]="'checkbox'"> -->
+            <ngx-datatable style="height: 500px; box-shadow: none" class="material fullscreen" [columnMode]="'force'"
+                [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [rows]="studentList"
+                (select)="onSelect($event)" [selectionType]="'checkbox'">
+                <ngx-datatable-column [width]=" 30" [sortable]="false" [canAutoResize]="false" [draggable]="false"
+                    [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true">
+                </ngx-datatable-column>
+                <ngx-datatable-column name="studentCode" [width]="100">
+                    <ng-template ngx-datatable-header-template>
+                        รหัสนักเรียน
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="studentName" [width]="100">
+                    <ng-template ngx-datatable-header-template>
+                        ชื่อนักเรียน
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+    </div>
+</div>
