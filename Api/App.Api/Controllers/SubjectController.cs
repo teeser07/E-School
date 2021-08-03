@@ -45,8 +45,12 @@ namespace App.Api.Controllers
             return Ok();
         }
 
+        [HttpGet("get-emp")]
+        public async Task<IActionResult> GetEmp([FromQuery] string key)
+        {
+            return Ok(await _subject.GetEmpProfile(key));
+        }
 
- 
 
     }
 }

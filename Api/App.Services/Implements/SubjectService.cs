@@ -50,11 +50,14 @@ namespace App.Services.Implements
             sql.AppendLine(@"select    sj.subject_id ""subjectId"",
                                        sj.subject_code ""subjectCode"",
                                        sj.subject_name ""subjectName"",
-                                       sj.subject_teacher ""subjectTeacher""
-                            from       subject sj");
-
+                                       emp.first_name ""firstName"",
+                                       emp.last_name ""lastName""
+                            from       subject sj
+                            inner join  emp_profile emp
+                            on          sj.subject_teacher_id = emp.emp_profile_id");
+                            
             if (!string.IsNullOrEmpty(keyword))
-                sql.AppendLine("where   sj.subject_code is not null");
+                sql.AppendLine("where    concat(emp.first_name, emp.last_name) ilike '%' || @keyword || '%'");
 
             sql.AppendLine("order by sj.subject_code");
             var data = await _context.QueryAsync<dynamic>(sql.ToString(), new { keyword = keyword });
@@ -68,13 +71,37 @@ namespace App.Services.Implements
             if (sj == null) throw new ApiException(HttpStatusCode.BadRequest, "วิชานี้ไม่มีข้อมูลหรือถูกลบไปแล้ว");
             sj.SubjectCode = subject.SubjectCode;
             sj.SubjectName = subject.SubjectName;
-            sj.SubjectTeacher = subject.SubjectTeacher;
+            sj.SubjectTeacherId = subject.SubjectTeacherId;
             _context.Subject.Attach(sj);
             _context.Entry(sj).State = EntityState.Modified;
             await this._context.SaveChangesAsync();
             return;
         }
 
-        
+
+        public async Task<IEnumerable<dynamic>> GetEmpProfile(string key)
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.AppendLine(@"select     u.email,
+			                            u.emp_code ""empCode"",
+                                        ep.first_name ""firstName"",
+                                        ep.last_name ""lastName"",
+                                        ep.tel,
+                                        u.""role"",
+                                        ep.status, 
+                                        u.user_id ""userId"",
+                                        ep.emp_profile_id ""empProfileId""
+                            from        ""user"" u
+                            inner join  emp_profile ep
+                            on          ep.emp_profile_id = u.emp_profile_id");
+
+            if (!string.IsNullOrEmpty(key))
+                sql.AppendLine("where  u.role='T' and (ep.status = 'a' or ep.status = 'V')");
+
+            sql.AppendLine("order by u.emp_code");
+            var data = await _context.QueryAsync<dynamic>(sql.ToString(), new { key = key });
+            return data;
+        }
+
     }
 }

@@ -5,12 +5,13 @@
 <div class="separator-breadcrumb border-top"></div>
 
 <div class="row">
-    <div class="col-md-6 col-sm-9 col-8">
+    <div class="col-md-4 col-sm-9 col-8">
         <div class="form-group">
             <input id="email" placeholder="ค้นหาบุคลากร" [(ngModel)]="keyword" (keydown.enter)="search()"
                 class="form-control form-control-rounded ml-0" type="email">
         </div>
     </div>
+    <div class="col-md-2"></div>
     <div class="col-md-6 col-sm-3 col-4">
         <button class="btn btn-primary mr-0" (click)="openModalDetail(modalDetail)">เพิ่มบุคลากร</button>
     </div>

@@ -11,17 +11,17 @@ namespace App.Data.Models
 
     public class Period : BaseModel
     {
-        public int Period_id { get; set; }
-        public string Order { get; set; }
-        public string Start_time { get; set; }
-        public string End_time { get; set; }
+        public int? PeriodId { get; set; }
+        public int Order { get; set; }
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
     }
     public class TimesConfiguration : BaseConfiguration<Period>
     {
         public override void Configure(EntityTypeBuilder<Period> builder)
         {
             base.Configure(builder);
-            builder.HasKey(m => m.Period_id);
+            builder.HasKey(m => m.PeriodId);
         }
     }
 }

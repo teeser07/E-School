@@ -9,10 +9,9 @@ namespace App.Services.Interfaces
 {
     public interface IPeriodService
     {
-        Task<Period> GetPeriodDetail(int period_id);
         Task SavePeriod(Period period);
-        Task DeletePeriod(int period_id);
-        Task<List<Period>> GetPeriod();
-        Task UpdatePeriod(int period_id, Period period);
+        Task DeletePeriod(int periodId);
+        Task<IEnumerable<dynamic>> GetPeriod(string keyword);
+        Task UpdatePeriod(Period period);
     }
 }

@@ -14,7 +14,7 @@ namespace App.Data.Models
         public int? SubjectId { get; set; }
         public string SubjectCode { get; set; }
         public string SubjectName { get; set; }
-        public string SubjectTeacher { get; set; }
+        public int SubjectTeacherId { get; set; }
     }
     public class SubjectConfiguration : BaseConfiguration<Subject>
     {

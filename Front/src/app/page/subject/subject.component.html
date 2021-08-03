@@ -17,7 +17,7 @@
         <div class="card  o-hidden">
                 <ngx-datatable style="height: 500px; box-shadow: none" class="material fullscreen"
                     [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true"
-                    [rows]="subjectList" >
+                    [rows]="row" >
                     <ngx-datatable-column name="subjectCode">
                         <ng-template ngx-datatable-header-template>
                             รหัสรายวิชา
@@ -28,9 +28,12 @@
                             รายวิชา
                         </ng-template>
                     </ngx-datatable-column>
-                    <ngx-datatable-column name="subjectTeacher">
+                    <ngx-datatable-column>
                         <ng-template ngx-datatable-header-template>
                             ครูประจำวิชา
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            {{row.firstName}} {{row.lastName}}
                         </ng-template>
                     </ngx-datatable-column>
                     <ngx-datatable-column>
@@ -95,16 +98,19 @@
                 </div>
                 <div class="col-md-6">
                     <p class="text-primary mb-1">ครูประจำวิชา <span class="request-star">*</span></p>
-                    <input type="text" class="form-control" formControlName="subjectTeacher"
-                        [class.is-invalid]="fu.hasError(addForm.controls.subjectTeacher)">
-                    <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.subjectTeacher)">
-                        <div
-                            *ngIf="addForm.controls.subjectTeacher.hasError('required') || addForm.controls.subjectTeacher.hasError('empty')">
-                            กรุณาระบุข้อมูล
-                        </div>
-                        <div *ngIf="addForm.controls.subjectTeacher.hasError('maxlength')">
-                            กรุณาระบุข้อมูลไม่เกิน {{ addForm.controls.subjectTeacher.errors.maxlength.requiredLength }} ตัวอักษร
-                        </div>
+                    <select class="form-control" formControlName="subjectTeacherId">
+                        <option value="null">เลือกครูประจำวิชา</option>
+                        <option *ngFor="let emp of EmpList" [value]="emp.empProfileId">{{emp.firstName}}
+                            {{emp.lastName}}</option>
+                    </select>
+                </div>
+                <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.subjectTeacherId)">
+                    <div
+                        *ngIf="addForm.controls.subjectTeacherId.hasError('required') || addForm.controls.subjectTeacherId.hasError('empty')">
+                        กรุณาระบุข้อมูล
+                    </div>
+                    <div *ngIf="addForm.controls.subjectTeacherId.hasError('maxlength')">
+                        กรุณาระบุข้อมูลไม่เกิน {{ addForm.controls.subjectTeacherId.errors.maxlength.requiredLength }} ตัวอักษร
                     </div>
                 </div>
             </div>

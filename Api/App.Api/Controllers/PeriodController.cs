@@ -26,32 +26,25 @@ namespace App.Api.Controllers
 
 
         [HttpDelete("delete-period")]
-        public async Task<IActionResult> DeletePeriod(int period_id)
+        public async Task<IActionResult> DeletePeriod([FromQuery] int periodId)
         {
-            await this._period.DeletePeriod(period_id);
+            await this._period.DeletePeriod(periodId);
             return Ok();
         }
 
 
         [HttpGet("get-period")]
-        public async Task<IActionResult> GetPeriod()
+        public async Task<IActionResult> GetPeriod([FromQuery] string keyword)
         {
-            List<Period> period = await this._period.GetPeriod();
-            return Ok(period);
+            return Ok(await _period.GetPeriod(keyword));
         }
 
         [HttpPut("update-period")]
-        public async Task<IActionResult> UpdatePeriod(int period_id, [FromBody] Period period)
+        public async Task<IActionResult> UpdatePeriod([FromBody] Period period)
         {
-            await this._period.UpdatePeriod(period_id, period);
+            await this._period.UpdatePeriod(period);
             return Ok();
         }
 
-        [HttpGet("get-period-detail")]
-        public async Task<IActionResult> GetPeriodDetail(int period_id)
-        {
-            Period period = await this._period.GetPeriodDetail(period_id);
-            return Ok(period);
-        }
     }
 }

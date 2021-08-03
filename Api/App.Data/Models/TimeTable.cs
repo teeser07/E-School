@@ -11,10 +11,9 @@ namespace App.Data.Models
 
     public class TimeTable : BaseModel
     {
-        public int TimeTableId { get; set; }
+        public int? TimeTableId { get; set; }
+        public int Number { get; set; }
         public int? SubjectId { get; set; }
-        public int? HolidayId { get; set; }
-        public int? ClassroomId { get; set; }
         public int? PeriodId { get; set; }
         public int? MapClassRoomTeacherId { get; set; }
         public string DayValue { get; set; }

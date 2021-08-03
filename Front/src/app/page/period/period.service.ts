@@ -8,23 +8,18 @@ export class PeriodService {
 
   constructor(private http: HttpClient) { }
 
-  getPeriod(){
-    return this.http.get('Period/get-period');
+  getPeriod(keyword){
+    return this.http.get('Period/get-period',{ params: { keyword: keyword } });
   }
 
-  deletePeriod(id:any){
-    return this.http.delete(`Period/delete-period?period_id=${id}`);
+  deletePeriod(periodId){
+    return this.http.delete('Period/delete-period',{ params: { periodId: periodId } });
   }
 
-  savePeriod(data:any){
-    return this.http.post('Period/save-period',data)
-  }
-
-  getPeriodDetail(id:any){
-    return this.http.get(`Period/get-period-detail?period_id=${id}`)
-  }
-
-  updatePeriod(id:any,data:any){
-    return this.http.put(`Period/update-period?period_id=${id}`,data)
+  save(value) {
+    if (value.periodId)
+      return this.http.put('Period/update-period', value);
+    else
+      return this.http.post('Period/save-period', value);
   }
 }

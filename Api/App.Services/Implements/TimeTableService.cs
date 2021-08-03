@@ -37,11 +37,12 @@ namespace App.Services.Implements
         public async Task<IEnumerable<dynamic>> GetTimetable(string keyword)
         {
             StringBuilder sql = new StringBuilder();
-            sql.AppendLine(@"select     sj.subject_code ""subjectCode"",
+            sql.AppendLine(@"select     tb.time_table_id ""timeTableId"",
+                                        sj.subject_code ""subjectCode"",
                                         sj.subject_name ""subjectName"",
-                                        sj.subject_teacher ""subjectTeacher"",
-                                        hd.date ""date"",
-                                        hd.note ""note"",
+                                        tb.number ""number"",
+                                        emp.first_name ""firstName"",
+                                        emp.last_name ""lastName"",
                                         pr.start_time ""startTime"",
                                         pr.end_time ""endTime"",
                                         mcrt.map_class_room_teacher_name ""mapClassroomTeacherName"",
@@ -49,19 +50,19 @@ namespace App.Services.Implements
                             from        time_table tb
                             left join   subject sj
                             on          tb.subject_id = sj.subject_id 
-                            left join   holiday hd
-                            on          tb.holiday_id = hd.holiday_id
                             left join   period pr
                             on          tb.period_id = pr.period_id
                             left join   map_class_room_teacher mcrt
                             on          tb.map_class_room_teacher_id = mcrt.map_class_room_teacher_id
                             left join   day d
-                            on          tb.day_value = d.day_value");
+                            on          tb.day_value = d.day_value
+                            left join   emp_profile emp
+                            on          sj.subject_teacher_id = emp_profile_id");
 
             if (!string.IsNullOrEmpty(keyword))
-                sql.AppendLine("where       concat(sj.subject_code, sj.subject_name, sj.subject_teacher, mcrt.map_class_room_teacher_name,d.day_desc) ilike '%' || @keyword || '%'");
+                sql.AppendLine("where       concat(sj.subject_code, sj.subject_name, mcrt.map_class_room_teacher_name,d.day_desc) ilike '%' || @keyword || '%'");
 
-            sql.AppendLine("order by sj.subject_code");
+            sql.AppendLine("order by d.day_desc,tb.number,mcrt.map_class_room_teacher_name");
             var data = await _context.QueryAsync<dynamic>(sql.ToString(), new { keyword = keyword });
             return data;
         }
@@ -83,9 +84,8 @@ namespace App.Services.Implements
         {
             TimeTable tb = await _context.TimeTable.Where(w => w.TimeTableId == timetable.TimeTableId).FirstOrDefaultAsync();
             if (tb == null) throw new ApiException(HttpStatusCode.BadRequest, "ตารางสอนนี้ไม่มีข้อมูลหรือถูกลบไปแล้ว");
+            tb.Number = timetable.Number;
             tb.SubjectId = timetable.SubjectId;
-            tb.HolidayId = timetable.HolidayId;
-            tb.ClassroomId = timetable.ClassroomId;
             tb.PeriodId = timetable.PeriodId;
             tb.MapClassRoomTeacherId = timetable.MapClassRoomTeacherId;
             tb.DayValue = timetable.DayValue;
@@ -94,6 +94,11 @@ namespace App.Services.Implements
             await this._context.SaveChangesAsync();
             return;
         }
+
+
+        
+
+
 
     }
 

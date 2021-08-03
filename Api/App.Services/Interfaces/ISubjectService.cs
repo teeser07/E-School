@@ -13,5 +13,6 @@ namespace App.Services.Interfaces
         Task DeleteSubject(int subjectId);
         Task<IEnumerable<dynamic>> GetSubject(string keyword);
         Task UpdateSubject(Subject subject);
+        Task<IEnumerable<dynamic>> GetEmpProfile(string key);
     }
 }

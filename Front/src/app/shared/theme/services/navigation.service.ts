@@ -219,6 +219,7 @@ export class NavigationService {
                     name: 'กำหนดตารางเรียน',
                     type: 'link',
                     icon: 'i-Add',
+                    state: 'page/timetable'
                 },
             ]
         },

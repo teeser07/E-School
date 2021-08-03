@@ -1,11 +1,13 @@
 ﻿using App.Data;
 using App.Data.Models;
 using App.Services.Interfaces;
+using App.Utility;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,40 +30,51 @@ namespace App.Services.Implements
         }
 
         //Delete-Period
-        public async Task DeletePeriod(int period_id)
+        public async Task DeletePeriod(int periodId)
         {
-            Period period = await _context.Period.Where(w => w.Period_id == period_id).FirstOrDefaultAsync();
-            _context.Entry(period).State = EntityState.Deleted;
+            Period user = await _context.Period.Where(w => w.PeriodId == periodId).FirstOrDefaultAsync();
+            if (user == null) throw new ApiException(HttpStatusCode.BadRequest, "คาบเรียนนี้ถูกลบไปแล้ว");
+            _context.Period.Remove(user);
+            if (user.PeriodId != null)
+            {
+                Period pr = await _context.Period.Where(w => w.PeriodId == user.PeriodId).FirstOrDefaultAsync();
+                _context.Period.Remove(pr);
+            }
             await this._context.SaveChangesAsync();
         }
 
-        //Get-Period-All
-        public async Task<List<Period>> GetPeriod()
+        //Get-Period
+        public async Task<IEnumerable<dynamic>> GetPeriod(string keyword)
         {
-            List<Period> period = await _context.Period.ToListAsync();
-            return period;
+            StringBuilder sql = new StringBuilder();
+            sql.AppendLine(@"select    pr.period_id ""periodId"",
+                                       pr.order ""order"",
+                                       pr.start_time ""startTime"",
+                                       pr.end_time ""endTime""
+                            from       period pr");
+
+            if (!string.IsNullOrEmpty(keyword))
+                sql.AppendLine("where    concat(pr.order, pr.start_time,pr.end_time) ilike '%' || @keyword || '%'");
+
+            sql.AppendLine("order by pr.order");
+            var data = await _context.QueryAsync<dynamic>(sql.ToString(), new { keyword = keyword });
+            return data;
         }
 
         //Update-Period
-        public async Task UpdatePeriod(int period_id, Period period)
+        public async Task UpdatePeriod(Period period)
         {
-            var periods = _context.Period.FirstOrDefault(c => c.Period_id.Equals(period_id));
-            periods.Order = period.Order;
-            periods.Start_time = period.Start_time;
-            periods.End_time = period.End_time;
-
-            var isOrderModified = _context.Entry(periods).Property("Order").IsModified;
-            var isStart_timeModified = _context.Entry(periods).Property("Start_time").IsModified;
-            var isEnd_timeModified = _context.Entry(periods).Property("End_time").IsModified;
-
+            Period pr = await _context.Period.Where(w => w.PeriodId == period.PeriodId).FirstOrDefaultAsync();
+            if (pr == null) throw new ApiException(HttpStatusCode.BadRequest, "คาบเรียนนี้ไม่มีข้อมูลหรือถูกลบไปแล้ว");
+            pr.Order = period.Order;
+            pr.StartTime = period.StartTime;
+            pr.EndTime = period.EndTime;
+            pr.PeriodId = period.PeriodId;
+            _context.Period.Attach(pr);
+            _context.Entry(pr).State = EntityState.Modified;
             await this._context.SaveChangesAsync();
+            return;
         }
 
-        //Get-Period-Detail
-        public async Task<Period> GetPeriodDetail(int period_id)
-        {
-            Period period = await _context.Period.Where(w => w.Period_id == period_id).FirstOrDefaultAsync();
-            return period;
-        }
     }
 }

@@ -25,7 +25,10 @@ export class SubjectService {
     else
       return this.http.post('Subject/save-subject', value);
   }
-  
+
+  getEmp(key) {
+    return this.http.get('Subject/get-emp', { params: { key: key } });
+  }
 
   
 
