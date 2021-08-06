@@ -1,0 +1,157 @@
+<div class="breadcrumb">
+    <h1 class="text-primary">กำหนดตารางเรียน</h1>
+</div>
+<div class="separator-breadcrumb border-top"></div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <input id="text" placeholder="ค้นหาช่วงเวลา" [(ngModel)]="keyword" 
+                class="form-control form-control-rounded ml-0" type="text">
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <button class="btn btn-primary mr-0" >เพิ่ม</button>
+    </div>
+    <div class="col-md-12">
+        <div class="card  o-hidden">
+                <ngx-datatable style="height: 500px; box-shadow: none" class="material fullscreen"
+                    [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true"
+                    [rows]="row" >
+                    <ngx-datatable-column name="number" [width]="70">
+                        <ng-template ngx-datatable-header-template>
+                            คาบเรียนที่
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="day" [width]="70">
+                        <ng-template ngx-datatable-header-template>
+                            วัน
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="period" [width]="150">
+                        <ng-template ngx-datatable-header-template>
+                            ช่วงเวลา
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="subjectCode" [width]="70">
+                        <ng-template ngx-datatable-header-template>
+                            รหัสวิชา
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="subjectName" [width]="70">
+                        <ng-template ngx-datatable-header-template>
+                            วิชา
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="teacherName" [width]="70">
+                        <ng-template ngx-datatable-header-template>
+                            อาจารย์ผู้สอน
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column>
+                        <ng-template ngx-datatable-header-template>
+                            แก้ไข
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            <button class="btn btn-warning ml-0" (click)="openModalDetail(modalConfirm, row)">แก้ไข</button>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column>
+                        <ng-template ngx-datatable-header-template>
+                            ลบ
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            <button class="btn btn-danger ml-0" (click)="remove(row.timeTableId, modalDelete)">ลบ</button>
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <ng-template #modalConfirm let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title text-primary" id="modal-title">เพิ่มตารางเรียน</h4>
+            <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+                (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" [formGroup]="addForm">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="text-primary mb-1">คาบเรียนที่ <span class="request-star">*</span></p>
+                    <input type="number" class="form-control" formControlName="number"
+                        [class.is-invalid]="fu.hasError(addForm.controls.number)">
+                    <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.number)">
+                        <div
+                            *ngIf="addForm.controls.number.hasError('required') || addForm.controls.number.hasError('empty')">
+                            กรุณาระบุข้อมูล
+                        </div>
+                        <div *ngIf="addForm.controls.number.hasError('maxlength')">
+                            กรุณาระบุข้อมูลไม่เกิน {{ addForm.controls.number.errors.maxlength.requiredLength }} ตัวอักษร
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-primary mb-1">ชั้นเรียน <span class="request-star">*</span></p>
+                    <select class="form-control" formControlName="mapClassRoomTeacherId">
+                        <option value="null">เลือกชั้นเรียน</option>
+                        <option *ngFor="let cls of ClassList" [value]="cls.mapclassroomteacherId">{{cls.mapClassRoomTeacherName}}</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-primary mb-1">วัน <span class="request-star">*</span></p>
+                    <select class="form-control" formControlName="dayValue">
+                        <option value="null">เลือกวัน</option>
+                        <option value="Mo">จันทร์</option>
+                        <option value="Tu">อังคาร</option>
+                        <option value="We">พุธ</option>
+                        <option value="Th">พฤหัสบดี</option>
+                        <option value="Fr">ศุกร์</option>
+                        <option value="Sa">เสาร์</option>
+                        <option value="Su">อาทิตย์</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-primary mb-1">ช่วงเวลา<span class="request-star">*</span></p>
+                    <select class="form-control" formControlName="periodId">
+                        <option value="null">เลือกช่วงเวลา</option>
+                        <option *ngFor="let tm of TimeList" [value]="tm.periodId">{{tm.startTime}}-{{tm.endTime}}</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-primary mb-1">เลือกวิชา<span class="request-star">*</span></p>
+                    <select class="form-control" formControlName="subjectId">
+                        <option value="null">เลือกวิชา</option>
+                        <option *ngFor="let sj of SubjectList" [value]="sj.subjectId">{{sj.subjectCode}}-{{sj.subjectName}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary btn-rounded"
+                (click)="modal.dismiss('cancel')">Cancel</button>
+            <button type="button" ngbAutofocus class="btn btn-primary btn-rounded"
+            (click)="save()">Ok</button>
+        </div>
+    </ng-template> -->
+    
+    <ng-template #modalDelete let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-title">ยืนยัน</h4>
+            <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+                (click)="modal.dismiss('cancel')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>คุณแน่ใจหรือไม่ว่าจะลบข้อมูลนี้</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary btn-rounded"
+                (click)="modal.dismiss('cancel')">Cancel</button>
+            <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
+        </div>
+    </ng-template>

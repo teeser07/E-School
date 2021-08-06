@@ -20,30 +20,16 @@ namespace App.Api.Controllers
             _timetable = timetable;
         }
 
-        [HttpPost("save-tb")]
-        public async Task<IActionResult> Post([FromBody] TimeTable timetable)
+        [HttpGet("timetable")]
+        public async Task<IActionResult> GetTimetables(int? mapClassRoomTeacherId)
         {
-            await _timetable.Save(timetable);
-            return Ok();
+            return Ok(await _timetable.GetTimetables(mapClassRoomTeacherId));
         }
 
-        [HttpGet("get-tb")]
-        public async Task<IActionResult> GetTimetable([FromQuery] string keyword)
+        [HttpDelete("timetable")]
+        public async Task<IActionResult> DeleteTimetable(int timeTableId)
         {
-            return Ok(await _timetable.GetTimetable(keyword));
-        }
-
-        [HttpDelete("delete-tb")]
-        public async Task<IActionResult> DeleteTimetable([FromQuery] int TimeTableId)
-        {
-            await _timetable.DeleteTimetable(TimeTableId);
-            return Ok();
-        }
-
-        [HttpPut("update-tb")]
-        public async Task<IActionResult> UpdateTimetable([FromBody] TimeTable timetable)
-        {
-            await this._timetable.UpdateTimetable(timetable);
+            await _timetable.DeleteTimetable(timeTableId);
             return Ok();
         }
 

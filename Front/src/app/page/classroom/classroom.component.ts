@@ -67,7 +67,6 @@ export class ClassroomComponent implements OnInit {
       this.addForm.patchValue(row, {emitEvent: false });
     }
     this.router.navigateByUrl('/page/add-room',{state:row})
-    console.log(this.addForm)
     this.getEmp()
   
   }

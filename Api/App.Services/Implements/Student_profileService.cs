@@ -59,7 +59,7 @@ namespace App.Services.Implements
                             on          sp.student_profile_id = u.student_profile_id");
 
             if (!string.IsNullOrEmpty(keyword))
-                sql.AppendLine("where       concat(u.email, u.student_code, sp.first_name, sp.last_name, sp.tel) ilike '%' || @keyword || '%'");
+                sql.AppendLine("where       concat(u.email, u.student_code, sp.first_name, sp.last_name, sp.tel,sp.status) ilike '%' || @keyword || '%'");
 
             sql.AppendLine("order by u.student_code");
             var data = await _context.QueryAsync<dynamic>(sql.ToString(), new { keyword = keyword });

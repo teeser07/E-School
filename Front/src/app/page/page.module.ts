@@ -26,6 +26,7 @@ import { HolidayComponent } from './holiday/holiday.component';
 import { AddClassComponent } from './classroom/add-class/add-class.component';
 import { TimetableComponent } from './timetable/timetable.component';
 import { AddStudentComponent } from './classroom/add-student/add-student.component';
+import { CreatetimetableComponent } from './timetable/createtimetable/createtimetable.component';
 
 
 
@@ -46,6 +47,7 @@ import { AddStudentComponent } from './classroom/add-student/add-student.compone
     AddClassComponent,
     TimetableComponent,
     AddStudentComponent,
+    CreatetimetableComponent,
   ],
   imports: [
     CommonModule,

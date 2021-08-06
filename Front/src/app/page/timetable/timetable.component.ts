@@ -34,80 +34,31 @@ export class TimetableComponent implements OnInit {
     private message: MessageService,
     private toastr : ToastrService,
     private fu: FormUtilService,
-  ) { }
-
-  ngOnInit(): void {
-    this.search()
+  ) { 
+    
   }
 
-  search() {
-    this.timeTableService.getTimetable(this.keyword).subscribe((res :any[]) => {
-      this.periodList = res;
-      this.row = res;
-      console.log(this.row)
-    });
+  ngOnInit(): void {
+    this.getClass()
   }
 
   getClass(){
     this.timeTableService.getClass(this.keyword).subscribe((res :any[]) => {
       this.ClassList = res;
-      console.log(this.ClassList)
+      this.row = res;
+      console.log(this.row)
     })
   }
 
-  getTime(){
-    this.timeTableService.getTime(this.keyword).subscribe((res :any[]) => {
-      this.TimeList = res;
-      console.log(this.TimeList)
-    })
-  }
-
-  getSubject(){
-    this.timeTableService.getSubject(this.keyword).subscribe((res :any[]) => {
-      this.SubjectList = res;
-      console.log(this.SubjectList)
-    })
-  }
-
-  openModalDetail(content, row?) {
+  openModalDetail(row) {
     this.addForm = this.fb.group({
-      number: [null, [Validators.required, Validators.maxLength(50)]],
-      subjectId: [null, [Validators.required, Validators.maxLength(50)]],
-      periodId: [null, [Validators.required, Validators.maxLength(50)]],
-      mapClassRoomTeacherId: [null, [Validators.required, Validators.maxLength(50)]],
-      dayValue: [null, [Validators.required, Validators.maxLength(50)]],
-      timeTableId: null
+      mapClassRoomTeacherName: [null, [Validators.required, Validators.maxLength(50)]],
+      mapclassroomteacherId : null,
     });
-    if (row) {
-      this.addForm.patchValue(row, { emitEvent: false });
-      console.log(this.addForm)
+    if (row){
+      this.addForm.patchValue(row, {emitEvent: false });
     }
-    this.modalRef = this.modalService.open(content);
-    this.getClass();
-    this.getTime();
-    this.getSubject()
+    this.router.navigateByUrl('/page/create-timetable',{state:row})
   }
 
-  save() {
-    if (this.addForm.invalid) {
-      this.fu.markFormGroupTouched(this.addForm);
-      return;
-    }
-    this.timeTableService.save(this.addForm.value).subscribe(() => {
-      this.modalRef.close();
-      this.message.success('บันทึกข้อมูลสำเร็จ');
-      this.search();
-    });
-  }
-  
-  remove(timeTableId, modal) {
-    this.modalService.open(modal).result.then((result) => {
-      if (result.toLowerCase() == 'ok') {
-        this.timeTableService.deleteTimetable(timeTableId).subscribe(() => {
-          this.message.success('ลบข้อมูลสำเร็จ');
-          this.search();
-        });
-      }
-    }, (reson) => { });
-  }
 }

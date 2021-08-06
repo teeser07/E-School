@@ -56,11 +56,13 @@ export class AddClassComponent implements OnInit {
 
   ngOnInit(): void {
     this.getStudent();
+    
   }
 
   getStudent() {
     this.classroomService.getStudent(history.state.mapclassroomteacherId).subscribe((val: any) => {
       this.studentList = val.studentList;
+      console.log(this.studentList)
     });
   }
 

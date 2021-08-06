@@ -57,7 +57,7 @@ namespace App.Services.Implements
                             on          sj.subject_teacher_id = emp.emp_profile_id");
                             
             if (!string.IsNullOrEmpty(keyword))
-                sql.AppendLine("where    concat(emp.first_name, emp.last_name) ilike '%' || @keyword || '%'");
+                sql.AppendLine("where    concat(emp.first_name, emp.last_name,sj.subject_code,sj.subject_name) ilike '%' || @keyword || '%'");
 
             sql.AppendLine("order by sj.subject_code");
             var data = await _context.QueryAsync<dynamic>(sql.ToString(), new { keyword = keyword });

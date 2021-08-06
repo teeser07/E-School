@@ -8,8 +8,9 @@ export class TimetableService {
 
   constructor(private http: HttpClient) { }
 
-  getTimetable(keyword){
-    return this.http.get('TimeTable/get-tb',{ params: { keyword: keyword } });
+  getTimetable(mapclassroomteacherId?){
+    if (!mapclassroomteacherId) mapclassroomteacherId = 0
+    return this.http.get('TimeTable/timetable',{ params: { mapclassroomteacherId: mapclassroomteacherId } });
   }
 
   getClass(keyword){
@@ -32,6 +33,6 @@ export class TimetableService {
   }
 
   deleteTimetable(timeTableId){
-    return this.http.delete('TimeTable/delete-tb',{ params: { timeTableId: timeTableId } });
+    return this.http.delete('TimeTable/timetable',{ params: { timeTableId: timeTableId } });
   }
 }

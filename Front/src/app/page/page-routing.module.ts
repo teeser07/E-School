@@ -18,7 +18,7 @@ import { HolidayComponent } from './holiday/holiday.component';
 import { TimetableComponent } from './timetable/timetable.component';
 
 import { AddStudentComponent } from './classroom/add-student/add-student.component';
-
+import { CreatetimetableComponent } from './timetable/createtimetable/createtimetable.component';
 
 const routes: Routes = [
   {
@@ -86,6 +86,11 @@ const routes: Routes = [
     path: 'add-student',
     component: AddStudentComponent
   },
+  {
+    path: 'create-timetable',
+    component: CreatetimetableComponent
+  },
+  
 
 ];
 
