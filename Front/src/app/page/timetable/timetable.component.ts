@@ -55,9 +55,7 @@ export class TimetableComponent implements OnInit {
       mapClassRoomTeacherName: [null, [Validators.required, Validators.maxLength(50)]],
       mapclassroomteacherId : null,
     });
-    if (row){
-      this.addForm.patchValue(row, {emitEvent: false });
-    }
+    
     this.router.navigateByUrl('/page/create-timetable',{state:row})
   }
 

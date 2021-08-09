@@ -27,9 +27,9 @@ export class TimetableService {
   
   save(value) {
     if (value.timeTableId)
-      return this.http.put('TimeTable/update-tb', value);
+      return this.http.put('TimeTable/update-timetable', value);
     else
-      return this.http.post('TimeTable/save-tb', value);
+      return this.http.post('TimeTable/save-timetable', value);
   }
 
   deleteTimetable(timeTableId){

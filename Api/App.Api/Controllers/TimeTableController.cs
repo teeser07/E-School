@@ -33,6 +33,20 @@ namespace App.Api.Controllers
             return Ok();
         }
 
+        [HttpPost("save-timetable")]
+        public async Task<IActionResult> SaveTimetable(TimeTable timeTable)
+        {
+            await _timetable.SaveTimetable(timeTable);
+            return Ok();
+        }
+
+        [HttpPut("update-timetable")]
+        public async Task<IActionResult> UpdateTimetable(TimeTable timeTable)
+        {
+            await this._timetable.UpdateTimetable(timeTable);
+            return Ok();
+        }
+
 
     }
 }

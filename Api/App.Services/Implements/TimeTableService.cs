@@ -39,7 +39,7 @@ namespace App.Services.Implements
                                         concat(emp.first_name, ' ', emp.last_name) ""teacherName"",
                                         concat(pr.start_time, '-', pr.end_time) ""period"",
                                         d.day_desc ""day"",
-                                        tb.map_class_room_teacher_id ""mapClassRoomTeacherId""
+                                        tb.map_class_room_teacher_id ""mapclassroomteacherId""
                             from        time_table tb
                             left join   subject sj
                             on          tb.subject_id = sj.subject_id 
@@ -54,7 +54,7 @@ namespace App.Services.Implements
                 sql.AppendLine(@"and map_class_room_teacher_id is null");
             else
                 sql.AppendLine(@"and map_class_room_teacher_id = @id");
-                sql.AppendLine(@"order by    tb.number,sj.subject_code,sj.subject_name");
+            sql.AppendLine(@"order by    tb.number,sj.subject_code,sj.subject_name");
             var timetableList = await _context.QueryAsync<dynamic>(sql.ToString(), new { id = mapClassRoomTeacherId });
             return new GetTimetableResponse() { TimetableList = timetableList };
         }
@@ -71,6 +71,29 @@ namespace App.Services.Implements
             }
             await this._context.SaveChangesAsync();
         }
+
+
+        public async Task SaveTimetable(TimeTable timeTable)
+        {
+            this._context.TimeTable.Add(timeTable);
+            await this._context.SaveChangesAsync();
+        }
+
+        public async Task UpdateTimetable(TimeTable timeTable)
+        {
+            TimeTable sj = await _context.TimeTable.Where(w => w.TimeTableId == timeTable.TimeTableId).FirstOrDefaultAsync();
+            if (sj == null) throw new ApiException(HttpStatusCode.BadRequest, "คาบนี้ไม่มีข้อมูลหรือถูกลบไปแล้ว");
+            sj.SubjectId = timeTable.SubjectId;
+            sj.PeriodId = timeTable.PeriodId;
+            sj.MapClassRoomTeacherId = timeTable.MapClassRoomTeacherId;
+            sj.DayValue = timeTable.DayValue;
+            sj.Number = timeTable.Number; 
+            _context.TimeTable.Attach(sj);
+            _context.Entry(sj).State = EntityState.Modified;
+            await this._context.SaveChangesAsync();
+            return;
+        }
+
 
 
 

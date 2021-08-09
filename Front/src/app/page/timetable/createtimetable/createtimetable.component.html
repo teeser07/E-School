@@ -11,7 +11,7 @@
     </div>
     <div class="col-md-4"></div>
     <div class="col-md-4">
-        <button class="btn btn-primary mr-0" >เพิ่ม</button>
+        <button class="btn btn-primary mr-0" (click)="openModalDetail(modalConfirm)">เพิ่ม</button>
     </div>
     <div class="col-md-12">
         <div class="card  o-hidden">
@@ -70,7 +70,7 @@
     </div>
 
 
-    <!-- <ng-template #modalConfirm let-modal>
+    <ng-template #modalConfirm let-modal>
         <div class="modal-header">
             <h4 class="modal-title text-primary" id="modal-title">เพิ่มตารางเรียน</h4>
             <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
@@ -93,13 +93,6 @@
                             กรุณาระบุข้อมูลไม่เกิน {{ addForm.controls.number.errors.maxlength.requiredLength }} ตัวอักษร
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <p class="text-primary mb-1">ชั้นเรียน <span class="request-star">*</span></p>
-                    <select class="form-control" formControlName="mapClassRoomTeacherId">
-                        <option value="null">เลือกชั้นเรียน</option>
-                        <option *ngFor="let cls of ClassList" [value]="cls.mapclassroomteacherId">{{cls.mapClassRoomTeacherName}}</option>
-                    </select>
                 </div>
                 <div class="col-md-6">
                     <p class="text-primary mb-1">วัน <span class="request-star">*</span></p>
@@ -136,7 +129,7 @@
             <button type="button" ngbAutofocus class="btn btn-primary btn-rounded"
             (click)="save()">Ok</button>
         </div>
-    </ng-template> -->
+    </ng-template>
     
     <ng-template #modalDelete let-modal>
         <div class="modal-header">

@@ -12,5 +12,7 @@ namespace App.Services.Interfaces
     {
         Task<GetTimetableResponse> GetTimetables(int? mapClassRoomTeacherId);
         Task DeleteTimetable(int timeTableId);
+        Task SaveTimetable(TimeTable timeTable);
+        Task UpdateTimetable(TimeTable timeTable);
     }
 }
