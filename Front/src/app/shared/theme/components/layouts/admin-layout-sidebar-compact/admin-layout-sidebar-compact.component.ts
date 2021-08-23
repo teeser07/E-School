@@ -27,6 +27,7 @@ export class AdminLayoutSidebarCompactComponent implements OnInit {
           this.moduleLoading = false;
         }
       });
+      
     }
 
 }

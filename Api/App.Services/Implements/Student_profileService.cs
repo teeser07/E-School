@@ -96,5 +96,12 @@ namespace App.Services.Implements
             return;
         }
 
+        public async Task<StudentProfile> GetProfile(string Student_code)
+        {
+            StudentProfile ss = await _context.StudentProfile.Where(w => w.Student_code == Student_code).FirstOrDefaultAsync();
+            return ss;
+        }
+         
+
     }
 }

@@ -18,5 +18,8 @@ namespace App.Services.Interfaces
         Task<GetStudentResponse> GetStudent(int? mapClassRoomTeacherId);
         Task SaveStudent(SaveStudentRequest request);
         Task DeleteStudent(int id);
+        Task<MapClassRoomTeacher> GetMCRT(int MapClassRoomTeacherId);
+        
+
     }
 }

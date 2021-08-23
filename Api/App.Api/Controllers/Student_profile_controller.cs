@@ -1,4 +1,5 @@
 ﻿using App.Data.DTOs;
+using App.Data.Models;
 using App.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -45,6 +46,13 @@ namespace App.Api.Controllers
         {
             await _student.Update(request);
             return Ok();
+        }
+
+        [HttpGet("get-profile")]
+        public async Task<IActionResult> GetProfile(string Student_code)
+        {
+            StudentProfile profile = await this._student.GetProfile(Student_code);
+            return Ok(profile);
         }
     }
 }

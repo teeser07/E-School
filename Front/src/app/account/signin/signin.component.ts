@@ -5,6 +5,8 @@ import { Router, RouteConfigLoadStart, ResolveStart, RouteConfigLoadEnd, Resolve
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { finalize } from 'rxjs/operators';
 import { MessageService } from 'src/app/core/message.service';
+import { NavigationService } from 'src/app/shared/theme/services/navigation.service';
+
 
 @Component({
     selector: 'app-signin',
@@ -20,7 +22,8 @@ export class SigninComponent implements OnInit {
         private fb: FormBuilder,
         private auth: AuthService,
         private router: Router,
-        private message: MessageService
+        private message: MessageService,
+        private ng : NavigationService
     ) { }
 
     ngOnInit() {
@@ -54,7 +57,7 @@ export class SigninComponent implements OnInit {
         ).subscribe(() => {
             this.loading = false;
             this.message.success('เข้าสู่ระบบสำเร็จ');
-            this.router.navigateByUrl('/page/lobby');
+            this.ng.publishNavigationChange();
         });
     }
 

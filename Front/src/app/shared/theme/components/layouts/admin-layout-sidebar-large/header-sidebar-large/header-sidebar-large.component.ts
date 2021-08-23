@@ -63,10 +63,10 @@ export class HeaderSidebarLargeComponent implements OnInit {
           link: '/dashboard/v3'
         }
       ];
-      this.HS.getUser().subscribe(res => {
-        this.user = res;
-        console.log(this.user)
-      });
+      // this.HS.getUser().subscribe(res => {
+      //   this.user = res;
+      //   console.log(this.user)
+      // });
     }
   
     ngOnInit() {
@@ -98,6 +98,10 @@ export class HeaderSidebarLargeComponent implements OnInit {
   
     signout() {
       this.auth.signout();
+    }
+
+    home(){
+      this.navService.publishNavigationChange()
     }
 
 }

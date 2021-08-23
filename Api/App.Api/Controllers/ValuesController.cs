@@ -12,7 +12,6 @@ namespace App.Api.Controllers
         [HttpPost("save-profile")]
         public async Task<IActionResult> SaveProfile()
         {
-            
             return Ok();
         }
     }

@@ -27,6 +27,9 @@ import { AddClassComponent } from './classroom/add-class/add-class.component';
 import { TimetableComponent } from './timetable/timetable.component';
 import { AddStudentComponent } from './classroom/add-student/add-student.component';
 import { CreatetimetableComponent } from './timetable/createtimetable/createtimetable.component';
+import { StudenthomeComponent } from './studenthome/studenthome.component';
+import { RoomComponent } from './studenthome/room/room.component';
+import { TimetabledetailComponent } from './studenthome/timetabledetail/timetabledetail.component';
 
 
 
@@ -49,6 +52,9 @@ import { CreatetimetableComponent } from './timetable/createtimetable/createtime
     TimetableComponent,
     AddStudentComponent,
     CreatetimetableComponent,
+    StudenthomeComponent,
+    RoomComponent,
+    TimetabledetailComponent,
   ],
   imports: [
     CommonModule,

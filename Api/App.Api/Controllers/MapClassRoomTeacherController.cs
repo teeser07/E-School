@@ -70,5 +70,12 @@ namespace App.Api.Controllers
             await _MapClassRoomTeacher.DeleteStudent(id);
             return Ok();
         }
+
+        [HttpGet("get-detail")]
+        public async Task<IActionResult> GetMCRT(int MapClassRoomTeacherId)
+        {
+            MapClassRoomTeacher mcrt = await this._MapClassRoomTeacher.GetMCRT(MapClassRoomTeacherId);
+            return Ok(mcrt);
+        }
     }
 }

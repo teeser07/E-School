@@ -63,6 +63,7 @@ export class AuthService {
 
     get user(): User {
         return JSON.parse(localStorage.getItem('user'));
+        
     }
 
     set user(value) {

@@ -14,11 +14,12 @@ import { StdInfoEditComponent } from './std/std-info-edit/std-info-edit.componen
 import { SubjectComponent } from './subject/subject.component';
 import { PeriodComponent } from './period/period.component';
 import { HolidayComponent } from './holiday/holiday.component';
-
+import { StudenthomeComponent } from './studenthome/studenthome.component';
 import { TimetableComponent } from './timetable/timetable.component';
-
+import { RoomComponent } from './studenthome/room/room.component';
 import { AddStudentComponent } from './classroom/add-student/add-student.component';
 import { CreatetimetableComponent } from './timetable/createtimetable/createtimetable.component';
+import { TimetabledetailComponent } from './studenthome/timetabledetail/timetabledetail.component';
 
 const routes: Routes = [
   {
@@ -89,6 +90,18 @@ const routes: Routes = [
   {
     path: 'create-timetable',
     component: CreatetimetableComponent
+  },
+  {
+    path: 'student-home',
+    component: StudenthomeComponent
+  },
+  {
+    path: 'room',
+    component: RoomComponent
+  },
+  {
+    path: 'tt-detail',
+    component: TimetabledetailComponent
   },
  
 

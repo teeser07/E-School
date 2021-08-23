@@ -1,4 +1,5 @@
 ﻿using App.Data.DTOs;
+using App.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace App.Services.Interfaces
         Task<IEnumerable<dynamic>> GetStudentProfile(string keyword);
         Task Delete(int userId);
         Task Update(SaveStudentProfileRequest request);
-        
-        
+        Task<StudentProfile> GetProfile(string Student_code);
+
     }
 }

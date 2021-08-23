@@ -157,6 +157,13 @@ namespace App.Services.Implements
             await this._context.SaveChangesAsync();
             return;
         }
+
+
+        public async Task<MapClassRoomTeacher> GetMCRT(int MapClassRoomTeacherId)
+        {
+            MapClassRoomTeacher ss = await _context.MapClassRoomTeacher.Where(w => w.MapClassRoomTeacherId == MapClassRoomTeacherId).FirstOrDefaultAsync();
+            return ss;
+        }
     }
 
 
