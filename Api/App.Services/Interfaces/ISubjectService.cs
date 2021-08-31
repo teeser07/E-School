@@ -14,5 +14,6 @@ namespace App.Services.Interfaces
         Task<IEnumerable<dynamic>> GetSubject(string keyword);
         Task UpdateSubject(Subject subject);
         Task<IEnumerable<dynamic>> GetEmpProfile(string key);
+        Task<Subject> GetSubjects(int SubjectTeacherId);
     }
 }

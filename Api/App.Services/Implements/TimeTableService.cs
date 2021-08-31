@@ -125,6 +125,34 @@ namespace App.Services.Implements
             return new GetTimetableResponse() { TimetableList = timetableList };
         }
 
+        public async Task<GetTimetableResponse> GetTimetableTeacher(string DayValue, int? SubjectId)
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.AppendLine(@"
+            select		                tb.time_table_id ""timeTableId"",
+                                        tb.number ""number"",
+                                        concat(pr.start_time, '-', pr.end_time) ""period"",
+                                        mcrt.map_class_room_teacher_name ""classname""
+                            from        time_table tb
+                            left join   period pr
+                            on          tb.period_id = pr.period_id
+                            left join   map_class_room_teacher mcrt
+                            on          tb.map_class_room_teacher_id = mcrt.map_class_room_teacher_id
+                            where       1=1");
+            if (DayValue == null || DayValue == null)
+                sql.AppendLine(@"and day_value is null");
+            if (SubjectId == null || SubjectId == 0)
+                sql.AppendLine(@"and subject_id is null");
+            else
+                sql.AppendLine(@"and day_value = @day_value");
+            sql.AppendLine(@"and subject_id = @id");
+            sql.AppendLine(@"order by    tb.number");
+            var timetableList = await _context.QueryAsync<dynamic>(sql.ToString(), new { day_value = DayValue, id = SubjectId });
+            return new GetTimetableResponse() { TimetableList = timetableList };
+        }
+
+
+
 
     }
 

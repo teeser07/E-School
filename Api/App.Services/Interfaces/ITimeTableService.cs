@@ -15,5 +15,6 @@ namespace App.Services.Interfaces
         Task SaveTimetable(TimeTable timeTable);
         Task UpdateTimetable(TimeTable timeTable);
         Task<GetTimetableResponse> GetTimetableDetail(string DayValue,int mapClassRoomTeacherId);
+        Task<GetTimetableResponse> GetTimetableTeacher(string DayValu,int? SubjectId);
     }
 }

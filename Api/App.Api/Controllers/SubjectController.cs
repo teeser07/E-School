@@ -51,6 +51,12 @@ namespace App.Api.Controllers
             return Ok(await _subject.GetEmpProfile(key));
         }
 
+        [HttpGet("get-subject-detail")]
+        public async Task<IActionResult> GetSubjects(int SubjectTeacherId)
+        {
+            Subject subjects = await this._subject.GetSubjects(SubjectTeacherId);
+            return Ok(subjects);
+        }
 
     }
 }

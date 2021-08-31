@@ -53,5 +53,11 @@ namespace App.Api.Controllers
             return Ok(await _timetable.GetTimetableDetail(DayValue, mapClassRoomTeacherId));
         }
 
+        [HttpGet("timetableteacher")]
+        public async Task<IActionResult> GetTimetableTeacher(string DayValue, int? SubjectId)
+        {
+            return Ok(await _timetable.GetTimetableTeacher(DayValue, SubjectId));
+        }
+
     }
 }

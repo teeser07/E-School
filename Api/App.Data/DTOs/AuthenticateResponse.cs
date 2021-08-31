@@ -16,8 +16,10 @@ namespace App.Data.Models
         public string Token { get; set; }
         public DateTime ExpireDate { get; set; }
         public string RefreshToken { get; set; }
+        public int? EmpProfileId { get; set; }
+        public int? StudentProfileId { get; set; }
 
-        public AuthenticateResponse(int userId, string role, string empCode, string studentCode, string token, DateTime expireDate, string refreshToken)
+        public AuthenticateResponse(int userId, string role, string empCode, string studentCode, string token, DateTime expireDate, string refreshToken , int? empProfileId, int? studentProfileId )
         {
             Id = userId;
             Role = role;
@@ -26,6 +28,8 @@ namespace App.Data.Models
             Token = token;
             ExpireDate = expireDate;
             RefreshToken = refreshToken;
+            EmpProfileId = empProfileId;
+            StudentProfileId = studentProfileId;
         }
     }
 }

@@ -103,5 +103,11 @@ namespace App.Services.Implements
             return data;
         }
 
+        public async Task<Subject> GetSubjects(int SubjectTeacherId)
+        {
+            Subject ss = await _context.Subject.Where(w => w.SubjectTeacherId == SubjectTeacherId).FirstOrDefaultAsync();
+            return ss;
+        }
+
     }
 }

@@ -163,7 +163,9 @@ namespace App.Services.Implements
                 user.StudentCode,
                 token,
                 expiresDate,
-                refreshToken);
+                refreshToken,
+                user.EmpProfileId,
+                user.StudentProfileId);
         }
 
         private string GenerateToken(User user, DateTime expires)
@@ -225,7 +227,9 @@ namespace App.Services.Implements
                 user.StudentCode,
                 newToken, 
                 expiresDate, 
-                newRefreshToken);
+                newRefreshToken,
+                user.EmpProfileId,
+                user.StudentProfileId);
         }
 
     }
