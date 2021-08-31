@@ -511,25 +511,26 @@ export class NavigationService {
 
     // sets iconMenu as default;
     
-    menuItems = new BehaviorSubject<IMenuItem[]>(this.StudentMenu);
+    menuItems = new BehaviorSubject<IMenuItem[]>(this.defaultMenu);
+    menuItems2 = new BehaviorSubject<IMenuItem[]>(this.TeacherMenu);
+    menuItems3 = new BehaviorSubject<IMenuItem[]>(this.StudentMenu);
     // navigation component has subscribed to this Observable
     menuItems$ = this.menuItems.asObservable();
+    menuItems2$ = this.menuItems2.asObservable();
+    menuItems3$ = this.menuItems3.asObservable();
 
     // You can customize this method to supply different menu for
     // different user type.
     publishNavigationChange() {
-    this.as.user.role
+    this.as.user.role 
       switch (this.as.user.role) {
         case "A":
-          this.menuItems.next(this.defaultMenu);
           this.router.navigateByUrl('/page/emp')
           break;
         case "T":
-            this.menuItems.next(this.TeacherMenu);
             this.router.navigateByUrl('/page/teacher-home')
             break;
-        default:
-          this.menuItems.next(this.StudentMenu);
+        case "S":
           this.router.navigateByUrl('/page/tt-detail')
       }
     }

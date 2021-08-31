@@ -9,6 +9,7 @@ import { PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
 
 import { filter } from 'rxjs/operators';
 import { Utils } from '../../../../utils';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 @Component({
   selector: 'app-sidebar-large',
@@ -16,18 +17,21 @@ import { Utils } from '../../../../utils';
   styleUrls: ['./sidebar-large.component.scss']
 })
 export class SidebarLargeComponent implements OnInit {
+  User : any
   selectedItem: IMenuItem;
   nav: IMenuItem[];
   @ViewChildren(PerfectScrollbarDirective) psContainers:QueryList<PerfectScrollbarDirective>;
   psContainerSecSidebar: PerfectScrollbarDirective;
 
-  constructor(public router: Router, public navService: NavigationService) {
+  constructor(public router: Router, public navService: NavigationService,private as : AuthService,) {
     setTimeout(() => {
       this.psContainerSecSidebar = this.psContainers.toArray()[1];
     });
   }
 
   ngOnInit() {
+    this.getUser()
+    
     this.updateSidebar();
     // CLOSE SIDENAV ON ROUTE CHANGE
     this.router.events
@@ -38,11 +42,7 @@ export class SidebarLargeComponent implements OnInit {
           this.navService.sidebarState.sidenavOpen = false;
         }
       });
-
-    this.navService.menuItems$.subscribe(items => {
-      this.nav = items;
-      this.setActiveFlag();
-    });
+    this.selectMenu()
   }
 
   selectItem(item) {
@@ -115,4 +115,34 @@ export class SidebarLargeComponent implements OnInit {
   onResize(event) {
     this.updateSidebar();
   }
+
+  getUser(){
+    this.as.user
+    this.User = this.as.user.role
+    console.log(this.User)
+  }
+  selectMenu(){
+    if(this.User == "A"){
+      this.navService.menuItems$.subscribe(items => {
+        this.nav = items;
+        this.setActiveFlag();
+      });
+      console.log("Admin")
+    }
+    else if(this.User == "T"){
+      this.navService.menuItems2$.subscribe(items => {
+        this.nav = items;
+        this.setActiveFlag();
+      });
+      console.log("Teacher")
+    }
+    else if(this.User == "S"){
+      this.navService.menuItems3$.subscribe(items => {
+        this.nav = items;
+        this.setActiveFlag();
+      });
+      console.log("Student")
+    }
+    }
+      
 }
