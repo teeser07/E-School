@@ -18,8 +18,13 @@ export class TeacherhomeService {
     return this.http.get('MapClassRoomTeacher/get-detail', { params: { MapClassRoomTeacherId: MapClassRoomTeacherId } });
   }
 
-  getTimeTable(MapClassRoomTeacherId?) {
-    if (!MapClassRoomTeacherId) MapClassRoomTeacherId = 0
-    return this.http.get('TimeTable​/timetable', { params: { MapClassRoomTeacherId: MapClassRoomTeacherId } });
+  getSubjects(SubjectTeacherId?){
+    if(!SubjectTeacherId) SubjectTeacherId = 0
+    return this.http.get('Subject/get-subject-detail', {params:{SubjectTeacherId:SubjectTeacherId}});
+  }
+  getTimetable(DayValue?,SubjectId?){
+    if (!DayValue) DayValue = null
+    else if (!SubjectId) SubjectId = 0
+    return this.http.get('TimeTable/timetableteacher',{params: { DayValue: DayValue ,SubjectId:SubjectId}})
   }
 }

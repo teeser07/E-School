@@ -1,43 +1,41 @@
-<div class="breadcrumb">
-    <h1 class="text-primary">วัน</h1>
+<div class="">
+    <div class="breadcrumb">
+        <i class="i-Calendar ml-1"></i>
+        <h1 class ="text-primary ml-3">ตารางสอน</h1>
+        <ul>
+            <li class ="text-primary "></li>
+        </ul>
+    </div>
+
+    <div class="separator-breadcrumb border-top"></div>
+
+
+<div class="col-md-6" >
+    
+    <select class="form-control mt-5" (change)="getTimetable()" [(ngModel)]="Day" >
+        <option [value]="0" disabled selected>เลือกวัน</option>
+        <option *ngFor="let i of Week" [ngValue]="i.value">{{i.Name}}</option>
+    </select>
 </div>
 
-<div class="separator-breadcrumb border-top"></div>
-
-<div class="row">
-    <div class="col-lg-4 col-md-6 col-sm-6">
-        <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-            <div class="card-body text-center">
-                    <p class="text-primary text-15 line-height-2 ml-5 mt-3">วันจันทร์</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-6 col-sm-6">
-        <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-            <div class="card-body text-center">
-                    <p class="text-primary text-15 line-height-2 ml-5 mt-3">วันอังคาร</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-6 col-sm-6">
-        <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-            <div class="card-body text-center">
-                    <p class="text-primary text-15 line-height-2 ml-5 mt-3">วันพุธ</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-6 col-sm-6">
-        <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-            <div class="card-body text-center">
-                    <p class="text-primary text-15 line-height-2 ml-5 mt-3">วันพฤหัสบดี</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-6 col-sm-6">
-        <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-            <div class="card-body text-center">
-                    <p class="text-primary text-15 line-height-2 ml-5 mt-3">วันศุกร์</p>
-            </div>
+<div class="col-md-12 mt-5">
+    <div class="card  o-hidden">
+            <ngx-datatable style="height: 500px; box-shadow: none;" class="material fullscreen"
+                [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true"
+                [rows]="timetableList" >
+                <ngx-datatable-column name="period">
+                    <ng-template ngx-datatable-header-template>
+                        ช่วงเวลา
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="classname">
+                    <ng-template ngx-datatable-header-template>
+                        ชั้นเรียน
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
         </div>
     </div>
 </div>
+                    
+

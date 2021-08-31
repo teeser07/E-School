@@ -17,6 +17,8 @@ class User {
     userName: string;
     expireDate: Date;
     refreshToken: string;
+    empProfileId :number;
+    studentProfileId :number;
 }
 
 @Injectable({ providedIn: 'root' })
