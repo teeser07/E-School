@@ -30,6 +30,8 @@ import { CreatetimetableComponent } from './timetable/createtimetable/createtime
 import { StudenthomeComponent } from './studenthome/studenthome.component';
 import { RoomComponent } from './studenthome/room/room.component';
 import { TimetabledetailComponent } from './studenthome/timetabledetail/timetabledetail.component';
+import { DocumentComponent } from './studenthome/document/document.component';
+import { HomeworkComponent } from './studenthome/homework/homework.component';
 
 
 
@@ -55,6 +57,8 @@ import { TimetabledetailComponent } from './studenthome/timetabledetail/timetabl
     StudenthomeComponent,
     RoomComponent,
     TimetabledetailComponent,
+    DocumentComponent,
+    HomeworkComponent,
   ],
   imports: [
     CommonModule,

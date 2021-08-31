@@ -8,7 +8,5 @@ export class HeaderSidebarLargeService {
 
   constructor(private http: HttpClient) { }
 
-  getUser() {
-    return this.http.get('account/user');
-  }
+  
 }

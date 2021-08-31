@@ -17,4 +17,10 @@ export class StudenthomeService {
     if (!MapClassRoomTeacherId) MapClassRoomTeacherId = 0
     return this.http.get('MapClassRoomTeacher/get-detail', { params: { MapClassRoomTeacherId: MapClassRoomTeacherId } });
   }
+
+  getTimeTableInClass(DayValue?,MapClassRoomTeacherId?){
+    if (!DayValue) DayValue = null
+    else if (!MapClassRoomTeacherId) MapClassRoomTeacherId = null
+    return this.http.get('TimeTable/timetabledetail',{ params: { DayValue: DayValue ,MapClassRoomTeacherId:MapClassRoomTeacherId} })
+  }
 }

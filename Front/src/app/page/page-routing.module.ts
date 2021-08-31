@@ -20,6 +20,8 @@ import { RoomComponent } from './studenthome/room/room.component';
 import { AddStudentComponent } from './classroom/add-student/add-student.component';
 import { CreatetimetableComponent } from './timetable/createtimetable/createtimetable.component';
 import { TimetabledetailComponent } from './studenthome/timetabledetail/timetabledetail.component';
+import { DocumentComponent } from './studenthome/document/document.component';
+import { HomeworkComponent } from './studenthome/homework/homework.component';
 
 const routes: Routes = [
   {
@@ -102,6 +104,14 @@ const routes: Routes = [
   {
     path: 'tt-detail',
     component: TimetabledetailComponent
+  },
+  {
+    path: 'document',
+    component: DocumentComponent
+  },
+  {
+    path: 'homework',
+    component: HomeworkComponent
   },
  
 

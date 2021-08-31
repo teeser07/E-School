@@ -54,7 +54,7 @@ namespace App.Services.Implements
                 sql.AppendLine(@"and map_class_room_teacher_id is null");
             else
                 sql.AppendLine(@"and map_class_room_teacher_id = @id");
-            sql.AppendLine(@"order by    tb.number,sj.subject_code,sj.subject_name");
+            sql.AppendLine(@"order by    d.day_desc,sj.subject_code,tb.number,sj.subject_name");
             var timetableList = await _context.QueryAsync<dynamic>(sql.ToString(), new { id = mapClassRoomTeacherId });
             return new GetTimetableResponse() { TimetableList = timetableList };
         }
@@ -95,9 +95,35 @@ namespace App.Services.Implements
         }
 
 
-
-
-
+        public async Task<GetTimetableResponse> GetTimetableDetail(string DayValue, int mapClassRoomTeacherId)
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.AppendLine(@"
+            select		                tb.time_table_id ""timeTableId"",
+                                        sj.subject_code ""subjectCode"",
+                                        sj.subject_name ""subjectName"",
+                                        tb.number ""number"",
+                                        concat(emp.first_name, ' ', emp.last_name) ""teacherName"",
+                                        concat(pr.start_time, '-', pr.end_time) ""period""
+                            from        time_table tb
+                            left join   subject sj
+                            on          tb.subject_id = sj.subject_id 
+                            left join   period pr
+                            on          tb.period_id = pr.period_id
+                            left join   emp_profile emp
+                            on          sj.subject_teacher_id = emp_profile_id
+                            where       1=1");
+            if (DayValue == null || DayValue == null)
+                sql.AppendLine(@"and day_value is null");
+            if (mapClassRoomTeacherId == null || mapClassRoomTeacherId == 0)
+                sql.AppendLine(@"and map_class_room_teacher_id is null");
+            else
+                sql.AppendLine(@"and day_value = @day_value");
+            sql.AppendLine(@"and map_class_room_teacher_id = @id");
+            sql.AppendLine(@"order by    tb.number,sj.subject_code,sj.subject_name");
+            var timetableList = await _context.QueryAsync<dynamic>(sql.ToString(), new { day_value = DayValue, id = mapClassRoomTeacherId });
+            return new GetTimetableResponse() { TimetableList = timetableList };
+        }
 
 
     }

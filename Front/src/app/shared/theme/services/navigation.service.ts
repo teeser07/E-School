@@ -354,10 +354,28 @@ export class NavigationService {
             ]
         },
         {
-            name: 'ห้องเรียน',
+            name: 'หน้าหลัก',
             type: 'link',
+            icon: 'i-University',
+            state : '/page/student-home'
+        },
+        {
+            name: 'ห้องเรียน',
+            type: 'dropDown',
             icon: 'i-University1',
-            state: 'page/student-home'  
+            sub: [
+                {   
+                    name: 'ห้องเรียน',
+                    type: 'dropDown',
+                    icon: 'i-University',
+                    sub: [
+                        { icon: 'i-Calendar', name: 'ตารางเรียน', state: '/page/tt-detail', type: 'link' },
+                        { icon: 'i-Door', name: 'ห้องเรียนออนไลน์', state: '/page/room', type: 'link' },
+                        { icon: 'i-File-Word', name: 'เอกสารเรียน', state: '/page/document', type: 'link' },
+                        { icon: 'i-File-Edit', name: 'การบ้าน', state: '/page/homework', type: 'link' },
+                    ]
+                },
+            ]
         },
         
         
@@ -380,7 +398,7 @@ export class NavigationService {
           break;
         default:
           this.menuItems.next(this.StudentMenu);
-          this.router.navigateByUrl('/page/student-home')
+          this.router.navigateByUrl('/page/tt-detail')
       }
     }
     

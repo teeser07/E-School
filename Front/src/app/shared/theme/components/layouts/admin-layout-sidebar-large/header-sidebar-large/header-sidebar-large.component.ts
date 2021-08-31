@@ -2,21 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { NavigationService } from '../../../../services/navigation.service';
 import { SearchService } from '../../../../services/search.service';
-import { HeaderSidebarLargeService } from './header-sidebar-large.service';
+import { StudenthomeService } from 'src/app/page/studenthome/studenthome.service';
+
 @Component({
   selector: 'app-header-sidebar-large',
   templateUrl: './header-sidebar-large.component.html',
   styleUrls: ['./header-sidebar-large.component.scss']
 })
 export class HeaderSidebarLargeComponent implements OnInit {
-
+    User : any
+    Profile :any = []
     notifications: any[];
     user : any = []
     constructor(
       private navService: NavigationService,
       public searchService: SearchService,
-      private auth: AuthService,
-      private HS: HeaderSidebarLargeService
+      private as : AuthService,
+      private SS : StudenthomeService
     ) {
       this.notifications = [
         {
@@ -70,7 +72,6 @@ export class HeaderSidebarLargeComponent implements OnInit {
     }
   
     ngOnInit() {
-      
     }
     
   
@@ -97,7 +98,7 @@ export class HeaderSidebarLargeComponent implements OnInit {
     }
   
     signout() {
-      this.auth.signout();
+      this.as.signout();
     }
 
     home(){
