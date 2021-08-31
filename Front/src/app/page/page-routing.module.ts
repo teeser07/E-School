@@ -22,6 +22,9 @@ import { CreatetimetableComponent } from './timetable/createtimetable/createtime
 import { TimetabledetailComponent } from './studenthome/timetabledetail/timetabledetail.component';
 import { DocumentComponent } from './studenthome/document/document.component';
 import { HomeworkComponent } from './studenthome/homework/homework.component';
+import { TeacherhomeComponent } from './teacherhome/teacherhome.component';
+import { TeacherperiodComponent } from './teacherhome/teacherperiod/teacherperiod.component';
+import { TeacherroomComponent } from './teacherhome/teacherroom/teacherroom.component';
 
 const routes: Routes = [
   {
@@ -113,8 +116,18 @@ const routes: Routes = [
     path: 'homework',
     component: HomeworkComponent
   },
- 
-
+  {
+    path: 'teacher-home',
+    component: TeacherhomeComponent
+  },
+  {
+    path: 'teacher-room',
+    component: TeacherroomComponent
+  },
+  {
+    path: 'teacher-period',
+    component: TeacherperiodComponent
+  },
 ];
 
 @NgModule({

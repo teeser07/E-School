@@ -32,8 +32,13 @@ import { RoomComponent } from './studenthome/room/room.component';
 import { TimetabledetailComponent } from './studenthome/timetabledetail/timetabledetail.component';
 import { DocumentComponent } from './studenthome/document/document.component';
 import { HomeworkComponent } from './studenthome/homework/homework.component';
-
-
+import { TeacherhomeComponent } from './teacherhome/teacherhome.component';
+import { TeacherperiodComponent } from './teacherhome/teacherperiod/teacherperiod.component';
+import { TeacherroomComponent } from './teacherhome/teacherroom/teacherroom.component';
+import { LearnOnlineComponent } from './teacherhome/learn-online/learn-online.component';
+import { StudentListComponent } from './teacherhome/student-list/student-list.component';
+import { DocumentsComponent } from './teacherhome/documents/documents.component';
+import { HomeworksComponent } from './teacherhome/homeworks/homeworks.component';
 
 
 @NgModule({
@@ -59,6 +64,13 @@ import { HomeworkComponent } from './studenthome/homework/homework.component';
     TimetabledetailComponent,
     DocumentComponent,
     HomeworkComponent,
+    TeacherhomeComponent,
+    TeacherperiodComponent,
+    TeacherroomComponent,
+    LearnOnlineComponent,
+    StudentListComponent,
+    DocumentsComponent,
+    HomeworksComponent,
   ],
   imports: [
     CommonModule,
