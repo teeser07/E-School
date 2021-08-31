@@ -51,7 +51,7 @@ export class TeacherhomeComponent implements OnInit {
   getTimetable(){
     this.TC.getSubjects(this.User).subscribe((res)=>{
       this.Subject = res
-
+      console.log(this.Subject)
     this.TC.getTimetable(this.Day,this.Subject.subjectId).subscribe((res:any)=>{
       this.timetableList = res.timetableList
     console.log(this.timetableList)
