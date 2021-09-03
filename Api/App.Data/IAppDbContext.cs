@@ -31,5 +31,8 @@ namespace App.Data
         DbSet<EmpProfile> EmpProfile { get; set; }
         DbSet<StudentProfile> StudentProfile { get; set; }
         DbSet<TimeTable> TimeTable { get; set; }
+        DbSet<Homework> Homework { get; set; }
+        DbSet<HomeworkDetail> HomeworkDetail { get; set; }
+
     }
 }

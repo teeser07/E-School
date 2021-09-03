@@ -1,0 +1,122 @@
+<div class="">
+    <div class="breadcrumb">
+        <i class="i-File-Edit ml-1"></i>
+        <h1 class ="text-primary ml-3">การบ้าน</h1>
+        <ul>
+            <li class ="text-primary ">วิชา {{Subject.subjectCode}}{{Subject.subjectName}}</li>
+        </ul>
+    </div>
+
+    <div class="separator-breadcrumb border-top"></div>
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <h5 class="text-primary font-weight-bold">บทที่ : {{Title.lesson}} {{Title.contents}}</h5>
+            <h5 class="text-primary font-weight-bold" >ครั้งที่ : {{Title.orders}}</h5>
+        </div>
+        <div class="col-md-12">
+            <button class="btn btn-primary mr-0" (click)="openModalDetail(modalConfirm)">เพิ่ม</button>
+        </div>
+        <div class="col-md-12 mt-4">
+            <div class="card  o-hidden">
+                <ngx-datatable style="height: 500px; box-shadow: none" class="material fullscreen"
+                [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true"
+                [rows]="row" >
+                <ngx-datatable-column name="no" >
+                    <ng-template ngx-datatable-header-template>
+                        ข้อที่
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="content" >
+                    <ng-template ngx-datatable-header-template>
+                        โจทย์
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column>
+                    <ng-template ngx-datatable-header-template>
+                        แก้ไข
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <button class="btn btn-warning ml-0" (click)="openModalDetail(modalConfirm, row)">แก้ไข</button>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column>
+                    <ng-template ngx-datatable-header-template>
+                        ลบ
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <button class="btn btn-danger ml-0" (click)="remove(row.homeWorkDetailId, modalDelete)">ลบ</button>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+                </div>
+            </div>
+        </div>
+
+
+        <ng-template #modalConfirm let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title text-primary" id="modal-title">เพิ่ม</h4>
+                <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+                    (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" [formGroup]="addForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="text-primary mb-1">ข้อที่ <span class="request-star">*</span></p>
+                        <input type="text" class="form-control" formControlName="no"
+                            [class.is-invalid]="fu.hasError(addForm.controls.no)">
+                        <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.no)">
+                            <div
+                                *ngIf="addForm.controls.no.hasError('required') || addForm.controls.no.hasError('empty')">
+                                กรุณาระบุข้อมูล
+                            </div>
+                            <div *ngIf="addForm.controls.no.hasError('maxlength')">
+                                กรุณาระบุข้อมูลไม่เกิน {{ addForm.controls.no.errors.maxlength.requiredLength }} ตัวอักษร
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-primary mb-1">โจทย์ <span class="request-star">*</span></p>
+                        <input type="text" class="form-control" formControlName="content"
+                            [class.is-invalid]="fu.hasError(addForm.controls.content)">
+                        <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.content)">
+                            <div
+                                *ngIf="addForm.controls.content.hasError('required') || addForm.controls.content.hasError('empty')">
+                                กรุณาระบุข้อมูล
+                            </div>
+                            <div *ngIf="addForm.controls.content.hasError('maxlength')">
+                                กรุณาระบุข้อมูลไม่เกิน {{ addForm.controls.content.errors.maxlength.requiredLength }} ตัวอักษร
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary btn-rounded"
+                    (click)="modal.dismiss('cancel')">Cancel</button>
+                <button type="button" ngbAutofocus class="btn btn-primary btn-rounded"
+                (click)="save()">Ok</button>
+            </div>
+        </ng-template>
+
+        <ng-template #modalDelete let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-title">ยืนยัน</h4>
+                <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+                    (click)="modal.dismiss('cancel')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>คุณแน่ใจหรือไม่ว่าจะลบข้อมูลนี้</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary btn-rounded"
+                    (click)="modal.dismiss('cancel')">Cancel</button>
+                <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
+            </div>
+        </ng-template>

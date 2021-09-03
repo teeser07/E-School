@@ -26,6 +26,8 @@ namespace App.Data
         public DbSet<EmpProfile> EmpProfile { get; set; }
         public DbSet<StudentProfile> StudentProfile { get; set; }
         public DbSet<TimeTable> TimeTable { get; set; }
+        public DbSet<Homework> Homework { get; set; }
+        public DbSet<HomeworkDetail> HomeworkDetail { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options, ICurrentUserAccessor user) : base(options)
         {
             _user = user;

@@ -164,6 +164,28 @@ namespace App.Services.Implements
             MapClassRoomTeacher ss = await _context.MapClassRoomTeacher.Where(w => w.MapClassRoomTeacherId == MapClassRoomTeacherId).FirstOrDefaultAsync();
             return ss;
         }
+
+        public async Task<GetClassRoomRespone> GetRoom(int SubjectId)
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.AppendLine(@"
+            select		               distinct mcrt.map_class_room_teacher_name ""roomname"",
+                                        mcrt.map_class_room_teacher_id ""id""
+                           from time_table tt
+                           left join map_class_room_teacher mcrt
+                           on tt.map_class_room_teacher_id = mcrt.map_class_room_teacher_id
+                           where       1=1");
+            if (SubjectId == null || SubjectId == 0)
+                sql.AppendLine(@"and subject_id is null");
+            else
+                sql.AppendLine(@"and subject_id = @id");
+            
+            sql.AppendLine(@"order by   mcrt.map_class_room_teacher_name");
+            var RoomList = await _context.QueryAsync<dynamic>(sql.ToString(), new { id = SubjectId });
+            return new GetClassRoomRespone() { RoomList = RoomList };
+        }
+
+
     }
 
 

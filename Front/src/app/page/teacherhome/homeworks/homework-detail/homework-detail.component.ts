@@ -4,23 +4,24 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { MessageService } from 'src/app/core/message.service';
 import { FormUtilService } from 'src/app/shared/services/form-util.service';
-import { TeacherhomeService } from '../teacherhome.service';
+import { TeacherhomeService } from '../../teacherhome.service';
+import {Router, ActivatedRoute} from '@angular/router'
 
 @Component({
-  selector: 'app-homeworks',
-  templateUrl: './homeworks.component.html',
-  styleUrls: ['./homeworks.component.scss']
+  selector: 'app-homework-detail',
+  templateUrl: './homework-detail.component.html',
+  styleUrls: ['./homework-detail.component.scss']
 })
-export class HomeworksComponent implements OnInit {
+export class HomeworkDetailComponent implements OnInit {
   modalRef: NgbModalRef;
   addForm: FormGroup;
+  getId:any
+  lessonId : any
   User : any ;
   Subject : any =[];
-  Subjects: any = [];
-  roomList :any[] =[];
-  ClassRoom : any[] = [0]
-  homeworkList : any[] = []
+  homeworkDetailList :any[]=[];
   row: any[];
+  Title : any ={};
   constructor(
     private TC : TeacherhomeService,
     private AS : AuthService,
@@ -28,13 +29,22 @@ export class HomeworksComponent implements OnInit {
     private modalService: NgbModal,
     private fu: FormUtilService,
     private message: MessageService,
-  ) { }
+    private router : Router,
+    private activatedRoute: ActivatedRoute,
+  ) {
+    this.getId = this.activatedRoute.snapshot.paramMap.get('ClassRoom');
+    this.lessonId = this.activatedRoute.snapshot.paramMap.get('homeWorkId')
+   }
 
   ngOnInit(): void {
     this.getSubject()
-    this.getClass()
+    this.getListHw()
+    this.getTitle()
   }
 
+
+  
+  
   getSubject(){
     this.AS.user
     this.User = this.AS.user
@@ -44,40 +54,32 @@ export class HomeworksComponent implements OnInit {
     })
   }
 
-  getClass(){
-    this.TC.getSubject(this.User.empProfileId).subscribe((res)=>{
-      this.Subjects = res
-
-    this.TC.getClass(this.Subjects.subjectId).subscribe((res :any) => {
-      this.roomList = res.roomList;
-      
-    })
-  })
-  }
-
-  getHomework(){
-    this.TC.getHomeworks(this.User.empProfileId,this.ClassRoom).subscribe((res:any)=>{
-      this.homeworkList = res.homeworkList
-      this.row = res.homeworkList;
-      console.log(this.row)
+  getTitle(){
+    this.TC.getTitle(this.lessonId).subscribe((res)=>{
+      this.Title = res
+      console.log(this.Title)
     })
   }
-  
+
+  getListHw(){
+    this.TC.getHomeworkList(this.lessonId).subscribe((res:any)=>{
+      this.homeworkDetailList = res.homeworkDetailList
+      this.row = res.homeworkDetailList;
+    })
+  }
+
 
   openModalDetail(content, row?) {
     this.addForm = this.fb.group({
-      empProfileId :[this.User.empProfileId],
-      mapClassRoomTeacherId : [this.ClassRoom],
-      lesson: [null, [Validators.required, Validators.maxLength(3)]],
-      orders: [null, [Validators.required, Validators.maxLength(3)]],
-      contents: [null, [Validators.required, Validators.maxLength(100)]],
-      homeWorkId: null
+      homeworkId: [this.lessonId],
+      no: [null, [Validators.required, Validators.maxLength(3)]],
+      content: [null, [Validators.required, Validators.maxLength(100)]],
+      homeWorkDetailId : null
     });
     if (row) {
       this.addForm.patchValue(row, { emitEvent: false });
     }
     this.modalRef = this.modalService.open(content);
-    
   }
 
   save() {
@@ -85,20 +87,20 @@ export class HomeworksComponent implements OnInit {
       this.fu.markFormGroupTouched(this.addForm);
       return;
     }
-    this.TC.save(this.addForm.value).subscribe(() => {
+    this.TC.saves(this.addForm.value).subscribe(() => {
       this.modalRef.close();
       this.message.success('บันทึกข้อมูลสำเร็จ');
-      this.getHomework()
+      this.getListHw()
     });
     
   }
 
-  remove(homeWorkId, modal) {
+  remove(HomeWorkDetailId, modal) {
     this.modalService.open(modal).result.then((result) => {
       if (result.toLowerCase() == 'ok') {
-        this.TC.deleteHomework(homeWorkId).subscribe(() => {
+        this.TC.deleteHomeworkDetail(HomeWorkDetailId).subscribe(() => {
           this.message.success('ลบข้อมูลสำเร็จ');
-          this.getHomework();
+          this.getListHw();
         });
       }
     }, (reson) => { });

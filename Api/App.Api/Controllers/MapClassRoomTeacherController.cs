@@ -77,5 +77,11 @@ namespace App.Api.Controllers
             MapClassRoomTeacher mcrt = await this._MapClassRoomTeacher.GetMCRT(MapClassRoomTeacherId);
             return Ok(mcrt);
         }
+
+        [HttpGet("Room")]
+        public async Task<IActionResult> GetRoom(int SubjectId)
+        {
+            return Ok(await _MapClassRoomTeacher.GetRoom(SubjectId));
+        }
     }
 }

@@ -23,8 +23,9 @@ import { TimetabledetailComponent } from './studenthome/timetabledetail/timetabl
 import { DocumentComponent } from './studenthome/document/document.component';
 import { HomeworkComponent } from './studenthome/homework/homework.component';
 import { TeacherhomeComponent } from './teacherhome/teacherhome.component';
-import { TeacherperiodComponent } from './teacherhome/teacherperiod/teacherperiod.component';
 import { TeacherroomComponent } from './teacherhome/teacherroom/teacherroom.component';
+import { HomeworksComponent } from './teacherhome/homeworks/homeworks.component';
+import { HomeworkDetailComponent } from './teacherhome/homeworks/homework-detail/homework-detail.component';
 
 const routes: Routes = [
   {
@@ -125,9 +126,14 @@ const routes: Routes = [
     component: TeacherroomComponent
   },
   {
-    path: 'teacher-period',
-    component: TeacherperiodComponent
+    path: 'homeworks',
+    component: HomeworksComponent
   },
+  {
+    path: 'homework-detail/:ClassRoom/:homeWorkId',
+    component: HomeworkDetailComponent
+  },
+
 ];
 
 @NgModule({

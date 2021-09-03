@@ -500,11 +500,23 @@ export class NavigationService {
             ]
         },
         {
-            name: 'ห้อง',
-            type: 'link',
+            name: 'ห้องสอน',
+            type: 'dropDown',
             icon: 'i-University1',
-            state: 'page/teacher-home'  
+            sub: [
+                {   
+                    name: 'ห้องสอน',
+                    type: 'dropDown',
+                    icon: 'i-University1',
+                    sub: [
+                        { icon: 'i-Calendar', name: 'ตารางสอน', state: '/page/teacher-home', type: 'link' },
+                        { icon: 'i-File-Edit', name: 'การบ้าน', state: '/page/homeworks', type: 'link' },
+                    ]
+                },
+                
+            ] 
         },
+        
         
         
     ];
