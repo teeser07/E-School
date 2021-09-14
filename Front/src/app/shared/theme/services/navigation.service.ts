@@ -232,6 +232,20 @@ export class NavigationService {
                 },
             ]
         },
+        {
+            name: 'ห้องเรียนออนไลน์',
+            type: 'dropDown',
+            icon: 'i-Monitor-5',
+            sub: [
+                {   
+                    name: 'กำหนดห้องเรียน',
+                    type: 'link',
+                    icon: 'i-Monitor-5',
+                    state: 'page/online-classroom'
+                },
+            ]
+        },
+        
         
     ];
     

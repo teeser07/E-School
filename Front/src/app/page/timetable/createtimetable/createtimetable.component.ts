@@ -6,7 +6,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'src/app/core/message.service';
 import { FormUtilService } from 'src/app/shared/services/form-util.service';
-import {Router} from '@angular/router'
+import {ActivatedRoute, Router} from '@angular/router'
 @Component({
   selector: 'app-createtimetable',
   templateUrl: './createtimetable.component.html',
@@ -23,7 +23,7 @@ export class CreatetimetableComponent implements OnInit {
   SubjectList :any[] = [];
   @Input() hideBack: boolean;
   timetableList: any[] = [] ;
-
+  RoomId : any
   constructor(
     private router : Router,
     private timeTableService : TimetableService,
@@ -32,13 +32,16 @@ export class CreatetimetableComponent implements OnInit {
     private message: MessageService,
     private toastr : ToastrService,
     private fu: FormUtilService,
-  ) {}
+    private activatedRoute: ActivatedRoute,
+  ) {
+    this.RoomId = this.activatedRoute.snapshot.paramMap.get('mapclassroomteacherId')
+  }
   
   ngOnInit(): void {
     this.getTimetable()
   }
   getTimetable() {
-    this.timeTableService.getTimetable(history.state.mapclassroomteacherId).subscribe((val: any) => {
+    this.timeTableService.getTimetable(this.RoomId).subscribe((val: any) => {
       this.timetableList = val.timetableList;
       this.row = val.timetableList;
       console.log(this.row)
@@ -70,7 +73,7 @@ export class CreatetimetableComponent implements OnInit {
     this.addForm = this.fb.group({
       timeTableId : null,
       number: [null, [Validators.required, Validators.maxLength(50)]],
-      mapclassroomteacherId: null,
+      mapclassroomteacherId: this.RoomId,
       dayValue :[null, [Validators.required, Validators.maxLength(50)]],
       periodId:[null, [Validators.required, Validators.maxLength(50)]],
       subjectId :[null, [Validators.required, Validators.maxLength(50)]]

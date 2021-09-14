@@ -34,11 +34,16 @@ import { DocumentComponent } from './studenthome/document/document.component';
 import { HomeworkComponent } from './studenthome/homework/homework.component';
 import { TeacherhomeComponent } from './teacherhome/teacherhome.component';
 import { TeacherroomComponent } from './teacherhome/teacherroom/teacherroom.component';
-import { LearnOnlineComponent } from './teacherhome/learn-online/learn-online.component';
 import { StudentListComponent } from './teacherhome/student-list/student-list.component';
 import { DocumentsComponent } from './teacherhome/documents/documents.component';
 import { HomeworksComponent } from './teacherhome/homeworks/homeworks.component';
 import { HomeworkDetailComponent } from './teacherhome/homeworks/homework-detail/homework-detail.component';
+import { HomeworkListComponent } from './studenthome/homework/homework-list/homework-list.component';
+import { HomeworkdetailsComponent } from './studenthome/homework/homeworkdetails/homeworkdetails.component';
+import { OnlineClassComponent } from './online-class/online-class.component';
+import { OnlineDetailComponent } from './online-class/online-detail/online-detail.component';
+
+
 
 
 @NgModule({
@@ -66,11 +71,14 @@ import { HomeworkDetailComponent } from './teacherhome/homeworks/homework-detail
     HomeworkComponent,
     TeacherhomeComponent,
     TeacherroomComponent,
-    LearnOnlineComponent,
     StudentListComponent,
     DocumentsComponent,
     HomeworksComponent,
     HomeworkDetailComponent,
+    HomeworkListComponent,
+    HomeworkdetailsComponent,
+    OnlineClassComponent,
+    OnlineDetailComponent,
   ],
   imports: [
     CommonModule,

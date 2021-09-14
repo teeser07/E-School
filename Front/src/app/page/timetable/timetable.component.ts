@@ -50,13 +50,5 @@ export class TimetableComponent implements OnInit {
     })
   }
 
-  openModalDetail(row) {
-    this.addForm = this.fb.group({
-      mapClassRoomTeacherName: [null, [Validators.required, Validators.maxLength(50)]],
-      mapclassroomteacherId : null,
-    });
-    
-    this.router.navigateByUrl('/page/create-timetable',{state:row})
-  }
 
 }

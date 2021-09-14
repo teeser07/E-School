@@ -1,5 +1,6 @@
 ﻿using App.Data;
 using App.Data.Models;
+using App.Data.DTOs;
 using App.Services.Interfaces;
 using App.Utility;
 using Microsoft.EntityFrameworkCore;
@@ -107,6 +108,33 @@ namespace App.Services.Implements
         {
             Subject ss = await _context.Subject.Where(w => w.SubjectTeacherId == SubjectTeacherId).FirstOrDefaultAsync();
             return ss;
+        }
+
+
+        public async Task<GetHomeworkResponse> GetSubjectList(int MapClassRoomTeacherId)
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.AppendLine(@"
+            select		               distinct sj.subject_code ""subjectCode"",
+                                        sj.subject_teacher_id ""subjectTeacherId"",
+                                        sj.subject_name ""subjectName"",
+                                        emp.emp_profile_id ""empProfileId"",
+                                        emp.first_name ""firstName"",
+                                        emp.last_name ""lastName""
+                           from time_table tt
+                           left join subject sj
+                           on tt.subject_id = sj.subject_id
+                           left join emp_profile emp
+                           on sj.subject_teacher_id = emp.emp_profile_id
+                           where       1=1");
+            if (MapClassRoomTeacherId == null || MapClassRoomTeacherId == 0)
+                sql.AppendLine(@"and map_class_room_teacher_id is null");
+            else
+                sql.AppendLine(@"and map_class_room_teacher_id = @id");
+
+            sql.AppendLine(@"order by  sj.subject_code");
+            var SubjectList = await _context.QueryAsync<dynamic>(sql.ToString(), new { id = MapClassRoomTeacherId });
+            return new GetHomeworkResponse() { SubjectList = SubjectList };
         }
 
     }

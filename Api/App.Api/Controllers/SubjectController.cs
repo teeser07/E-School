@@ -58,5 +58,12 @@ namespace App.Api.Controllers
             return Ok(subjects);
         }
 
+
+        [HttpGet("subjectlist")]
+        public async Task<IActionResult> GetSubjectList(int MapClassRoomTeacherId)
+        {
+            return Ok(await _subject.GetSubjectList(MapClassRoomTeacherId));
+        }
+
     }
 }

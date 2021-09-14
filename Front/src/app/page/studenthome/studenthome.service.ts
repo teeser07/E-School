@@ -23,4 +23,9 @@ export class StudenthomeService {
     else if (!MapClassRoomTeacherId) MapClassRoomTeacherId = null
     return this.http.get('TimeTable/timetabledetail',{ params: { DayValue: DayValue ,MapClassRoomTeacherId:MapClassRoomTeacherId} })
   }
+
+  getSubjectList(MapClassRoomTeacherId?){
+    if(!MapClassRoomTeacherId) MapClassRoomTeacherId = null
+    return this.http.get('Subject/subjectlist',{params: { MapClassRoomTeacherId:MapClassRoomTeacherId}})
+  }
 }

@@ -32,7 +32,8 @@ namespace App.Services.Implements
         {
             StringBuilder sql = new StringBuilder();
             sql.AppendLine(@"
-            select		                tb.time_table_id ""timeTableId"",
+            select		                
+                                        tb.time_table_id ""timeTableId"",
                                         sj.subject_code ""subjectCode"",
                                         sj.subject_name ""subjectName"",
                                         tb.number ""number"",
@@ -54,7 +55,7 @@ namespace App.Services.Implements
                 sql.AppendLine(@"and map_class_room_teacher_id is null");
             else
                 sql.AppendLine(@"and map_class_room_teacher_id = @id");
-            sql.AppendLine(@"order by    d.day_desc,sj.subject_code,tb.number,sj.subject_name");
+            sql.AppendLine(@"order by    d.order,tb.number,sj.subject_code,sj.subject_name");
             var timetableList = await _context.QueryAsync<dynamic>(sql.ToString(), new { id = mapClassRoomTeacherId });
             return new GetTimetableResponse() { TimetableList = timetableList };
         }
@@ -99,7 +100,8 @@ namespace App.Services.Implements
         {
             StringBuilder sql = new StringBuilder();
             sql.AppendLine(@"
-            select		                tb.time_table_id ""timeTableId"",
+            select		                
+                                        tb.time_table_id ""timeTableId"",
                                         sj.subject_code ""subjectCode"",
                                         sj.subject_name ""subjectName"",
                                         tb.number ""number"",
@@ -129,15 +131,19 @@ namespace App.Services.Implements
         {
             StringBuilder sql = new StringBuilder();
             sql.AppendLine(@"
-            select		                tb.time_table_id ""timeTableId"",
+            select		                tb.map_class_room_teacher_id ""MapTeacherId"",
+                                        tb.time_table_id ""timeTableId"",
                                         tb.number ""number"",
                                         concat(pr.start_time, '-', pr.end_time) ""period"",
-                                        mcrt.map_class_room_teacher_name ""classname""
+                                        mcrt.map_class_room_teacher_name ""classname"",
+                                        oc.online_classroom_link ""link""
                             from        time_table tb
                             left join   period pr
                             on          tb.period_id = pr.period_id
                             left join   map_class_room_teacher mcrt
                             on          tb.map_class_room_teacher_id = mcrt.map_class_room_teacher_id
+                            left join   online_classroom oc
+                            on          oc.map_class_room_teacher_id = tb.map_class_room_teacher_id
                             where       1=1");
             if (DayValue == null || DayValue == null)
                 sql.AppendLine(@"and day_value is null");

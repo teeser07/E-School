@@ -1,4 +1,5 @@
 ﻿using App.Data.Models;
+using App.Data.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,6 @@ namespace App.Services.Interfaces
         Task UpdateSubject(Subject subject);
         Task<IEnumerable<dynamic>> GetEmpProfile(string key);
         Task<Subject> GetSubjects(int SubjectTeacherId);
+        Task<GetHomeworkResponse> GetSubjectList(int MapClassRoomTeacherId);
     }
 }

@@ -1,10 +1,26 @@
 <div class="">
-    <div class="breadcrumb">
-        <i class="i-File-Edit ml-1"></i>
-        <h1 class ="text-primary ml-3">การบ้าน</h1>
-        <ul>
-            <li class ="text-primary ">ชั้น{{Room.mapClassRoomTeacherName}}</li>
-        </ul>
-    </div>
+  <div class="breadcrumb">
+    <i class="i-File-Edit ml-1"></i>
+    <h1 class="text-primary ml-3">การบ้าน</h1>
+    <ul>
+      <li class="text-primary">ชั้น{{ Room.mapClassRoomTeacherName }}</li>
+    </ul>
+  </div>
 
-    <div class="separator-breadcrumb border-top"></div>
+  <div class="separator-breadcrumb border-top"></div>
+
+  <div class="row mt-2">
+    <div class="col-lg-4 col-md-6 col-sm-6" *ngFor="let i of subjectList"  routerLink="/page/homework-list/{{i.empProfileId}}/{{Profile.map_class_room_teacher_id}}">
+      <div class="card card-icon-bg  o-hidden mb-3 card-icon-bg-primary">
+        <div class="card-body mb-4 ml-3">
+          <i class="i-File-Edit"></i>
+          <div class="mt-2">
+            <p class="text-primary text-12 mb-2 font-weight-bold ml-5">วิชา : {{i.subjectCode}} {{i.subjectName}}</p>
+            <p class="text-primary text-12 mb-2 font-weight-bold ml-5">ครูผู้สอน : {{i.firstName}} {{i.lastName}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>

@@ -1,0 +1,30 @@
+<div class="">
+    <div class="breadcrumb">
+      <i class="i-Letter-Open ml-1"></i>
+      <h1 class="text-primary ml-3">โจทย์</h1>
+      <ul>
+        <li class="text-primary"> บทที่:{{Title.lesson}} {{Title.contents}}/ครั้งที่:{{Title.orders}}</li>
+      </ul>
+    </div>
+  
+    <div class="separator-breadcrumb border-top"></div>
+
+    <div class="row mt-2">
+      <div class="col-lg-12 col-md-12 col-sm-12" [formGroup]="addForm" >
+        <div class="card card-icon-bg  o-hidden card-icon-bg-primary " >
+          <div class="card-body mb-5 ml-3" *ngFor="let i of homeworkDetailList">
+            <div class="mt-2 form-control">
+              <p class="text-primary text-12 mb-2  font-weight-bold ">ข้อที่ :{{i.no}} {{i.content}} <span class="request-star">*</span></p>
+              <input class="w-100 mt-2" placeholder="คำตอบ" formControlName="Answer" [class.is-invalid]="fu.hasError(addForm.controls.subjectCode)"/>
+              <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.subjectCode)">
+            </div>
+          </div>
+          
+        </div>
+        <div class="mb-3 mt-3">
+          <button class="btn btn-primary">ส่งคำตอบ</button>
+        </div>
+      </div>
+    </div>
+    
+  </div>

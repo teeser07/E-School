@@ -11,13 +11,17 @@ export class HomeworkComponent implements OnInit {
   User : any
   Profile :any = []
   Room :any =[]
+  subjectList : any[] =[]
   constructor(
     private as : AuthService,
-    private SS : StudenthomeService
-  ) { }
+    private SS : StudenthomeService,
+  ) { 
+    
+  }
 
   ngOnInit(): void {
     this.getRoomProfile()
+    this.getSubject()
   }
   getRoomProfile(){
     this.as.user 
@@ -28,6 +32,16 @@ export class HomeworkComponent implements OnInit {
       
     this.SS.getRoom(this.Profile.map_class_room_teacher_id).subscribe((res)=>{
       this.Room = res
+    })
+    })
+  }
+
+  getSubject(){
+    this.SS.getStudent(this.User.studentCode).subscribe((res)=>{
+      this.Profile = res
+    this.SS.getSubjectList(this.Profile.map_class_room_teacher_id).subscribe((res:any)=>{
+      this.subjectList = res.subjectList
+      console.log(this.subjectList)
     })
     })
   }

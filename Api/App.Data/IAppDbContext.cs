@@ -33,6 +33,7 @@ namespace App.Data
         DbSet<TimeTable> TimeTable { get; set; }
         DbSet<Homework> Homework { get; set; }
         DbSet<HomeworkDetail> HomeworkDetail { get; set; }
+        DbSet<OnlineClassroom> OnlineClassroom { get; set; }
 
     }
 }

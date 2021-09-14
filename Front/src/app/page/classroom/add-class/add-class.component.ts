@@ -55,8 +55,7 @@ export class AddClassComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getStudent();
-    
+    this.getStudent();  
   }
 
   getStudent() {

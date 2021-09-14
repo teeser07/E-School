@@ -26,6 +26,10 @@ import { TeacherhomeComponent } from './teacherhome/teacherhome.component';
 import { TeacherroomComponent } from './teacherhome/teacherroom/teacherroom.component';
 import { HomeworksComponent } from './teacherhome/homeworks/homeworks.component';
 import { HomeworkDetailComponent } from './teacherhome/homeworks/homework-detail/homework-detail.component';
+import { HomeworkListComponent } from './studenthome/homework/homework-list/homework-list.component';
+import { HomeworkdetailsComponent } from './studenthome/homework/homeworkdetails/homeworkdetails.component';
+import { OnlineClassComponent } from './online-class/online-class.component';
+import { OnlineDetailComponent } from './online-class/online-detail/online-detail.component';
 
 const routes: Routes = [
   {
@@ -94,7 +98,7 @@ const routes: Routes = [
     component: AddStudentComponent
   },
   {
-    path: 'create-timetable',
+    path: 'create-timetable/:mapclassroomteacherId',
     component: CreatetimetableComponent
   },
   {
@@ -133,6 +137,23 @@ const routes: Routes = [
     path: 'homework-detail/:ClassRoom/:homeWorkId',
     component: HomeworkDetailComponent
   },
+  {
+    path: 'homework-list/:empProfileId/:mapClassRoomTeacherId',
+    component: HomeworkListComponent
+  },
+  {
+    path: 'homeworkdetail/:homeWorkId',
+    component: HomeworkdetailsComponent
+  },
+  {
+    path: 'online-classroom',
+    component: OnlineClassComponent
+  },
+  {
+    path: 'online-detail/:mapClassRoomTeacherId',
+    component: OnlineDetailComponent
+  },
+  
 
 ];
 

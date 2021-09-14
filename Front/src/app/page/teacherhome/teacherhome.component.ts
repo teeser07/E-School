@@ -21,7 +21,7 @@ export class TeacherhomeComponent implements OnInit {
   User : any
   Day :any = 0
   timetableList: any[] = [] ;
-
+  row :any[]
   constructor(
     private as : AuthService,
     private TT : TimetableService,
@@ -45,6 +45,7 @@ export class TeacherhomeComponent implements OnInit {
   getUser(){
     this.as.user
     this.User = this.as.user.empProfileId
+    
   }
   
 
@@ -53,6 +54,8 @@ export class TeacherhomeComponent implements OnInit {
       this.Subject = res
     this.TC.getTimetable(this.Day,this.Subject.subjectId).subscribe((res:any)=>{
       this.timetableList = res.timetableList
+      this.row = res.timetableList
+      console.log(this.row)
     })
   })
   }

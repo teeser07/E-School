@@ -9,5 +9,6 @@ namespace App.Data.DTOs
     public class GetHomeworkResponse
     {
         public IEnumerable<dynamic> HomeworkList { get; set; }
+        public IEnumerable<dynamic> SubjectList { get; set; }
     }
 }
