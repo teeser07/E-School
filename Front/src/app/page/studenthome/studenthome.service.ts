@@ -28,4 +28,9 @@ export class StudenthomeService {
     if(!MapClassRoomTeacherId) MapClassRoomTeacherId = null
     return this.http.get('Subject/subjectlist',{params: { MapClassRoomTeacherId:MapClassRoomTeacherId}})
   }
+
+  getStudentLink(MapClassRoomTeacherId?){
+    if(!MapClassRoomTeacherId) MapClassRoomTeacherId = null 
+    return this.http.get('OnlineClassroom/get-link',{params :{MapClassRoomTeacherId:MapClassRoomTeacherId}})
+  }
 }

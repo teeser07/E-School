@@ -11,6 +11,7 @@ export class RoomComponent implements OnInit {
   User : any
   Profile :any = []
   Room :any =[]
+  row : any[]
   constructor(
     private as : AuthService,
     private SS : StudenthomeService
@@ -18,6 +19,7 @@ export class RoomComponent implements OnInit {
 
   ngOnInit(): void {
    this.getRoomProfile()
+   this.getLink()
   }
   getRoomProfile(){
     this.as.user 
@@ -28,6 +30,21 @@ export class RoomComponent implements OnInit {
       
     this.SS.getRoom(this.Profile.map_class_room_teacher_id).subscribe((res)=>{
       this.Room = res
+    })
+    })
+  }
+
+  getLink(){
+    this.as.user 
+    this.User = this.as.user 
+
+    this.SS.getStudent(this.User.studentCode).subscribe((res)=>{
+      this.Profile = res
+
+    this.SS.getStudentLink(this.Profile.map_class_room_teacher_id).subscribe((res:any)=>{
+      this.row = res.onlineLinkList
+      console.log(this.row)
+      
     })
     })
   }
