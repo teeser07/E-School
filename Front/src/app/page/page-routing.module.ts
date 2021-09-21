@@ -30,6 +30,7 @@ import { HomeworkListComponent } from './studenthome/homework/homework-list/home
 import { HomeworkdetailsComponent } from './studenthome/homework/homeworkdetails/homeworkdetails.component';
 import { OnlineClassComponent } from './online-class/online-class.component';
 import { OnlineDetailComponent } from './online-class/online-detail/online-detail.component';
+import { DocumentsComponent } from './teacherhome/documents/documents.component';
 
 const routes: Routes = [
   {
@@ -152,6 +153,10 @@ const routes: Routes = [
   {
     path: 'online-detail/:mapClassRoomTeacherId',
     component: OnlineDetailComponent
+  },
+  {
+    path: 'documentTeacher',
+    component: DocumentsComponent
   },
   
 

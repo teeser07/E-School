@@ -92,6 +92,8 @@ namespace App.Api
             services.AddScoped<IHomeworkService, HomeworkService>();
             services.AddScoped<IHomeworkDetailService, HomeworkDetailService>();
             services.AddScoped<IOnlineClassroomService, OnlineClassroomService>();
+            services.AddScoped<IHomeworkDoneService, HomeworkDoneService>();
+            services.AddScoped<IDocumentService, DocumentService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 

@@ -29,6 +29,8 @@ namespace App.Data
         public DbSet<Homework> Homework { get; set; }
         public DbSet<HomeworkDetail> HomeworkDetail { get; set; }
         public DbSet<OnlineClassroom> OnlineClassroom { get; set; }
+        public DbSet<HomeworkDone> HomeworkDone { get; set; }
+        public DbSet<Document> Document { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options, ICurrentUserAccessor user) : base(options)
         {
             _user = user;

@@ -116,6 +116,7 @@ namespace App.Services.Implements
             StringBuilder sql = new StringBuilder();
             sql.AppendLine(@"
             select		               distinct sj.subject_code ""subjectCode"",
+                                        sj.subject_id ""subjectId"",
                                         sj.subject_teacher_id ""subjectTeacherId"",
                                         sj.subject_name ""subjectName"",
                                         emp.emp_profile_id ""empProfileId"",

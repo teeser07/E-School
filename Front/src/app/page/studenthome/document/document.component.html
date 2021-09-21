@@ -8,3 +8,38 @@
     </div>
 
     <div class="separator-breadcrumb border-top"></div>
+
+    <div class="col-md-4" >
+    
+        <select class="form-control mt-5" (change)="getDocument()" [(ngModel)]="Document" >
+            <option [value]="0" disabled selected>เลือกวิชา</option>
+            <option *ngFor="let i of Subject" [ngValue]="i.subjectId">{{i.subjectCode}} {{i.subjectName}}</option>
+        </select>
+    </div>
+
+
+    <div class="col-md-12 mt-5">
+        <div class="card  o-hidden">
+                <ngx-datatable style="height: 500px; box-shadow: none" class="material fullscreen"
+                    [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true"
+                    [rows]="row" >
+                    <ngx-datatable-column [width]="800">
+                        <ng-template ngx-datatable-header-template >
+                            เอกสารประกอบการเรียน
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            <p>{{row.Title}}</p>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column >
+                        <ng-template ngx-datatable-header-template >
+                            ดาวน์โหลด
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            <button class="btn btn-secondary ml-0" (click)="dowLoadFIle(row.File,row.Title)">ดาวน์โหลด</button>
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </div>
+        </div>
+    </div>

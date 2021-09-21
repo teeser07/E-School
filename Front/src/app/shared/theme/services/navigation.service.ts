@@ -367,12 +367,12 @@ export class NavigationService {
                 }
             ]
         },
-        {
-            name: 'หน้าหลัก',
-            type: 'link',
-            icon: 'i-University',
-            state : '/page/student-home'
-        },
+        // {
+        //     name: 'หน้าหลัก',
+        //     type: 'link',
+        //     icon: 'i-University',
+        //     state : '/page/student-home'
+        // },
         {
             name: 'ห้องเรียน',
             type: 'dropDown',
@@ -525,6 +525,7 @@ export class NavigationService {
                     sub: [
                         { icon: 'i-Calendar', name: 'ตารางสอน', state: '/page/teacher-home', type: 'link' },
                         { icon: 'i-File-Edit', name: 'การบ้าน', state: '/page/homeworks', type: 'link' },
+                        { icon: 'i-Letter-Open', name: 'เอกสารการเรียน', state: '/page/documentTeacher', type: 'link' },
                     ]
                 },
                 

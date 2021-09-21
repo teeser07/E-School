@@ -70,4 +70,17 @@ export class TeacherhomeService {
   getTitle(HomeWorkId?){
     return this.http.get('Homework/get-hw-title',{ params: { HomeWorkId: HomeWorkId } })
   }
+
+
+  getDocument(SubjectId?){
+    return this.http.get('Document/get-document',{params:{SubjectId:SubjectId}})
+  }
+
+  saveDocument(value) {
+      return this.http.post('Document/save-document',value);
+  }
+
+  deleteDocument(Id?){
+      return this.http.delete('Document/delete-document',{params:{Id:Id}})
+  }
 }

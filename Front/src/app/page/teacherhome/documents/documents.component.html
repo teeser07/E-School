@@ -1,1 +1,72 @@
-<p>documents works!</p>
+
+
+<div class="breadcrumb">
+    <i class="i-Letter-Open"></i>
+    <h1 class="text-primary  ml-3" >เอกสารประกอบการเรียน</h1>
+    <ul>
+        <li class ="text-primary ">วิชา {{Subject.subjectCode}}{{Subject.subjectName}}</li>
+    </ul>
+</div>
+<div class="separator-breadcrumb border-top"></div>
+<div class="row">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4 mb-2" >
+        <label for="uploaFile" style="margin-left: 70%;">
+            <h1 class = "btn btn-primary">เพิ่มเอกสาร</h1>
+        </label>
+        <input type="file" accept=".docx, .pdf, .xlsx,.pptx" (change)="handleUpload($event)" formControlName="file" style="display: none;visibility: none;" id="uploaFile"/>
+    </div>
+
+    <div class="col-md-12">
+        <div class="card  o-hidden">
+                <ngx-datatable style="height: 500px; box-shadow: none" class="material fullscreen"
+                    [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true"
+                    [rows]="row" >
+                    <ngx-datatable-column [width]="70">
+                        <ng-template ngx-datatable-header-template >
+                            เอกสารประกอบการเรียน
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            <p>{{row.Title}}</p>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column >
+                        <ng-template ngx-datatable-header-template >
+                            ดาวน์โหลด
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            <button class="btn btn-secondary ml-0" (click)="dowLoadFIle(row.File,row.Title)">ดาวน์โหลด</button>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column >
+                        <ng-template ngx-datatable-header-template >
+                            ลบ
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            <button class="btn btn-danger ml-0" (click)="remove(row.id, modalDelete)">ลบ</button>
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #modalDelete let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-title">ยืนยัน</h4>
+            <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+                (click)="modal.dismiss('cancel')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>คุณแน่ใจหรือไม่ว่าจะลบข้อมูลนี้</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary btn-rounded"
+                (click)="modal.dismiss('cancel')">Cancel</button>
+            <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
+        </div>
+    </ng-template>

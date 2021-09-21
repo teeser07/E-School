@@ -17,5 +17,6 @@ namespace App.Services.Interfaces
         Task<IEnumerable<dynamic>> GetEmpProfile(string key);
         Task<Subject> GetSubjects(int SubjectTeacherId);
         Task<GetHomeworkResponse> GetSubjectList(int MapClassRoomTeacherId);
+        
     }
 }
