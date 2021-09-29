@@ -9,11 +9,6 @@ namespace App.Data.DTOs
 {
     public class SaveHomeworkDoneRequest
     {
-        public List<int> HomeworkDone { get; set; }
-        public int MapClassRoomTeacherId { get; set; }
-        public int StudentId { get; set; }
-        public int HomeworkDetailId { get; set; }
-        public string Status { get; set; }
-        public string Answer { get; set; }
+        public List<HomeworkDone> HomeworkDoneList { get; set; }
     }
 }

@@ -36,6 +36,7 @@ namespace App.Data
         DbSet<OnlineClassroom> OnlineClassroom { get; set; }
         DbSet<HomeworkDone> HomeworkDone { get; set; }
         DbSet<Document> Document { get; set; }
+        
 
 
     }

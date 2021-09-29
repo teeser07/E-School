@@ -19,9 +19,9 @@ namespace App.Api.Controllers
         }
 
         [HttpPost("save-homeworkdone")]
-        public async Task<IActionResult> SaveHomeworkDone(SaveHomeworkDoneRequest request)
+        public async Task<IActionResult> SaveHomeworkDone(HomeworkDone homeworkdone)
         {
-            await _homeworkdone.SaveHomeworkDone(request);
+            await _homeworkdone.SaveHomeworkDone(homeworkdone);
             return Ok();
         }
 

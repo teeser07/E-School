@@ -83,4 +83,13 @@ export class TeacherhomeService {
   deleteDocument(Id?){
       return this.http.delete('Document/delete-document',{params:{Id:Id}})
   }
+
+  getStudentList(MapClassRoomTeacherId?){
+    return this.http.get('Student_profile_/student-list',{params:{MapClassRoomTeacherId:MapClassRoomTeacherId}})
+  }
+
+  getHomeworkForCheck(EmpProfileId?){
+    return this.http.get('Homework/hw-list',{params:{EmpProfileId:EmpProfileId}})
+  }
+  
 }

@@ -23,14 +23,13 @@ namespace App.Services.Implements
             _context = context;
         }
 
-        public async Task SaveHomeworkDone(SaveHomeworkDoneRequest request)
+        public async Task SaveHomeworkDone(HomeworkDone homeworkdone)
         {
-                HomeworkDone hd = await _context.HomeworkDone.FirstOrDefaultAsync();
-                _context.HomeworkDone.Attach(hd);
-                _context.Entry(hd).State = EntityState.Modified;
-                 await this._context.SaveChangesAsync();
-            return;
+            this._context.HomeworkDone.Add(homeworkdone);
+            await this._context.SaveChangesAsync();
         }
+
+
     }
 }
 

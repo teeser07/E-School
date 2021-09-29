@@ -31,6 +31,9 @@ import { HomeworkdetailsComponent } from './studenthome/homework/homeworkdetails
 import { OnlineClassComponent } from './online-class/online-class.component';
 import { OnlineDetailComponent } from './online-class/online-detail/online-detail.component';
 import { DocumentsComponent } from './teacherhome/documents/documents.component';
+import { CheckhomeworkComponent } from './teacherhome/checkhomework/checkhomework.component';
+import { CheckDetailComponent } from './teacherhome/checkhomework/check-detail/check-detail.component';
+import { CheckSuccessComponent } from './teacherhome/checkhomework/check-success/check-success.component';
 
 const routes: Routes = [
   {
@@ -157,6 +160,18 @@ const routes: Routes = [
   {
     path: 'documentTeacher',
     component: DocumentsComponent
+  },
+  {
+    path: 'checkhomework',
+    component: CheckhomeworkComponent
+  },
+  {
+    path: 'check-detail/:mapClassRoomTeacherId',
+    component: CheckDetailComponent
+  },
+  {
+    path: 'check-success/:value/:mapClassRoomTeacherId',
+    component: CheckSuccessComponent
   },
   
 

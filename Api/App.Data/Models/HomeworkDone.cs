@@ -11,6 +11,7 @@ namespace App.Data.Models
 
     public class HomeworkDone : BaseModel
     {
+       
         public int? Id { get; set; }
         public int MapClassRoomTeacherId { get; set; }
         public int StudentId { get; set; }
@@ -18,6 +19,9 @@ namespace App.Data.Models
         public string Status { get; set; }
         public string Answer { get; set; }
     }
+
+    
+
     public class HomeworkDoneConfiguration : BaseConfiguration<HomeworkDone>
     {
         public override void Configure(EntityTypeBuilder<HomeworkDone> builder)

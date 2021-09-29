@@ -110,6 +110,29 @@ namespace App.Services.Implements
             return new GetHomeworkResponse() { HomeworkList = homeworklist };
         }
 
+
+
+        public async Task<GetHomeworkResponse> Homeworks(int EmpProfileId)
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.AppendLine(@"
+            select		                hw.home_work_id ""homeWorkId"",
+                                        hw.lesson ""lesson"",
+                                        hw.orders ""orders"",
+                                        hw.contents ""contents"",
+                                        mcrt.map_class_room_teacher_id ""id"",
+                                        mcrt.map_class_room_teacher_name ""classRoom""
+                           from homework hw
+                           inner join  map_class_room_teacher mcrt
+                           on          hw.map_class_room_teacher_id = mcrt.map_class_room_teacher_id");
+            if (EmpProfileId == null || EmpProfileId == 0)
+                sql.AppendLine(@"and emp_profile_id is null");
+            else
+                sql.AppendLine(@"and emp_profile_id = @ids");
+            sql.AppendLine(@"order by  mcrt.map_class_room_teacher_name,hw.lesson,hw.orders ");
+            var homeworklist = await _context.QueryAsync<dynamic>(sql.ToString(), new { ids = EmpProfileId });
+            return new GetHomeworkResponse() { HomeworkList = homeworklist };
+        }
     }
 }
 

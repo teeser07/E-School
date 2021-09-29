@@ -54,5 +54,11 @@ namespace App.Api.Controllers
             StudentProfile profile = await this._student.GetProfile(Student_code);
             return Ok(profile);
         }
+
+        [HttpGet("student-list")]
+        public async Task<IActionResult> StudentList(int MapClassRoomTeacherId)
+        { 
+            return Ok(await _student.StudentList(MapClassRoomTeacherId));
+        }
     }
 }

@@ -51,6 +51,13 @@ namespace App.Api.Controllers
             return Ok(homework);
         }
 
+        [HttpGet("hw-list")]
+        public async Task<IActionResult> Homeworks(int EmpProfileId)
+        {
+            {
+                return Ok(await _homework.Homeworks(EmpProfileId));
+            }
 
+        }
     }
 }

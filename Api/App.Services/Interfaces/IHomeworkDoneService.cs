@@ -10,6 +10,6 @@ namespace App.Services.Interfaces
 {
     public interface IHomeworkDoneService
     {
-        Task SaveHomeworkDone(SaveHomeworkDoneRequest request);
+        Task SaveHomeworkDone(HomeworkDone homeworkdone);
     }
 }

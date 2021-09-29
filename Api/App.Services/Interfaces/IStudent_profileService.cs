@@ -16,6 +16,7 @@ namespace App.Services.Interfaces
         Task Delete(int userId);
         Task Update(SaveStudentProfileRequest request);
         Task<StudentProfile> GetProfile(string Student_code);
+        Task<GetStudentResponse> StudentList(int MapClassRoomTeacherId);
 
     }
 }

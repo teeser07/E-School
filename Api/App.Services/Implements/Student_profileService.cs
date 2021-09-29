@@ -101,7 +101,27 @@ namespace App.Services.Implements
             StudentProfile ss = await _context.StudentProfile.Where(w => w.Student_code == Student_code).FirstOrDefaultAsync();
             return ss;
         }
-         
+
+        public async Task<GetStudentResponse> StudentList(int MapClassRoomTeacherId)
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.AppendLine(@"
+            select		               sp.student_code ""studentCode"",
+                                       sp.first_name ""firstName"",
+                                       sp.last_name ""lastName"",
+                                       sp.map_class_room_teacher_id ""mapClassRoomTeacherId""
+                           from student_profile sp
+                           where       1=1");
+            if (MapClassRoomTeacherId == null || MapClassRoomTeacherId == 0)
+                sql.AppendLine(@"and map_class_room_teacher_id is null");
+            else
+                sql.AppendLine(@"and map_class_room_teacher_id = @id");
+
+            sql.AppendLine(@"order by  sp.student_code");
+            var StudentList = await _context.QueryAsync<dynamic>(sql.ToString(), new { id = MapClassRoomTeacherId });
+            return new GetStudentResponse() { StudentList = StudentList };
+        }
+
 
     }
 }

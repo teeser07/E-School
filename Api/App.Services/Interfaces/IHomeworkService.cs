@@ -16,5 +16,6 @@ namespace App.Services.Interfaces
         Task DeleteHomework(int HomeWorkId);
         Task<Homework> GetHomework(int HomeWorkId);
         Task<GetHomeworkResponse> GetHomeworkforStudent(int MapClassRoomTeacherId);
+        Task<GetHomeworkResponse> Homeworks(int EmpProfileId);
     }
 }

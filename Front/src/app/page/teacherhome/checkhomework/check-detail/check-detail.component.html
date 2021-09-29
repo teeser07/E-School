@@ -1,0 +1,47 @@
+<div class="">
+    <div class="breadcrumb">
+        <i class="i-Yes ml-1"></i>
+        <h1 class ="text-primary ml-3">ข้อมูลการบ้าน</h1>
+        <ul>
+            <li class ="text-primary "></li>
+        </ul>
+    </div>
+
+    <div class="separator-breadcrumb border-top"></div>
+
+
+<div class="col-md-6" >
+    <select class="form-control mt-5" (change)="getStudentList()" [(ngModel)]="Hw" >
+        <option [value]="0" disabled selected>เลือกวัน</option>
+        <option *ngFor="let i of Homework" [ngValue]="i.homeWorkId">บทที่:{{i.lesson}} ครั้งที่:{{i.orders}} {{i.contents}}</option>
+    </select>
+</div>
+
+<div class="col-md-12 mt-5">
+    <div class="card  o-hidden">
+            <ngx-datatable style="height: 500px; box-shadow: none;" class="material fullscreen"
+                [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true"
+                [rows]="row" >
+                <ngx-datatable-column>
+                    <ng-template ngx-datatable-header-template>
+                        รายชื่อนักเรียน
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.studentCode}} {{row.firstName}} {{row.lastName}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column>
+                    <ng-template ngx-datatable-header-template>
+                        ข้อมูลการบ้าน
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <button class="btn btn-danger ml-0" routerLink="/page/check-success/{{Hw}}/{{row.mapClassRoomTeacherId}}">ตรวจการบ้าน</button>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+            
+        </div>
+    </div>
+</div>
+                    
+

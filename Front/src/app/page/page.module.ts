@@ -42,6 +42,9 @@ import { HomeworkListComponent } from './studenthome/homework/homework-list/home
 import { HomeworkdetailsComponent } from './studenthome/homework/homeworkdetails/homeworkdetails.component';
 import { OnlineClassComponent } from './online-class/online-class.component';
 import { OnlineDetailComponent } from './online-class/online-detail/online-detail.component';
+import { CheckhomeworkComponent } from './teacherhome/checkhomework/checkhomework.component';
+import { CheckDetailComponent } from './teacherhome/checkhomework/check-detail/check-detail.component';
+import { CheckSuccessComponent } from './teacherhome/checkhomework/check-success/check-success.component';
 
 
 
@@ -79,6 +82,9 @@ import { OnlineDetailComponent } from './online-class/online-detail/online-detai
     HomeworkdetailsComponent,
     OnlineClassComponent,
     OnlineDetailComponent,
+    CheckhomeworkComponent,
+    CheckDetailComponent,
+    CheckSuccessComponent,
   ],
   imports: [
     CommonModule,
