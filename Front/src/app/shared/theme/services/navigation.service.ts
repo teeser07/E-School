@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { Router, RouteConfigLoadStart, ResolveStart, RouteConfigLoadEnd, ResolveEnd } from '@angular/router';
+import { MessageService } from 'src/app/core/message.service';
 
 export interface IMenuItem {
     id?: string;
@@ -52,6 +53,7 @@ export class NavigationService {
     constructor(
         private as : AuthService,
         private router: Router,
+        private message: MessageService,
     ) {}
     
     
@@ -553,13 +555,19 @@ export class NavigationService {
     this.as.user.role 
       switch (this.as.user.role) {
         case "A":
-          this.router.navigateByUrl('/page/emp')
-          break;
+            this.router.navigateByUrl('/page/emp')
+            this.message.success('เข้าสู่ระบบสำเร็จ');
+            break;
         case "T":
             this.router.navigateByUrl('/page/teacher-home')
+            this.message.success('เข้าสู่ระบบสำเร็จ');
             break;
         case "S":
-          this.router.navigateByUrl('/page/tt-detail')
+            this.router.navigateByUrl('/page/tt-detail')
+            this.message.success('เข้าสู่ระบบสำเร็จ');
+            break;
+        default:
+            this.message.error('ไม่สามารถเข้าสู่ระบบได้');
       }
     }
     

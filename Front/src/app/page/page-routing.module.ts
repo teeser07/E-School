@@ -34,6 +34,7 @@ import { DocumentsComponent } from './teacherhome/documents/documents.component'
 import { CheckhomeworkComponent } from './teacherhome/checkhomework/checkhomework.component';
 import { CheckDetailComponent } from './teacherhome/checkhomework/check-detail/check-detail.component';
 import { CheckSuccessComponent } from './teacherhome/checkhomework/check-success/check-success.component';
+import { HasRoleGuard } from '../core/role/has-role.guard';
 
 const routes: Routes = [
   {
@@ -46,132 +47,261 @@ const routes: Routes = [
   },
   {
     path: 'classroom',
-    component: ClassroomComponent
+    component: ClassroomComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'A',
+    }
   },
   {
     path: 'std',
-    component: StdComponent
+    component: StdComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'A',
+    }
   },
   {
     path: 'emp',
-    component: EmpComponent
+    component: EmpComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'A',
+    }
   },
+  
   {
     path: 'emp-info',
-    component: EmpInfoComponent
+    component: EmpInfoComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'A',
+    }
   },
   {
     path: 'emp-info-edit',
-    component: EmpInfoEditComponent
+    component: EmpInfoEditComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'A',
+    }
   },
   {
     path: 'std-info',
-    component: StdInfoComponent
+    component: StdInfoComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'A',
+    }
   },
   {
     path: 'std-info-edit',
-    component: StdInfoEditComponent
+    component: StdInfoEditComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'A',
+    }
   },
   {
     path: 'emp-leave',
-    component: EmpLeaveComponent
+    component: EmpLeaveComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'A',
+    }
   },
   {
     path: 'subject',
-    component: SubjectComponent
+    component: SubjectComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'A',
+    }
   },
   {
     path: 'period',
-    component: PeriodComponent
+    component: PeriodComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'A',
+    }
   },
   {
     path: 'holiday',
-    component: HolidayComponent
+    component: HolidayComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'A',
+    }
   },
   {
     path: 'add-room',
-    component: AddClassComponent
+    component: AddClassComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'A',
+    }
   },
   {
 
     path: 'timetable',
-    component: TimetableComponent
+    component: TimetableComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'A',
+    }
   },
   {
     path: 'add-student',
-    component: AddStudentComponent
+    component: AddStudentComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'A',
+    }
   },
   {
     path: 'create-timetable/:mapclassroomteacherId',
-    component: CreatetimetableComponent
+    component: CreatetimetableComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'A',
+    }
   },
   {
     path: 'student-home',
-    component: StudenthomeComponent
+    component: StudenthomeComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'S',
+    }
   },
   {
     path: 'room',
-    component: RoomComponent
+    component: RoomComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'S',
+    }
   },
   {
     path: 'tt-detail',
-    component: TimetabledetailComponent
+    component: TimetabledetailComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'S',
+    }
   },
   {
     path: 'document',
-    component: DocumentComponent
+    component: DocumentComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'S',
+    }
   },
   {
     path: 'homework',
-    component: HomeworkComponent
+    component: HomeworkComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'S',
+    }
   },
   {
     path: 'teacher-home',
-    component: TeacherhomeComponent
+    component: TeacherhomeComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'T',
+    }
   },
   {
     path: 'teacher-room',
-    component: TeacherroomComponent
+    component: TeacherroomComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'T',
+    }
   },
   {
     path: 'homeworks',
-    component: HomeworksComponent
+    component: HomeworksComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'T',
+    }
   },
   {
     path: 'homework-detail/:ClassRoom/:homeWorkId',
-    component: HomeworkDetailComponent
+    component: HomeworkDetailComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'T',
+    }
   },
   {
     path: 'homework-list/:empProfileId/:mapClassRoomTeacherId',
-    component: HomeworkListComponent
+    component: HomeworkListComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'S',
+    }
   },
   {
     path: 'homeworkdetail/:homeWorkId',
-    component: HomeworkdetailsComponent
+    component: HomeworkdetailsComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'S',
+    }
   },
   {
     path: 'online-classroom',
-    component: OnlineClassComponent
+    component: OnlineClassComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'A',
+    }
   },
   {
     path: 'online-detail/:mapClassRoomTeacherId',
-    component: OnlineDetailComponent
+    component: OnlineDetailComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'A',
+    }
   },
   {
     path: 'documentTeacher',
-    component: DocumentsComponent
+    component: DocumentsComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'T',
+    }
   },
   {
     path: 'checkhomework',
-    component: CheckhomeworkComponent
+    component: CheckhomeworkComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'T',
+    }
   },
   {
     path: 'check-detail/:mapClassRoomTeacherId',
-    component: CheckDetailComponent
+    component: CheckDetailComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'T',
+    }
   },
   {
     path: 'check-success/:value/:mapClassRoomTeacherId',
-    component: CheckSuccessComponent
+    component: CheckSuccessComponent,
+    canActivate: [HasRoleGuard],
+    data:{
+      role: 'T',
+    }
   },
   
 

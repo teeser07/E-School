@@ -48,7 +48,7 @@ export class DocumentsComponent implements OnInit {
   handleUpload(event) {
     let files = event.target.files;
         if(files[0].size > 10485760){
-          this.message.success('ไม่สามารถอัพโหลดไฟล์ขนาดเกิน 10Mb ได้');
+          this.message.error('ไม่สามารถอัพโหลดไฟล์ขนาดเกิน 10Mb ได้');
         };
         //check file is valid
         if (!this.validateFile(files[0].name)) {

@@ -56,7 +56,6 @@ export class SigninComponent implements OnInit {
             finalize(() => this.loading = false)
         ).subscribe(() => {
             this.loading = false;
-            this.message.success('เข้าสู่ระบบสำเร็จ');
             this.ng.publishNavigationChange();
         });
     }
