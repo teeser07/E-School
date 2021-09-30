@@ -4,9 +4,13 @@ import { AuthLayoutComponent } from './shared/theme/components/layouts/auth-layo
 import { BlankLayoutComponent } from './shared/theme/components/layouts/blank-layout/blank-layout.component';
 import { AdminLayoutSidebarLargeComponent } from './shared/theme/components/layouts/admin-layout-sidebar-large/admin-layout-sidebar-large.component';
 import { AuthGaurd } from './core/auth/auth.gaurd';
+import { HasRoleGuard } from './core/role/has-role.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'page/lobby', pathMatch: 'full' },
+  { 
+    path: '', redirectTo: 'page/lobby', pathMatch: 'full',
+  },
+  
   {
     //#region demo
     path: 'demo',
@@ -70,3 +74,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+

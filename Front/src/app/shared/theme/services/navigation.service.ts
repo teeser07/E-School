@@ -220,12 +220,12 @@ export class NavigationService {
                     icon: 'i-Clock',
                     state: 'page/period'
                 },
-                {   
-                    name: 'กำหนดวันหยุด',
-                    type: 'link',
-                    icon: 'i-Calendar-4',
-                    state: 'page/holiday'
-                },
+                // {   
+                //     name: 'กำหนดวันหยุด',
+                //     type: 'link',
+                //     icon: 'i-Calendar-4',
+                //     state: 'page/holiday'
+                // },
                 {   
                     name: 'กำหนดตารางเรียน',
                     type: 'link',
