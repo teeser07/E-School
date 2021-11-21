@@ -83,7 +83,7 @@
                 <div class="col-md-6">
                     <p class="text-primary mb-1">คาบเรียนที่ <span class="request-star">*</span></p>
                     <input type="number" class="form-control" formControlName="number"
-                        [class.is-invalid]="fu.hasError(addForm.controls.number)">
+                        [class.is-invalid]="fu.hasError(addForm.controls.number)" placeholder="คาบเรียนที่">
                     <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.number)">
                         <div
                             *ngIf="addForm.controls.number.hasError('required') || addForm.controls.number.hasError('empty')">
@@ -96,8 +96,8 @@
                 </div>
                 <div class="col-md-6">
                     <p class="text-primary mb-1">วัน <span class="request-star">*</span></p>
-                    <select class="form-control" formControlName="dayValue">
-                        <option value="null">เลือกวัน</option>
+                    <select class="form-control" formControlName="dayValue" [class.is-invalid]="fu.hasError(addForm.controls.dayValue)">
+                        <option value="null" disabled selected>เลือกวัน</option>
                         <option value="Mo">จันทร์</option>
                         <option value="Tu">อังคาร</option>
                         <option value="We">พุธ</option>
@@ -106,28 +106,55 @@
                         <option value="Sa">เสาร์</option>
                         <option value="Su">อาทิตย์</option>
                     </select>
+                    <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.dayValue)">
+                        <div
+                            *ngIf="addForm.controls.dayValue.hasError('required') || addForm.controls.dayValue.hasError('empty')">
+                            กรุณาระบุข้อมูล
+                        </div>
+                        <div *ngIf="addForm.controls.dayValue.hasError('maxlength')">
+                            กรุณาระบุข้อมูลไม่เกิน {{ addForm.controls.dayValue.errors.maxlength.requiredLength }} ตัวอักษร
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <p class="text-primary mb-1">ช่วงเวลา<span class="request-star">*</span></p>
-                    <select class="form-control" formControlName="periodId">
-                        <option value="null">เลือกช่วงเวลา</option>
+                    <select class="form-control" formControlName="periodId" [class.is-invalid]="fu.hasError(addForm.controls.periodId)">
+                        <option value="null" disabled selected>เลือกช่วงเวลา</option>
                         <option *ngFor="let tm of TimeList" [value]="tm.periodId">{{tm.startTime}}-{{tm.endTime}}</option>
                     </select>
+                    <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.periodId)">
+                        <div
+                            *ngIf="addForm.controls.periodId.hasError('required') || addForm.controls.periodId.hasError('empty')">
+                            กรุณาระบุข้อมูล
+                        </div>
+                        <div *ngIf="addForm.controls.periodId.hasError('maxlength')">
+                            กรุณาระบุข้อมูลไม่เกิน {{ addForm.controls.periodId.errors.maxlength.requiredLength }} ตัวอักษร
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <p class="text-primary mb-1">เลือกวิชา<span class="request-star">*</span></p>
-                    <select class="form-control" formControlName="subjectId">
-                        <option value="null">เลือกวิชา</option>
+                    <select class="form-control" formControlName="subjectId" [class.is-invalid]="fu.hasError(addForm.controls.subjectId)">
+                        <option value="null" disabled selected>เลือกวิชา</option>
                         <option *ngFor="let sj of SubjectList" [value]="sj.subjectId">{{sj.subjectCode}}-{{sj.subjectName}}</option>
                     </select>
+                    <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.subjectId)">
+                        <div
+                            *ngIf="addForm.controls.subjectId.hasError('required') || addForm.controls.subjectId.hasError('empty')">
+                            กรุณาระบุข้อมูล
+                        </div>
+                        <div *ngIf="addForm.controls.subjectId.hasError('maxlength')">
+                            กรุณาระบุข้อมูลไม่เกิน {{ addForm.controls.subjectId.errors.maxlength.requiredLength }} ตัวอักษร
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary btn-rounded"
-                (click)="modal.dismiss('cancel')">Cancel</button>
+                (click)="modal.dismiss('cancel')">ยกเลิก</button>
             <button type="button" ngbAutofocus class="btn btn-primary btn-rounded"
-            (click)="save()">Ok</button>
+            (click)="save()">ยืนยัน</button>
         </div>
     </ng-template>
     
@@ -144,7 +171,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary btn-rounded"
-                (click)="modal.dismiss('cancel')">Cancel</button>
-            <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
+                (click)="modal.dismiss('cancel')">ยกเลิก</button>
+            <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click)="modal.close('Ok')">ยืนยัน</button>
         </div>
     </ng-template>

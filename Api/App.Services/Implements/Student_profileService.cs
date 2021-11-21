@@ -105,8 +105,9 @@ namespace App.Services.Implements
         public async Task<GetStudentResponse> StudentList(int MapClassRoomTeacherId)
         {
             StringBuilder sql = new StringBuilder();
-            sql.AppendLine(@"
-            select		               sp.student_code ""studentCode"",
+            sql.AppendLine(@"         
+            select		               sp.student_profile_id ""id"",
+                                       sp.student_code ""studentCode"",
                                        sp.first_name ""firstName"",
                                        sp.last_name ""lastName"",
                                        sp.map_class_room_teacher_id ""mapClassRoomTeacherId""

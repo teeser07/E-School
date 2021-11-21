@@ -33,14 +33,16 @@ export class AddStudentComponent implements OnInit {
     console.log(data)
     this.classroomService.saveStudent(data, history.state.mapclassroomteacherId).subscribe(() => {
       //this.getStudent();
-      this.message.success('ลบข้อมูลสำเร็จ');
+      this.message.success('เพิ่มข้อมูลนักเรียนสำเร็จ');
       this.location.back();
     });
   }
 
   onSelect({ selected }) {
     this.selected.splice(0, this.selected.length);
+    console.log(this.selected.splice(0, this.selected.length))
     this.selected.push(...selected);
+    console.log(this.selected.push(...selected))
   }
 
 }

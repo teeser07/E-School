@@ -71,7 +71,7 @@
                 <div class="col-md-6">
                     <p class="text-primary mb-1">รหัสรายวิชา <span class="request-star">*</span></p>
                     <input type="text" class="form-control" formControlName="subjectCode"
-                        [class.is-invalid]="fu.hasError(addForm.controls.subjectCode)">
+                        [class.is-invalid]="fu.hasError(addForm.controls.subjectCode)" placeholder="รหัสรายวิชา">
                     <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.subjectCode)">
                         <div
                             *ngIf="addForm.controls.subjectCode.hasError('required') || addForm.controls.subjectCode.hasError('empty')">
@@ -85,7 +85,7 @@
                 <div class="col-md-6">
                     <p class="text-primary mb-1">รายวิชา <span class="request-star">*</span></p>
                     <input type="text" class="form-control" formControlName="subjectName"
-                        [class.is-invalid]="fu.hasError(addForm.controls.subjectName)">
+                        [class.is-invalid]="fu.hasError(addForm.controls.subjectName)" placeholder="รายวิชา">
                     <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.subjectName)">
                         <div
                             *ngIf="addForm.controls.subjectName.hasError('required') || addForm.controls.subjectName.hasError('empty')">
@@ -98,28 +98,28 @@
                 </div>
                 <div class="col-md-6">
                     <p class="text-primary mb-1">ครูประจำวิชา <span class="request-star">*</span></p>
-                    <select class="form-control" formControlName="subjectTeacherId">
-                        <option value="null">เลือกครูประจำวิชา</option>
+                    <select class="form-control" formControlName="subjectTeacherId" [class.is-invalid]="fu.hasError(addForm.controls.subjectTeacherId)">
+                        <option value="null" disabled selected>เลือกครูประจำวิชา</option>
                         <option *ngFor="let emp of EmpList" [value]="emp.empProfileId">{{emp.firstName}}
                             {{emp.lastName}}</option>
                     </select>
-                </div>
-                <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.subjectTeacherId)">
-                    <div
-                        *ngIf="addForm.controls.subjectTeacherId.hasError('required') || addForm.controls.subjectTeacherId.hasError('empty')">
-                        กรุณาระบุข้อมูล
-                    </div>
-                    <div *ngIf="addForm.controls.subjectTeacherId.hasError('maxlength')">
-                        กรุณาระบุข้อมูลไม่เกิน {{ addForm.controls.subjectTeacherId.errors.maxlength.requiredLength }} ตัวอักษร
+                    <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.subjectTeacherId)">
+                        <div
+                            *ngIf="addForm.controls.subjectTeacherId.hasError('required') || addForm.controls.subjectTeacherId.hasError('empty')">
+                            กรุณาระบุข้อมูล
+                        </div>
+                        <div *ngIf="addForm.controls.subjectTeacherId.hasError('maxlength')">
+                            กรุณาระบุข้อมูลไม่เกิน {{ addForm.controls.subjectTeacherId.errors.maxlength.requiredLength }} ตัวอักษร
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary btn-rounded"
-                (click)="modal.dismiss('cancel')">Cancel</button>
+                (click)="modal.dismiss('cancel')">ยกเลิก</button>
             <button type="button" ngbAutofocus class="btn btn-primary btn-rounded"
-            (click)="save()">Ok</button>
+            (click)="save()">ยืนยัน</button>
         </div>
     </ng-template>
     
@@ -136,7 +136,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary btn-rounded"
-                (click)="modal.dismiss('cancel')">Cancel</button>
-            <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
+                (click)="modal.dismiss('cancel')">ยกเลิก</button>
+            <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click)="modal.close('Ok')">ยืนยัน</button>
         </div>
     </ng-template>

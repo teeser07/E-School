@@ -38,4 +38,8 @@ export class StudenthomeService {
     if(!SubjectId) SubjectId = null
     return this.http.get('Document/get-document',{params:{SubjectId:SubjectId}})
   }
+
+  saveHomework(value){
+    return this.http.post('HomeworkDone/save-homework', value);
+  }
 }

@@ -1,1 +1,20 @@
-<p>check-success works!</p>
+<div class="">
+    <div class="breadcrumb">
+      <h1 class="text-primary ml-3">การบ้านที่เสร็จแล้ว</h1>
+    </div>
+  
+    <div class="separator-breadcrumb border-top"></div>
+    <div class="row" >
+      <div class="col-md-3" *ngFor="let row of homeworkDoneList">
+          <div class="card card-profile-1 mb-4">
+              <div class="card-body text-center">
+                  <div class=" box-shadow-2 mb-3 mt-4">
+                      <img src="./assets/images/homeworktitle.jpeg" alt="" >
+                      <p>{{row.title}}</p>
+                  </div>
+                  <h4 class="text-primary"><u (click)="dowLoadFIle(row.file,row.title)">ดาวน์โหลด</u></h4>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>

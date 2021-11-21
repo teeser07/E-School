@@ -54,7 +54,7 @@
                 <div class="col-md-6">
                     <p class="text-primary mb-1">ลิ้งเรียนออนไลน์ <span class="request-star">*</span></p>
                     <input type="text" class="form-control" formControlName="onlineClassroomLink"
-                        [class.is-invalid]="fu.hasError(addForm.controls.onlineClassroomLink)">
+                        [class.is-invalid]="fu.hasError(addForm.controls.onlineClassroomLink)" placeholder="ลิ้งเรียนออนไลน์">
                     <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.onlineClassroomLink)">
                         <div
                             *ngIf="addForm.controls.onlineClassroomLink.hasError('required') || addForm.controls.onlineClassroomLink.hasError('empty')">
@@ -69,9 +69,9 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary btn-rounded"
-                (click)="modal.dismiss('cancel')">Cancel</button>
+                (click)="modal.dismiss('cancel')">ยกเลิก</button>
             <button type="button" ngbAutofocus class="btn btn-primary btn-rounded"
-            (click)="save()">Ok</button>
+            (click)="save()">ยืนยัน</button>
         </div>
     </ng-template>
 
@@ -88,7 +88,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary btn-rounded"
-                (click)="modal.dismiss('cancel')">Cancel</button>
-            <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
+                (click)="modal.dismiss('cancel')">ยกเลิก</button>
+            <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click)="modal.close('Ok')">ยืนยัน</button>
         </div>
     </ng-template>

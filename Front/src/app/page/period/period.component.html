@@ -66,7 +66,7 @@
                 <div class="col-md-6">
                     <p class="text-primary mb-1">ลำดับ <span class="request-star">*</span></p>
                     <input type="text" class="form-control" formControlName="order"
-                        [class.is-invalid]="fu.hasError(addForm.controls.order)">
+                        [class.is-invalid]="fu.hasError(addForm.controls.order)" placeholder="ลำดับ">
                     <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.order)">
                         <div
                             *ngIf="addForm.controls.order.hasError('required') || addForm.controls.order.hasError('empty')">
@@ -79,7 +79,7 @@
                 </div>
                 <div class="col-md-6">
                     <p class="text-primary mb-1">เวลาเริ่มเรียน <span class="request-star">*</span></p>
-                    <input type="text" class="form-control" formControlName="startTime"
+                    <input type="time" name="time" class="form-control" formControlName="startTime"
                         [class.is-invalid]="fu.hasError(addForm.controls.startTime)">
                     <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.startTime)">
                         <div
@@ -93,7 +93,7 @@
                 </div>
                 <div class="col-md-6">
                     <p class="text-primary mb-1">เวลาเลิกเรียน <span class="request-star">*</span></p>
-                    <input type="text" class="form-control" formControlName="endTime"
+                    <input type="time" name="time" class="form-control" formControlName="endTime"
                         [class.is-invalid]="fu.hasError(addForm.controls.endTime)">
                     <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.endTime)">
                         <div
@@ -109,9 +109,9 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary btn-rounded"
-                (click)="modal.dismiss('cancel')">Cancel</button>
+                (click)="modal.dismiss('cancel')">ยกเลิก</button>
             <button type="button" ngbAutofocus class="btn btn-primary btn-rounded"
-            (click)="save()">Ok</button>
+            (click)="save()">ยืนยัน</button>
         </div>
     </ng-template>
     
@@ -128,7 +128,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary btn-rounded"
-                (click)="modal.dismiss('cancel')">Cancel</button>
-            <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
+                (click)="modal.dismiss('cancel')">ยกเลิก</button>
+            <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click)="modal.close('Ok')">ยืนยัน</button>
         </div>
     </ng-template>

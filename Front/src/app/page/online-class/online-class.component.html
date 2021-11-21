@@ -1,7 +1,9 @@
 <div>
     <h4 class="modal-title text-primary" id="modal-title">ห้องเรียนทั้งหมด</h4>
 </div>
-<div class="row mt-5" >
+<div class="separator-breadcrumb border-top"></div>
+
+<!-- <div class="row mt-5" >
     <div class="col-lg-3 col-md-6 col-sm-6 " *ngFor="let row of row">
         <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4" >
             <div class="card-body text-center">
@@ -10,6 +12,20 @@
                     <p class="text-primary text-15 line-height-2 mb-2 ">{{row.mapClassRoomTeacherName}}</p>
                     <button class="btn btn-primary " routerLink="/page/online-detail/{{row.mapclassroomteacherId}}">ห้องเรียนออนไลน์</button>
                 </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="row mt-5" >
+    <div class="col-md-3" *ngFor="let row of row">
+        <div class="card card-profile-1 mb-4">
+            <div class="card-body text-center">
+                <div class=" box-shadow-2 mb-3">
+                    <img src="./assets/images/online Class.jpg" alt="">
+                </div>
+                <h5 class="m-0">ห้องเรียน</h5>
+                <p>ชั้น{{row.mapClassRoomTeacherName}}</p>
+                <button class="btn btn-primary btn-rounded" routerLink="/page/online-detail/{{row.mapclassroomteacherId}}">ห้องเรียนออนไลน์</button>
+                
             </div>
         </div>
     </div>

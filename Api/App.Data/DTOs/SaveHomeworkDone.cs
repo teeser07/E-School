@@ -9,6 +9,6 @@ namespace App.Data.DTOs
 {
     public class SaveHomeworkDoneRequest
     {
-        public List<HomeworkDone> HomeworkDoneList { get; set; }
+        public ICollection<HomeworkDone> HomeworkDoneList { get; set; }
     }
 }

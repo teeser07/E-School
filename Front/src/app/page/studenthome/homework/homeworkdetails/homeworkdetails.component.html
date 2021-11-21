@@ -8,23 +8,23 @@
     </div>
   
     <div class="separator-breadcrumb border-top"></div>
-
-    <div class="row mt-2">
-      <div class="col-lg-12 col-md-12 col-sm-12" [formGroup]="addForm" >
-        <div class="card card-icon-bg  o-hidden card-icon-bg-primary " >
-          <div class="card-body mb-5 ml-3" *ngFor="let i of homeworkDetailList">
-            <div class="mt-2 form-control">
-              <p class="text-primary text-12 mb-2  font-weight-bold ">ข้อที่ :{{i.no}} {{i.content}} <span class="request-star">*</span></p>
-              <input class="w-100 mt-2" placeholder="คำตอบ" formControlName="Answer" [class.is-invalid]="fu.hasError(addForm.controls.subjectCode)"/>
-              <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.subjectCode)">
-            </div>
+    <div class="row" >
+      <div class="col-md-3" *ngFor="let row of homeworkDetailList">
+          <div class="card card-profile-1 mb-4">
+              <div class="card-body text-center">
+                  <div class=" box-shadow-2 mb-3 mt-4">
+                      <img src="./assets/images/homeworktitle.jpeg" alt="" >
+                      <p>{{row.title}}</p>
+                  </div>
+                  <h4 class="text-primary"><u href="" (click)="dowLoadFIle(row.content,row.title)">ดาวน์โหลดโจทย์</u></h4>
+              </div>
+              <div class="col-md-4 " >
+                <label for="uploaFile" style="margin-left: 130%;">
+                    <h1 class = "btn btn-primary">ส่งคำตอบ</h1>
+                </label>
+                <input type="file" accept=".docx, .pdf, .xlsx,.pptx" (change)="handleUpload($event)"  style="display: none;visibility: none;" id="uploaFile"/>
+              </div>
           </div>
-          
-        </div>
-        <div class="mb-3 mt-3">
-          <button class="btn btn-primary">ส่งคำตอบ</button>
-        </div>
       </div>
     </div>
-    
   </div>

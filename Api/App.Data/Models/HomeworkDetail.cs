@@ -13,7 +13,7 @@ namespace App.Data.Models
     {
         public int? HomeWorkDetailId { get; set; }
         public int HomeworkId { get; set; }
-        public int No { get; set; }
+        public string Title { get; set; }
         public string Content { get; set; }
     }
     public class HomeworkDetailConfiguration : BaseConfiguration<HomeworkDetail>

@@ -38,7 +38,7 @@
             </ngx-datatable-column>
             <ngx-datatable-column name="contents" >
                 <ng-template ngx-datatable-header-template>
-                    เนื้อหา
+                    หัวข้อ
                 </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column>
@@ -83,7 +83,7 @@
                 <div class="col-md-6">
                     <p class="text-primary mb-1">บทที่ <span class="request-star">*</span></p>
                     <input type="text" class="form-control" formControlName="lesson"
-                        [class.is-invalid]="fu.hasError(addForm.controls.lesson)">
+                        [class.is-invalid]="fu.hasError(addForm.controls.lesson)" placeholder="บทที่">
                     <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.lesson)">
                         <div
                             *ngIf="addForm.controls.lesson.hasError('required') || addForm.controls.lesson.hasError('empty')">
@@ -97,7 +97,7 @@
                 <div class="col-md-6">
                     <p class="text-primary mb-1">ครั้งที่ <span class="request-star">*</span></p>
                     <input type="text" class="form-control" formControlName="orders"
-                        [class.is-invalid]="fu.hasError(addForm.controls.orders)">
+                        [class.is-invalid]="fu.hasError(addForm.controls.orders)" placeholder="ครั้งที่">
                     <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.orders)">
                         <div
                             *ngIf="addForm.controls.orders.hasError('required') || addForm.controls.orders.hasError('empty')">
@@ -111,7 +111,7 @@
                 <div class="col-md-6">
                     <p class="text-primary mb-1">หัวข้อ<span class="request-star">*</span></p>
                     <input type="text" class="form-control" formControlName="contents"
-                        [class.is-invalid]="fu.hasError(addForm.controls.contents)">
+                        [class.is-invalid]="fu.hasError(addForm.controls.contents)" placeholder="หัวข้อ">
                     <div class="invalid-feedback" *ngIf="fu.hasError(addForm.controls.contents)">
                         <div
                             *ngIf="addForm.controls.contents.hasError('required') || addForm.controls.contents.hasError('empty')">
@@ -127,9 +127,9 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary btn-rounded"
-                (click)="modal.dismiss('cancel')">Cancel</button>
+                (click)="modal.dismiss('cancel')">ยกเลิก</button>
             <button type="button" ngbAutofocus class="btn btn-primary btn-rounded"
-            (click)="save()">Ok</button>
+            (click)="save()">ยืนยัน</button>
         </div>
     </ng-template>
 
@@ -146,7 +146,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary btn-rounded"
-                (click)="modal.dismiss('cancel')">Cancel</button>
-            <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
+                (click)="modal.dismiss('cancel')">ยกเลิก</button>
+            <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click)="modal.close('Ok')">ยีนยัน</button>
         </div>
     </ng-template>

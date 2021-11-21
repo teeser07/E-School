@@ -37,7 +37,7 @@ namespace App.Services.Implements
             StringBuilder sql = new StringBuilder();
             sql.AppendLine(@"
             select		                hwd.home_work_detail_id ""homeWorkDetailId"",
-                                        hwd.no ""no"",
+                                        hwd.title ""title"",
                                         hwd.content ""content""
                            from         homework_detail hwd
                            where       1=1");
@@ -45,7 +45,7 @@ namespace App.Services.Implements
                 sql.AppendLine(@"and homework_id is null");
             else
                 sql.AppendLine(@"and homework_id = @id");
-            sql.AppendLine(@"order by   hwd.no");
+            sql.AppendLine(@"order by   hwd.title");
             var homeworkdetaillist = await _context.QueryAsync<dynamic>(sql.ToString(), new { id = HomeworkId });
             return new GetHomeworkDetailResponse() { HomeworkDetailList = homeworkdetaillist };
         }
@@ -56,7 +56,7 @@ namespace App.Services.Implements
             HomeworkDetail hwd = await _context.HomeworkDetail.Where(w => w.HomeWorkDetailId == homeworkDetail.HomeWorkDetailId).FirstOrDefaultAsync();
             if (hwd == null) throw new ApiException(HttpStatusCode.BadRequest, "การบ้านข้อนี้ไม่มีข้อมูลหรือถูกลบไปแล้ว");
             hwd.HomeWorkDetailId = homeworkDetail.HomeWorkDetailId;
-            hwd.No = homeworkDetail.No;
+            hwd.Title = homeworkDetail.Title;
             hwd.Content = homeworkDetail.Content;
             _context.HomeworkDetail.Attach(hwd);
             _context.Entry(hwd).State = EntityState.Modified;

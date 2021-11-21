@@ -9,8 +9,8 @@
   
     <div class="separator-breadcrumb border-top"></div>
     
-    <div class="row mt-2">
-        <div class="col-lg-4 col-md-6 col-sm-6" *ngFor="let i of homeworkList" routerLink="/page/homeworkdetail/{{i.homeWorkId}}">
+    <!-- <div class="row mt-2">
+        <div class="col-lg-4 col-md-6 col-sm-6" *ngFor="let i of homeworkList" routerLink="/page/homeworkdetail/{{i.homeWorkId}}/{{RoomId}}">
           <div class="card card-icon-bg  o-hidden mb-3 card-icon-bg-primary ">
             <div class="card-body mb-4 ml-3">
               <i class="i-Letter-Open"></i>
@@ -20,6 +20,21 @@
               </div>
             </div>
           </div>
+        </div>
+      </div> -->
+
+
+      <div class="row" >
+        <div class="col-md-3" *ngFor="let i of homeworkList" routerLink="/page/homeworkdetail/{{i.homeWorkId}}/{{RoomId}}">
+            <div class="card card-profile-1 mb-5">
+                <div class="card-body text-center">
+                    <div class=" box-shadow-2 mb-3">
+                        <img src="./assets/images/chaptertitle.jpg" alt="" >
+                    </div>
+                    <p class="text-primary text-12 mb-2  font-weight-bold ">บทที่:{{i.lesson}} ครั้งที่:{{i.orders}}</p>
+                    <p class="text-primary text-12 mb-2  font-weight-bold ">{{i.contents}}</p>
+                </div>
+            </div>
         </div>
       </div>
       

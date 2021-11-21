@@ -27,30 +27,30 @@
                 <form [formGroup]="addForm">
                     <div class="row">
                         <div class="col-md-6 form-group mb-3">
-                            <label>ชื่อห้อง</label>
-                            <input type="text" class="form-control" formControlName="mapClassRoomTeacherName">
+                            <label>ชื่อห้อง <span class="request-star">*</span></label>
+                            <input type="text" class="form-control" formControlName="mapClassRoomTeacherName" placeholder="ชื่อห้อง">
                         </div>
 
                         <div class="col-md-6 form-group mb-3">
-                            <label>ระดับชั้น</label>
-                            <input type="text" class="form-control" formControlName="educationLevel">
+                            <label>ระดับชั้น <span class="request-star">*</span></label>
+                            <input type="text" class="form-control" formControlName="educationLevel" placeholder="ประถมศึกษา,มัธยมศึกษา">
                         </div>
 
 
                         <div class="col-md-6 form-group mb-3">
-                            <label>ชั้น</label>
-                            <input type="text" class="form-control" formControlName="class">
+                            <label>ชั้นปี <span class="request-star">*</span></label>
+                            <input type="text" class="form-control" formControlName="class" placeholder="ชั้นปี">
                         </div>
 
                         <div class="col-md-6 form-group mb-3">
-                            <label>ห้องเรียน</label>
-                            <input type="text" class="form-control" formControlName="room">
+                            <label>ห้องเรียนที่ <span class="request-star">*</span></label>
+                            <input type="text" class="form-control" formControlName="room" placeholder="ห้องเรียนที่">
 
                         </div>
                         <div class="col-md-6 form-group mb-3">
-                            <label>อาจารย์คนที่ 1</label>
+                            <label>อาจารย์คนที่ 1 <span class="request-star">*</span></label>
                             <select class="form-control" formControlName="empProfileIdFirst">
-                                <option disabled selected value></option>
+                                <option value="null" disabled selected>เลือกครูประจำชั้นคนที่ 1</option>
                                 <option *ngFor="let emp of EmpList1" [value]="emp.empProfileId">{{emp.firstName}}
                                     {{emp.lastName}}</option>
                             </select>

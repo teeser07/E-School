@@ -3,6 +3,8 @@ import { AuthService } from 'src/app/core/auth/auth.service';
 import { NavigationService } from '../../../../services/navigation.service';
 import { SearchService } from '../../../../services/search.service';
 import { StudenthomeService } from 'src/app/page/studenthome/studenthome.service';
+import { Router } from '@angular/router';
+import { MessageService } from 'src/app/core/message.service';
 
 @Component({
   selector: 'app-header-sidebar-large',
@@ -18,7 +20,9 @@ export class HeaderSidebarLargeComponent implements OnInit {
       private navService: NavigationService,
       public searchService: SearchService,
       private as : AuthService,
-      private SS : StudenthomeService
+      private SS : StudenthomeService,
+      private router: Router,
+        private message: MessageService,
     ) {
       this.notifications = [
         {
@@ -102,7 +106,21 @@ export class HeaderSidebarLargeComponent implements OnInit {
     }
 
     home(){
-      this.navService.publishNavigationChange()
+      this.as.user.role 
+      switch (this.as.user.role) {
+        case "A":
+            this.router.navigateByUrl('/page/emp');
+            break;
+        case "T":
+            this.router.navigateByUrl('/page/teacher-home');
+            break;
+        case "S":
+            this.router.navigateByUrl('/page/tt-detail');
+            break;
+        default:
+            this.message.error('ไม่สามารถเข้าสู่ระบบได้');
+      }
     }
+    
 
 }

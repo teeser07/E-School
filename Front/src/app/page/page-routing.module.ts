@@ -248,7 +248,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'homeworkdetail/:homeWorkId',
+    path: 'homeworkdetail/:homeWorkId/:mapClassRoomTeacherId',
     component: HomeworkdetailsComponent,
     canActivate: [HasRoleGuard],
     data:{
@@ -296,7 +296,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'check-success/:value/:mapClassRoomTeacherId',
+    path: 'check-success/:value/:studentId',
     component: CheckSuccessComponent,
     canActivate: [HasRoleGuard],
     data:{

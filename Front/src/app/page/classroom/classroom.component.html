@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-md-4 col-sm-9 col-8">
         <div class="form-group">
-            <input id="text" placeholder="ค้นหาบุคลากร" [(ngModel)]="keyword" (keydown.enter)="search()"
+            <input id="text" placeholder="ค้นหาห้องเรียน" [(ngModel)]="keyword" (keydown.enter)="search()"
                 class="form-control form-control-rounded ml-0" type="text">
         </div>
     </div>
@@ -175,8 +175,8 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary btn-rounded"
-            (click)="modal.dismiss('cancel')">Cancel</button>
-        <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
+            (click)="modal.dismiss('cancel')">ยกเลิก</button>
+        <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click)="modal.close('Ok')">ยืนยัน</button>
     </div>
 </ng-template>
 

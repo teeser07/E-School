@@ -51,6 +51,7 @@ namespace App.Services.Implements
                                         ep.first_name ""firstName"",
                                         ep.last_name ""lastName"",
                                         ep.tel,
+                                        
                                         u.""role"",
                                         ep.status,
                                         st.status_desc ""statusName"",

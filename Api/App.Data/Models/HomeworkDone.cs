@@ -15,9 +15,11 @@ namespace App.Data.Models
         public int? Id { get; set; }
         public int MapClassRoomTeacherId { get; set; }
         public int StudentId { get; set; }
-        public int HomeworkDetailId { get; set; }
+        public int HomeworkId { get; set; }
         public string Status { get; set; }
-        public string Answer { get; set; }
+        public string Answerfile { get; set; }
+        public string Title { get; set; }
+
     }
 
     

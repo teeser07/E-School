@@ -12,50 +12,35 @@
 
     <div class="row">
         <div class="col-md-4">
-            <h5 class="text-primary font-weight-bold">บทที่ : {{Title.lesson}} {{Title.contents}}</h5>
-            <h5 class="text-primary font-weight-bold" >ครั้งที่ : {{Title.orders}}</h5>
+            <h5 class="text-primary font-weight-bold">บทที่ : {{Title.lesson}} {{Title.contents}}/ครั้งที่ : {{Title.orders}}</h5>
         </div>
-        <div class="col-md-12">
-            <button class="btn btn-primary mr-0" (click)="openModalDetail(modalConfirm)">เพิ่ม</button>
+        <div class="col-md-4 mb-2" >
+            <label for="uploaFile" style="margin-left: 150%;">
+                <h1 class = "btn btn-primary">เพิ่มการบ้าน</h1>
+            </label>
+            <input type="file" accept=".docx, .pdf, .xlsx,.pptx" (change)="handleUpload($event)"  style="display: none;visibility: none;" id="uploaFile"/>
         </div>
-        <div class="col-md-12 mt-4">
-            <div class="card  o-hidden">
-                <ngx-datatable style="height: 500px; box-shadow: none" class="material fullscreen"
-                [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true"
-                [rows]="row" >
-                <ngx-datatable-column name="no" >
-                    <ng-template ngx-datatable-header-template>
-                        ข้อที่
-                    </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="content" >
-                    <ng-template ngx-datatable-header-template>
-                        โจทย์
-                    </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column>
-                    <ng-template ngx-datatable-header-template>
-                        แก้ไข
-                    </ng-template>
-                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        <button class="btn btn-warning ml-0" (click)="openModalDetail(modalConfirm, row)">แก้ไข</button>
-                    </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column>
-                    <ng-template ngx-datatable-header-template>
-                        ลบ
-                    </ng-template>
-                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        <button class="btn btn-danger ml-0" (click)="remove(row.homeWorkDetailId, modalDelete)">ลบ</button>
-                    </ng-template>
-                </ngx-datatable-column>
-            </ngx-datatable>
+    </div>
+
+    <div class="row" >
+    <div class="col-md-3" *ngFor="let row of row">
+        <div class="card card-profile-1 mb-4">
+            <div class="card-body text-center">
+                <i class="i-Remove" style="font-size: 130%;margin-left: 90%;" (click)="remove(row.homeWorkDetailId, modalDelete)"></i>
+                <div class=" box-shadow-2 mb-3 mt-4" (click)="dowLoadFIle(row.content,row.title)">
+                    <img src="./assets/images/homeworktitle.jpeg" alt="" >
+                    <p>{{row.title}}</p>
                 </div>
             </div>
         </div>
+    </div>
+    
 
 
-        <ng-template #modalConfirm let-modal>
+
+
+
+        <!-- <ng-template #modalConfirm let-modal>
             <div class="modal-header">
                 <h4 class="modal-title text-primary" id="modal-title">เพิ่ม</h4>
                 <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
@@ -101,7 +86,7 @@
                 <button type="button" ngbAutofocus class="btn btn-primary btn-rounded"
                 (click)="save()">Ok</button>
             </div>
-        </ng-template>
+        </ng-template> -->
 
         <ng-template #modalDelete let-modal>
             <div class="modal-header">
@@ -116,7 +101,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary btn-rounded"
-                    (click)="modal.dismiss('cancel')">Cancel</button>
-                <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
+                    (click)="modal.dismiss('cancel')">ยกเลิก</button>
+                <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click)="modal.close('Ok')">ยืนยัน</button>
             </div>
         </ng-template>

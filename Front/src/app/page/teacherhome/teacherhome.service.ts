@@ -57,9 +57,6 @@ export class TeacherhomeService {
   }
 
   saves(value){
-    if (value.homeWorkDetailId)
-      return this.http.put('HomeworkDetail/update-hw-detail', value);
-    else
       return this.http.post('HomeworkDetail/save-homework-detail',value);
   }
 
@@ -90,6 +87,10 @@ export class TeacherhomeService {
 
   getHomeworkForCheck(EmpProfileId?){
     return this.http.get('Homework/hw-list',{params:{EmpProfileId:EmpProfileId}})
+  }
+
+  getHomeWorkDone(homeworkId?,studentId?){
+    return this.http.get('HomeworkDone/get-homework-done',{params:{homeworkId:homeworkId,studentId:studentId}})
   }
   
 }

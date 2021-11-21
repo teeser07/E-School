@@ -10,5 +10,6 @@ namespace App.Data.DTOs
     {
         public IEnumerable<dynamic> HomeworkList { get; set; }
         public IEnumerable<dynamic> SubjectList { get; set; }
+        public IEnumerable<dynamic> HomeworkDoneList { get; set; }
     }
 }

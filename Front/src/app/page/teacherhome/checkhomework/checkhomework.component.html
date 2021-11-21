@@ -10,7 +10,7 @@
     <div class="separator-breadcrumb border-top"></div>
 
 
-<div class="row mt-5" >
+<!-- <div class="row mt-5" >
     <div class="col-lg-3 col-md-6 col-sm-6 " *ngFor="let row of row" >
         <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4" >
             <div class="card-body text-center">
@@ -18,6 +18,20 @@
             <div class="contents">
                 <p class="text-primary text-15 line-height-2 mb-2">{{row.roomname}}</p>
                 <button class="btn btn-primary" routerLink="/page/check-detail/{{row.id}}">ดูรายละเอียด</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<div class="row" >
+    <div class="col-md-3" *ngFor="let i of row">
+        <div class="card card-profile-1 mb-5">
+            <div class="card-body text-center">
+                <div class=" box-shadow-2 mb-3">
+                    <img src="./assets/images/classroom3.jpg" alt="" >
+                </div>
+                <p class="text-primary text-15 line-height-2 mb-2">{{i.roomname}}</p>
+                <button class="btn btn-primary" routerLink="/page/check-detail/{{i.id}}">ดูรายละเอียด</button>
             </div>
         </div>
     </div>
